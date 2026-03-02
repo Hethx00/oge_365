@@ -1,116 +1,138 @@
-/* ===== ОБЩИЕ СТИЛИ ДЛЯ ВСЕГО САЙТА ===== */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
-}
+/* ===== МОБИЛЬНАЯ АДАПТАЦИЯ (iPhone и др.) ===== */
 
-body {
-    background-color: #f5f7fa;
-    color: #2d3e50;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
-.container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-/* ===== ШАПКА ===== */
-.header {
-    padding: 15px 0;
-    background: white;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
-    border-bottom: 3px solid #f57c00;
-}
-
+/* Для очень маленьких экранов (до 400px) */
+@media (max-width: 400px) {
     .header .container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        flex-direction: column;  /* Логотип сверху, меню снизу */
+        gap: 10px;
+        padding: 10px 0;
     }
-
-.logo {
-    font-size: 24px;
-    font-weight: 700;
-    color: #f57c00;
-    cursor: pointer;
-}
-
-.nav {
-    display: flex;
-    gap: 25px;
-}
-
-.nav-btn {
-    background: none;
-    border: none;
-    font-size: 15px;
-    font-weight: 600;
-    color: #4a5a6a;
-    cursor: pointer;
-    padding: 6px 0;
-    border-bottom: 3px solid transparent;
-}
-
-    .nav-btn:hover {
-        color: #f57c00;
-        border-bottom-color: #f57c00;
+    
+    .logo {
+        font-size: 22px;  /* Чуть меньше */
     }
-
-    .nav-btn.active {
-        color: #f57c00;
-        border-bottom-color: #f57c00;
+    
+    .nav {
+        gap: 15px;  /* Уменьшаем расстояние между кнопками */
+        flex-wrap: wrap;  /* Если не влезут - перенесутся */
+        justify-content: center;
     }
-
-/* ===== ПОДВАЛ ===== */
-.footer {
-    margin-top: auto;
-    background: #1e2a3a;
-    color: #ede6dc;
-    padding: 20px 0;
-    border-top: 4px solid #f57c00;
+    
+    .nav-btn {
+        font-size: 14px;  /* Уменьшаем текст кнопок */
+        padding: 5px 8px;
+        white-space: nowrap;  /* Запрещаем перенос внутри кнопки */
+    }
+    
+    /* Для главной страницы */
+    .hero-title {
+        font-size: 28px;  /* Было 42px - сильно уменьшаем */
+    }
+    
+    .books-illustration {
+        max-width: 280px;  /* Уменьшаем блок с книгами */
+    }
+    
+    .book {
+        width: 180px;  /* Уменьшаем сами книги */
+        font-size: 13px;
+        padding: 10px 15px;
+    }
+    
+    /* Для страницы заданий */
+    .task-item {
+        padding: 15px;
+    }
+    
+    .answer-input-group {
+        flex-direction: column;  /* Поле ввода и кнопка друг под другом */
+        gap: 8px;
+    }
+    
+    .answer-input {
+        width: 100%;
+    }
+    
+    .check-btn {
+        width: 100%;
+    }
 }
 
-    .footer .container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+/* Для средних экранов (до 500px) */
+@media (max-width: 500px) {
+    .nav {
+        gap: 10px;
+    }
+    
+    .nav-btn {
+        font-size: 13px;
+        padding: 5px 6px;
+    }
+    
+    .page-title {
+        font-size: 20px;
+    }
+    
+    .task-number-badge {
+        font-size: 12px;
+        padding: 2px 8px;
+    }
+    
+    .task-question {
         font-size: 14px;
     }
-
-.footer-logo {
-    font-size: 20px;
-    font-weight: 700;
-    color: #ffb26b;
 }
 
-.footer-email {
-    background: #2d3e52;
-    padding: 4px 16px;
-    border-radius: 30px;
-}
-
-.footer-year {
-    color: #8a9fb0;
-}
-
-/* ===== ОСНОВНОЙ КОНТЕНТ ===== */
-.main-content {
-    flex: 1;
-    padding: 30px 0;
-}
-
-.page-title {
-    font-size: 24px;
-    font-weight: 600;
-    margin-bottom: 20px;
-}
-
-    .page-title span {
-        color: #f57c00;
+/* Общие правила для всех мобильных */
+@media (max-width: 600px) {
+    .container {
+        padding: 0 15px;  /* Уменьшаем боковые отступы */
     }
+    
+    /* Для карточек заданий */
+    .tasks-grid {
+        grid-template-columns: 1fr;  /* Одна колонка на мобилках */
+    }
+    
+    /* Для вариантов */
+    .variant-answer-block {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .variant-answer-input {
+        width: 100%;
+    }
+    
+    .variant-check-btn {
+        width: 100%;
+    }
+    
+    /* Для теории */
+    .spoiler-header {
+        padding: 12px;
+        font-size: 14px;
+    }
+    
+    .spoiler-number {
+        min-width: 25px;
+        height: 25px;
+        font-size: 12px;
+    }
+}
+
+/* Фикс для очень маленьких (iPhone SE - 375px) */
+@media (max-width: 380px) {
+    .nav {
+        gap: 5px;
+    }
+    
+    .nav-btn {
+        font-size: 12px;
+        padding: 4px 5px;
+    }
+    
+    .logo {
+        font-size: 20px;
+    }
+}
