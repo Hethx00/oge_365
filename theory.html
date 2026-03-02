@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ОГЭ365 - Теория</title>
+    <!-- Общий CSS-->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* СТИЛИ */
+
+        .theory-header {
+            margin-bottom: 30px;
+        }
+
+        .theory-description {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 1px solid #edf2f7;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            color: #475569;
+            line-height: 1.6;
+        }
+
+            .theory-description strong {
+                color: #f57c00;
+            }
+
+        /* Список теории */
+        .theory-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        /* Спойлер для каждого задания */
+        .theory-spoiler {
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            overflow: hidden;
+            background: white;
+            transition: all 0.2s;
+        }
+
+            .theory-spoiler:hover {
+                border-color: #f57c80;
+                box-shadow: 0 4px 12px rgba(245,124,0,0.05);
+            }
+
+        .spoiler-header {
+            background: white;
+            padding: 18px 22px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: 600;
+            font-size: 16px;
+            color: #1e2a3a;
+            transition: 0.2s;
+            user-select: none;
+        }
+
+            .spoiler-header:hover {
+                background: #f8fafc;
+            }
+
+        .spoiler-number {
+            background: #f57c00;
+            color: white;
+            min-width: 32px;
+            height: 32px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        .spoiler-icon {
+            font-size: 14px;
+            color: #f57c00;
+            margin-left: auto;
+            transition: transform 0.3s;
+        }
+
+        .spoiler-header.open .spoiler-icon {
+            transform: rotate(180deg);
+        }
+
+        .spoiler-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+            background: #f8fafc;
+            border-top: 1px solid transparent;
+        }
+
+            .spoiler-content.open {
+                max-height: 800px;
+                border-top-color: #e2e8f0;
+            }
+
+        .spoiler-inner {
+            padding: 22px;
+        }
+
+        /* Контент внутри спойлера */
+        .theory-text {
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #334155;
+            font-size: 15px;
+        }
+
+            .theory-text p {
+                margin-bottom: 10px;
+            }
+
+        /* Стили для видео-плеера */
+        .video-container {
+            margin-top: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+            background: #000;
+            position: relative;
+            width: 100%;
+        }
+
+            .video-container iframe {
+                display: block;
+                width: 100%;
+                aspect-ratio: 16/9;
+                border: none;
+            }
+
+        .video-caption {
+            margin-top: 8px;
+            font-size: 13px;
+            color: #64748b;
+            text-align: center;
+        }
+
+            .video-caption a {
+                color: #f57c00;
+                text-decoration: none;
+            }
+
+                .video-caption a:hover {
+                    text-decoration: underline;
+                }
+
+        .no-content {
+            color: #94a3b8;
+            font-style: italic;
+            padding: 10px 0;
+        }
+
+        @media (max-width: 600px) {
+            .spoiler-header {
+                padding: 15px;
+                font-size: 15px;
+            }
+
+            .spoiler-number {
+                min-width: 28px;
+                height: 28px;
+                font-size: 13px;
+            }
+
+            .spoiler-inner {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!--Шапка -->
+    <header class="header">
+        <div class="container">
+            <div class="logo" onclick="window.location.href='index.html'">ОГЭ365</div>
+            <div class="nav">
+                <button class="nav-btn" onclick="window.location.href='index.html'">Главная</button>
+                <button class="nav-btn active" onclick="window.location.href='theory.html'">Теория</button>
+                <button class="nav-btn" onclick="window.location.href='tasks.html'">База заданий</button>
+                <button class="nav-btn" onclick="window.location.href='variants.html'">Варианты</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Осн контент -->
+    <main class="main-content">
+        <div class="container">
+            <div class="theory-header">
+                <h1 class="page-title">
+                    Теория <span>по информатике</span>
+                </h1>
+                <div class="theory-description">
+                    <strong>16 заданий ОГЭ по информатике</strong> — полный разбор каждой темы. Нажмите на номер задания, чтобы открыть теорию и видео-урок.
+                </div>
+            </div>
+
+            <div class="theory-list">
+                <!-- Задание 1 -->
+                <div class="theory-spoiler">
+                    <div class="spoiler-header" onclick="toggleTheory(1)">
+                        <span class="spoiler-number">1</span>
+                        <span>Количественные параметры информационных объектов</span>
+                        <span class="spoiler-icon">▼</span>
+                    </div>
+                    <div class="spoiler-content" id="theory-1">
+                        <div class="spoiler-inner">
+                            <div class="theory-text">
+                                <p><strong>Краткая теория:</strong></p>
+                                <p>
+                                    • 1 бит - минимальная единица информации<br>
+                                    • 1 байт = 8 бит<br>
+                                    • 1 Кбайт = 1024 байта<br>
+                                    • 1 Мбайт = 1024 Кбайта<br>
+                                    • 1 Гбайт = 1024 Мбайта<br>
+                                    • Формула Хартли: N = 2^i, где N - количество вариантов, i - количество бит<br>
+                                    • Объем информации I = K * i, где K - количество символов
+                                </p>
+                            </div>
+
+                            <div class="video-container">
+                                <iframe src="https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905e/"
+                                        allow="clipboard-write; autoplay"
+                                        webkitAllowFullScreen
+                                        mozallowfullscreen
+                                        allowFullScreen>
+                                </iframe>
+                            </div>
+                            <div class="video-caption">
+                                Видеоурок: Количественные параметры
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Задание 2 -->
+                <div class="theory-spoiler">
+                    <div class="spoiler-header" onclick="toggleTheory(2)">
+                        <span class="spoiler-number">2</span>
+                        <span>Кодирование и декодирование информации</span>
+                        <span class="spoiler-icon">▼</span>
+                    </div>
+                    <div class="spoiler-content" id="theory-2">
+                        <div class="spoiler-inner">
+                            <div class="theory-text">
+                                <p><strong>Краткая теория:</strong></p>
+                                <p>
+                                    • Код - система условных знаков для передачи информации<br>
+                                    • Декодирование - восстановление сообщения из кода<br>
+                                    • Условие Фано: ни одно кодовое слово не является началом другого (прямое условие)<br>
+                                    • Обратное условие Фано: ни одно кодовое слово не является окончанием другого<br>
+                                    • Равномерные (все слова одинаковой длины) и неравномерные коды<br>
+                                    • Однозначное декодирование возможно при выполнении условия Фано
+                                </p>
+                            </div>
+
+                            <div class="video-container">
+                                <iframe src="https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905e/"
+                                        allow="clipboard-write; autoplay"
+                                        webkitAllowFullScreen
+                                        mozallowfullscreen
+                                        allowFullScreen>
+                                </iframe>
+                            </div>
+                            <div class="video-caption">
+                                Видеоурок: Кодирование и декодирование
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Задание 3 -->
+                <div class="theory-spoiler">
+                    <div class="spoiler-header" onclick="toggleTheory(3)">
+                        <span class="spoiler-number">3</span>
+                        <span>Значение логического выражения</span>
+                        <span class="spoiler-icon">▼</span>
+                    </div>
+                    <div class="spoiler-content" id="theory-3">
+                        <div class="spoiler-inner">
+                            <div class="theory-text">
+                                <p><strong>Краткая теория:</strong></p>
+                                <p>
+                                    • Логические операции: И (∧, &, AND), ИЛИ (∨, |, OR), НЕ (¬, !, NOT)<br>
+                                    • Таблицы истинности для основных операций<br>
+                                    • Порядок операций: НЕ → И → ИЛИ (приоритет)<br>
+                                    • Законы де Моргана: ¬(A ∧ B) = ¬A ∨ ¬B, ¬(A ∨ B) = ¬A ∧ ¬B<br>
+                                    • Распределительный закон: A ∧ (B ∨ C) = (A ∧ B) ∨ (A ∧ C)<br>
+                                    • Построение таблиц истинности для сложных выражений
+                                </p>
+                            </div>
+
+                            <div class="video-container">
+                                <iframe src="https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905e/"
+                                        allow="clipboard-write; autoplay"
+                                        webkitAllowFullScreen
+                                        mozallowfullscreen
+                                        allowFullScreen>
+                                </iframe>
+                            </div>
+                            <div class="video-caption">
+                                Видеоурок: Логические выражения
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Задание 4 -->
+                <div class="theory-spoiler">
+                    <div class="spoiler-header" onclick="toggleTheory(4)">
+                        <span class="spoiler-number">4</span>
+                        <span>Формальные описания реальных объектов и процессов</span>
+                        <span class="spoiler-icon">▼</span>
+                    </div>
+                    <div class="spoiler-content" id="theory-4">
+                        <div class="spoiler-inner">
+                            <div class="theory-text">
+                                <p><strong>Краткая теория:</strong></p>
+                                <p>
+                                    • Таблицы, графы, схемы - способы представления информации<br>
+                                    • Граф: вершины (объекты) и ребра (связи)<br>
+                                    • Ориентированный и неориентированный граф<br>
+                                    • Взвешенный граф (ребра имеют вес - длина, стоимость)<br>
+                                    • Пути в графах, поиск кратчайшего пути (алгоритм Дейкстры)<br>
+                                    • Табличные модели, двоичные матрицы
+                                </p>
+                            </div>
+
+                            <div class="video-container">
+                                <iframe src="https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905e/"
+                                        allow="clipboard-write; autoplay"
+                                        webkitAllowFullScreen
+                                        mozallowfullscreen
+                                        allowFullScreen>
+                                </iframe>
+                            </div>
+                            <div class="video-caption">
+                                Видеоурок: Формальные описания
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Задание 5 -->
+                <div class="theory-spoiler">
+                    <div class="spoiler-header" onclick="toggleTheory(5)">
+                        <span class="spoiler-number">5</span>
+                        <span>Простой линейный алгоритм для формального исполнителя</span>
+                        <span class="spoiler-icon">▼</span>
+                    </div>
+                    <div class="spoiler-content" id="theory-5">
+                        <div class="spoiler-inner">
+                            <div class="theory-text">
+                                <p><strong>Краткая теория:</strong></p>
+                                <p>
+                                    • Исполнитель - объект, выполняющий алгоритмы (Робот, Чертежник, Черепаха)<br>
+                                    • Система команд исполнителя (СКИ) - набор допустимых команд<br>
+                                    • Линейный алгоритм - команды выполняются последовательно, одна за другой<br>
+                                    • Команды: перемещение, рисование, вычисления<br>
+                                    • Трассировка - выполнение алгоритма по шагам<br>
+                                    • Определение результата работы алгоритма
+                                </p>
+                            </div>
+
+                            <div class="video-container">
+                                <iframe src="https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905e/"
+                                        allow="clipboard-write; autoplay"
+                                        webkitAllowFullScreen
+                                        mozallowfullscreen
+                                        allowFullScreen>
+                                </iframe>
+                            </div>
+                            <div class="video-caption">
+                                Видеоурок: Линейные алгоритмы
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Задание 6 -->
+                <div class="theory-spoiler">
+                    <div class="spoiler-header" onclick="toggleTheory(6)">
+                        <span class="spoiler-number">6</span>
+                        <span>Программа с условным оператором</span>
+                        <span class="spoiler-icon">▼</span>
+                    </div>
+                    <div class="spoiler-content" id="theory-6">
+                        <div class="spoiler-inner">
+                            <div class="theory-text">
+                                <p><strong>Краткая теория:</strong></p>
+                                <p>
+                                    • Условный оператор: if, else (полная форма), if (неполная форма)<br>
+                                    • Синтаксис: if (условие) { команды } else { команды }<br>
+                                    • Вложенные условия - условия внутри условий<br>
+                                    • Логические выражения в условиях (>, <, = =, !=, &&, ||)<br>
+                                • Блок-схемы для визуализации ветвлений<br>
+                                • Трассировка программ с ветвлениями
+                                </p>
+                            </div>
+
+                            <div class="video-container">
+                                <iframe src="https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905e/"
+                                        allow="clipboard-write; autoplay"
+                                        webkitAllowFullScreen
+                                        mozallowfullscreen
+                                        allowFullScreen>
+                                </iframe>
+                            </div>
+                            <div class="video-caption">
+                                Видеоурок: Условный оператор
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Задание 7 -->
+                <div class="theory-spoiler">
+                    <div class="spoiler-header" onclick="toggleTheory(7)">
+                        <span class="spoiler-number">7</span>
+                        <span>Информационно-коммуникационные технологии</span>
+                        <span class="spoiler-icon">▼</span>
+                    </div>
+                    <div class="spoiler-content" id="theory-7">
+                        <div class="spoiler-inner">
+                            <div class="theory-text">
+                                <p><strong>Краткая теория:</strong></p>
+                                <p>
+                                    • IP-адрес - уникальный адрес устройства в сети (четыре числа от 0 до 255)<br>
+                                    • Маска сети - определяет, какая часть IP-адреса относится к сети, какая к устройству<br>
+                                    • Протоколы передачи данных: TCP, UDP, HTTP, FTP<br>
+                                    • URL (Uniform Resource Locator) - адрес ресурса в интернете<br>
+                                    • Доменные имена - символьные адреса сайтов<br>
+                                    • Файловые архивы, электронная почта (протоколы POP3, SMTP)
+                                </p>
+                            </div>
+
+                            <div class="video-container">
+                                <iframe src="https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905e/"
+                                        allow="clipboard-write; autoplay"
+                                        webkitAllowFullScreen
+                                        mozallowfullscreen
+                                        allowFullScreen>
+                                </iframe>
+                            </div>
+                            <div class="video-caption">
+                                Видеоурок: ИКТ технологии
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Задание 8 -->
+                <div class="theory-spoiler">
+                    <div class="spoiler-header" onclick="toggleTheory(8)">
+                        <span class="spoiler-number">8</span>
+                        <span>Запросы для поисковых систем с использованием логических выражений</span>
+                        <span class="spoiler-icon">▼</span>
+                    </div>
+                    <div class="spoiler-content" id="theory-8">
+                        <div class="spoiler-inner">
+                            <div class="theory-text">
+                                <p><strong>Краткая теория:</strong></p>
+                                <p>
+                                    • Поисковые запросы - ключевые слова для поиска информации<br>
+                                    • Операторы: & (И) - пересечение множеств, | (ИЛИ) - объединение, - (НЕ) - исключение<br>
+                                    • Круги Эйлера - наглядное представление множеств<br>
+                                    • Формула включений-исключений для трех множеств:<br>
+                                    • |A ∪ B ∪ C| = |A| + |B| + |C| - |A∩B| - |A∩C| - |B∩C| + |A∩B∩C|<br>
+                                    • Определение количества страниц по запросам
+                                </p>
+                            </div>
+
+                            <div class="video-container">
+                                <iframe src="https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905e/"
+                                        allow="clipboard-write; autoplay"
+                                        webkitAllowFullScreen
+                                        mozallowfullscreen
+                                        allowFullScreen>
+                                </iframe>
+                            </div>
+                            <div class="video-caption">
+                                Видеоурок: Поисковые запросы
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Задание 9 -->
+                <div class="theory-spoiler">
+                    <div class="spoiler-header" onclick="toggleTheory(9)">
+                        <span class="spoiler-number">9</span>
+                        <span>Анализирование информации, представленной в виде схем</span>
+                        <span class="spoiler-icon">▼</span>
+                    </div>
+                    <div class="spoiler-content" id="theory-9">
+                        <div class="spoiler-inner">
+                            <div class="theory-text">
+                                <p><strong>Краткая теория:</strong></p>
+                                <p>
+                                    • Графы, деревья, сети - способы представления связей<br>
+                                    • Вершины и ребра графа<br>
+                                    • Путь в графе - последовательность вершин, соединенных ребрами<br>
+                                    • Длина пути - количество ребер (или сумма весов)<br>
+                                    • Поиск кратчайшего пути (алгоритм Дейкстры, метод перебора)<br>
+                                    • Таблицы маршрутов, матрицы смежности<br>
+                                    • Анализ дорожных сетей, схем метро
+                                </p>
+                            </div>
+
+                            <div class="video-container">
+                                <iframe src="https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905e/"
+                                        allow="clipboard-write; autoplay"
+                                        webkitAllowFullScreen
+                                        mozallowfullscreen
+                                        allowFullScreen>
+                                </iframe>
+                            </div>
+                            <div class="video-caption">
+                                Видеоурок: Анализ схем
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Задание 10 -->
+                <div class="theory-spoiler">
+                    <div class="spoiler-header" onclick="toggleTheory(10)">
+                        <span class="spoiler-number">10</span>
+                        <span>Сравнение чисел в различных системах счисления</span>
+                        <span class="spoiler-icon">▼</span>
+                    </div>
+                    <div class="spoiler-content" id="theory-10">
+                        <div class="spoiler-inner">
+                            <div class="theory-text">
+                                <p><strong>Краткая теория:</strong></p>
+                                <p>
+                                    • Двоичная (цифры 0,1), восьмеричная (0-7), десятичная (0-9), шестнадцатеричная (0-9, A-F) системы<br>
+                                    • Перевод в десятичную систему: умножаем каждую цифру на основание в степени позиции<br>
+                                    • Перевод из десятичной: последовательное деление на основание<br>
+                                    • Перевод между двоичной и восьмеричной/шестнадцатеричной (триады/тетрады)<br>
+                                    • Сравнение чисел - приводим к одной системе счисления<br>
+                                    • Арифметические операции в разных системах
+                                </p>
+                            </div>
+
+                            <div class="video-container">
+                                <iframe src="https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905e/"
+                                        allow="clipboard-write; autoplay"
+                                        webkitAllowFullScreen
+                                        mozallowfullscreen
+                                        allowFullScreen>
+                                </iframe>
+                            </div>
+                            <div class="video-caption">
+                                Видеоурок: Системы счисления
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Задание 11 -->
+                <div class="theory-spoiler">
+                    <div class="spoiler-header" onclick="toggleTheory(11)">
+                        <span class="spoiler-number">11</span>
+                        <span>Использование поиска операционной системы и текстового редактора</span>
+                        <span class="spoiler-icon">▼</span>
+                    </div>
+                    <div class="spoiler-content" id="theory-11">
+                        <div class="spoiler-inner">
+                            <div class="theory-text">
+                                <p><strong>Краткая теория:</strong></p>
+                                <p>
+                                    • Файловая система - способ организации данных на диске<br>
+                                    • Маски файлов: * (любое количество символов), ? (один любой символ)<br>
+                                    • Поиск по расширению (*.txt, *.doc, *.jpg)<br>
+                                    • Поиск по имени файла, по дате создания, по размеру<br>
+                                    • Текстовые редакторы: поиск и замена текста<br>
+                                    • Регулярные выражения (базовые символы)
+                                </p>
+                            </div>
+
+                            <div class="video-container">
+                                <iframe src="https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905e/"
+                                        allow="clipboard-write; autoplay"
+                                        webkitAllowFullScreen
+                                        mozallowfullscreen
+                                        allowFullScreen>
+                                </iframe>
+                            </div>
+                            <div class="video-caption">
+                                Видеоурок: Поиск в ОС
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Задание 12 -->
+                <div class="theory-spoiler">
+                    <div class="spoiler-header" onclick="toggleTheory(12)">
+                        <span class="spoiler-number">12</span>
+                        <span>Использование поисковых средств операционной системы</span>
+                        <span class="spoiler-icon">▼</span>
+                    </div>
+                    <div class="spoiler-content" id="theory-12">
+                        <div class="spoiler-inner">
+                            <div class="theory-text">
+                                <p><strong>Краткая теория:</strong></p>
+                                <p>
+                                    • Поиск файлов и папок по маске (команды dir, ls, find)<br>
+                                    • Маски имен файлов: * и ?<br>
+                                    • Атрибуты файлов: скрытый, системный, только чтение<br>
+                                    • Команды поиска в командной строке<br>
+                                    • Поиск по содержимому файлов<br>
+                                    • Фильтрация результатов поиска
+                                </p>
+                            </div>
+
+                            <div class="video-container">
+                                <iframe src="https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905e/"
+                                        allow="clipboard-write; autoplay"
+                                        webkitAllowFullScreen
+                                        mozallowfullscreen
+                                        allowFullScreen>
+                                </iframe>
+                            </div>
+                            <div class="video-caption">
+                                Видеоурок: Поисковые средства
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Задание 13 -->
+                <div class="theory-spoiler">
+                    <div class="spoiler-header" onclick="toggleTheory(13)">
+                        <span class="spoiler-number">13</span>
+                        <span>Создание презентации или форматирование текста</span>
+                        <span class="spoiler-icon">▼</span>
+                    </div>
+                    <div class="spoiler-content" id="theory-13">
+                        <div class="spoiler-inner">
+                            <div class="theory-text">
+                                <p><strong>Краткая теория:</strong></p>
+                                <p>
+                                    • Форматирование текста: шрифт (гарнитура, размер, начертание)<br>
+                                    • Абзац: отступы, выравнивание, межстрочный интервал<br>
+                                    • Стили форматирования - набор параметров<br>
+                                    • Создание презентаций: слайды, макеты, дизайн<br>
+                                    • Вставка изображений, таблиц, диаграмм<br>
+                                    • Анимация и переходы между слайдами<br>
+                                    • Настройки демонстрации презентации
+                                </p>
+                            </div>
+
+                            <div class="video-container">
+                                <iframe src="https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905e/"
+                                        allow="clipboard-write; autoplay"
+                                        webkitAllowFullScreen
+                                        mozallowfullscreen
+                                        allowFullScreen>
+                                </iframe>
+                            </div>
+                            <div class="video-caption">
+                                Видеоурок: Презентации и текст
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Задание 14 -->
+                <div class="theory-spoiler">
+                    <div class="spoiler-header" onclick="toggleTheory(14)">
+                        <span class="spoiler-number">14</span>
+                        <span>Обработка большого массива данных</span>
+                        <span class="spoiler-icon">▼</span>
+                    </div>
+                    <div class="spoiler-content" id="theory-14">
+                        <div class="spoiler-inner">
+                            <div class="theory-text">
+                                <p><strong>Краткая теория:</strong></p>
+                                <p>
+                                    • Электронные таблицы (Excel, Google Sheets)<br>
+                                    • Сортировка данных (по возрастанию, убыванию)<br>
+                                    • Фильтрация данных (автофильтр, расширенный фильтр)<br>
+                                    • Статистические функции: СУММ, СРЗНАЧ, МИН, МАКС, СЧЁТ<br>
+                                    • Логические функции: ЕСЛИ, И, ИЛИ<br>
+                                    • Диаграммы и графики для визуализации данных<br>
+                                    • Сводные таблицы для анализа больших данных
+                                </p>
+                            </div>
+
+                            <div class="video-container">
+                                <iframe src="https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905e/"
+                                        allow="clipboard-write; autoplay"
+                                        webkitAllowFullScreen
+                                        mozallowfullscreen
+                                        allowFullScreen>
+                                </iframe>
+                            </div>
+                            <div class="video-caption">
+                                Видеоурок: Обработка данных
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Задание 15 -->
+                <div class="theory-spoiler">
+                    <div class="spoiler-header" onclick="toggleTheory(15)">
+                        <span class="spoiler-number">15</span>
+                        <span>Короткий алгоритм в различных средах исполнения</span>
+                        <span class="spoiler-icon">▼</span>
+                    </div>
+                    <div class="spoiler-content" id="theory-15">
+                        <div class="spoiler-inner">
+                            <div class="theory-text">
+                                <p><strong>Краткая теория:</strong></p>
+                                <p>
+                                    • Алгоритмические структуры: следование (линейный), ветвление (условия), цикл (повторение)<br>
+                                    • Среда Кумир (исполнители Робот, Чертежник, Черепаха)<br>
+                                    • Язык Python (синтаксис, переменные, операции)<br>
+                                    • Язык Паскаль (структура программы, begin/end)<br>
+                                    • Анализ готовых алгоритмов, поиск ошибок<br>
+                                    • Определение результата выполнения алгоритма<br>
+                                    • Трассировка алгоритма по шагам
+                                </p>
+                            </div>
+
+                            <div class="video-container">
+                                <iframe src="https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905e/"
+                                        allow="clipboard-write; autoplay"
+                                        webkitAllowFullScreen
+                                        mozallowfullscreen
+                                        allowFullScreen>
+                                </iframe>
+                            </div>
+                            <div class="video-caption">
+                                Видеоурок: Короткие алгоритмы
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Задание 16 -->
+                <div class="theory-spoiler">
+                    <div class="spoiler-header" onclick="toggleTheory(16)">
+                        <span class="spoiler-number">16</span>
+                        <span>Программирование</span>
+                        <span class="spoiler-icon">▼</span>
+                    </div>
+                    <div class="spoiler-content" id="theory-16">
+                        <div class="spoiler-inner">
+                            <div class="theory-text">
+                                <p><strong>Краткая теория:</strong></p>
+                                <p>
+                                    • Переменные и типы данных (int, float, str, bool)<br>
+                                    • Условные операторы if/elif/else<br>
+                                    • Циклы for (с параметром) и while (с условием)<br>
+                                    • Списки (массивы) и операции с ними: индексация, срезы, методы<br>
+                                    • Ввод-вывод данных (input, print)<br>
+                                    • Функции (def) и их вызов<br>
+                                    • Обработка строк, работа с файлами<br>
+                                    • Составление программ для решения задач
+                                </p>
+                            </div>
+
+                            <div class="video-container">
+                                <iframe src="https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905e/"
+                                        allow="clipboard-write; autoplay"
+                                        webkitAllowFullScreen
+                                        mozallowfullscreen
+                                        allowFullScreen>
+                                </iframe>
+                            </div>
+                            <div class="video-caption">
+                                Видеоурок: Программирование
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Подвал -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-logo">ОГЭ365</div>
+            <div class="footer-email">tg: @vinnipolka</div>
+            <div class="footer-year">2026</div>
+        </div>
+    </footer>
+
+    <script>
+        // Функция для открытия/закрытия спойлеров
+        function toggleTheory(number) {
+            const content = document.getElementById(`theory-${number}`);
+            const header = event.currentTarget;
+
+            if (content && header) {
+                content.classList.toggle('open');
+                header.classList.toggle('open');
+            }
+        }
+
+        // Останавливаем видео при закрытии спойлера
+        document.querySelectorAll('.spoiler-header').forEach(header => {
+            header.addEventListener('click', function () {
+                const content = this.nextElementSibling;
+                const iframe = content?.querySelector('iframe');
+            });
+        });
+    </script>
+</body>
+</html>

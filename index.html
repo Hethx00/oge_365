@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ОГЭ365 - Главная</title>
+    <!-- Общий CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Стили */
+
+        /* Герой блок первый экран */
+        .hero {
+            padding: 40px 0 30px;
+        }
+
+            .hero .container {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 40px;
+                flex-wrap: wrap;
+            }
+
+        .hero-content {
+            flex: 1 1 400px;
+        }
+
+        .hero-title {
+            font-size: 42px;
+            font-weight: 800;
+            line-height: 1.2;
+            color: #1e2a3a;
+            margin-bottom: 25px;
+        }
+
+            .hero-title span {
+                color: #f57c00;
+                background: linear-gradient(145deg, #f57c00, #ffb26b);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+
+        .btn-primary {
+            background-color: #f57c00;
+            border: none;
+            color: white;
+            font-size: 18px;
+            font-weight: 700;
+            padding: 15px 40px;
+            border-radius: 60px;
+            cursor: pointer;
+            box-shadow: 0 10px 20px -5px rgba(245, 124, 0, 0.4);
+            transition: all 0.25s ease;
+            letter-spacing: 0.5px;
+        }
+
+            .btn-primary:hover {
+                background-color: #e06d00;
+                box-shadow: 0 15px 25px -5px #f57c00;
+                transform: scale(1.02);
+            }
+
+        /* Иллю с книгами */
+        .hero-image {
+            flex: 1 1 300px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .books-illustration {
+            width: 100%;
+            max-width: 400px;
+            background: #fff0e0;
+            border-radius: 40% 60% 60% 40% / 40% 40% 60% 60%;
+            padding: 30px 20px;
+            box-shadow: 20px 20px 30px -10px rgba(245, 124, 0, 0.3);
+        }
+
+        .books-stack {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .book {
+            background: white;
+            width: 220px;
+            padding: 15px 20px;
+            border-radius: 10px 15px 15px 10px;
+            box-shadow: 6px 6px 0 #f57c00, 0 5px 15px rgba(0,0,0,0.05);
+            font-size: 16px;
+            font-weight: 600;
+            color: #1e2a3a;
+            border-left: 6px solid #f57c00;
+            text-align: left;
+            transform: rotate(-0.5deg);
+        }
+
+            .book:nth-child(2) {
+                margin-left: 40px;
+                border-left-color: #ffb677;
+                box-shadow: 6px 6px 0 #ffb677;
+            }
+
+            .book:nth-child(3) {
+                margin-left: 20px;
+                border-left-color: #ffd1a4;
+                box-shadow: 6px 6px 0 #ffd1a4;
+            }
+
+        /* Блок с плюсами */
+        .features {
+            padding: 50px 0 40px;
+            background: #ffffff;
+            border-radius: 60px 60px 0 0;
+            margin-top: 20px;
+        }
+
+        .features-grid {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .feature-card {
+            background: #fefaf5;
+            border-radius: 40px;
+            padding: 30px 25px;
+            flex: 1 1 250px;
+            max-width: 300px;
+            text-align: center;
+            box-shadow: 0 15px 25px -8px #f0d5ba;
+            transition: 0.2s;
+            border: 1px solid #fff1e2;
+        }
+
+            .feature-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 20px 30px -10px #e6b586;
+            }
+
+        .plus-icon {
+            font-size: 48px;
+            font-weight: 300;
+            color: #f57c00;
+            background: #fff0e0;
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            text-align: center;
+            border-radius: 50% 40% 50% 40%;
+            margin: 0 auto 20px;
+            box-shadow: inset 0 -3px 5px #ffdec6;
+        }
+
+        .feature-card h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #1e2a3a;
+        }
+
+        .feature-card p {
+            font-size: 15px;
+            color: #4f5f6f;
+            line-height: 1.5;
+        }
+
+        /* Адаптация для мобильных */
+        @media (max-width: 700px) {
+            .hero-title {
+                font-size: 32px;
+            }
+
+            .hero .container {
+                flex-direction: column-reverse;
+            }
+
+            .books-illustration {
+                max-width: 300px;
+            }
+
+            .book {
+                width: 180px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка -->
+    <header class="header">
+        <div class="container">
+            <div class="logo" onclick="window.location.href='index.html'">ОГЭ365</div>
+            <div class="nav">
+                <button class="nav-btn active" onclick="window.location.href='index.html'">Главная</button>
+                <button class="nav-btn" onclick="window.location.href='theory.html'">Теория</button>
+                <button class="nav-btn" onclick="window.location.href='tasks.html'">База заданий</button>
+                <button class="nav-btn" onclick="window.location.href='variants.html'">Варианты</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Осн контент -->
+    <main class="main-content">
+        <!-- Перв блок с книгами -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        ОГЭ365 — <span>твоё безопасное место</span> для подготовки к экзамену
+                    </h1>
+                    <button class="btn-primary" onclick="window.location.href='tasks.html'">НАЧАТЬ ПОДГОТОВКУ</button>
+                </div>
+                <div class="hero-image">
+                    <div class="books-illustration">
+                        <div class="books-stack">
+                            <div class="book">📘 Кодирование</div>
+                            <div class="book">📗 Алгоритмы</div>
+                            <div class="book">📕 Программирование</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ВТорой блок с плюсами -->
+        <section class="features">
+            <div class="container">
+                <div class="features-grid">
+                    <!-- Плюс 1: Лучшая теория -->
+                    <div class="feature-card">
+                        <div class="plus-icon">📖</div>
+                        <h3>Видео от гуру</h3>
+                        <p>Мы не пишем длинных параграфов. Мы нашли для тебя лучшие объяснения на Rutube. Только понятные разборы от топовых преподавателей</p>
+                    </div>
+                    <!-- Плюс 2: Решай задания + подсказки -->
+                    <div class="feature-card">
+                        <div class="plus-icon">❓</div>
+                        <h3>Умные подсказки</h3>
+                        <p>Завис над задачей? Наш тренажер не просто ставит "2" в углу. Он проанализирует твой неверный ответ и выдаст точную подсказку</p>
+                    </div>
+                    <!-- Плюс 3: Шпаргалки -->
+                    <div class="feature-card">
+                        <div class="plus-icon">📒</div>
+                        <h3>Шпаргалки</h3>
+                        <p>Мы собрали самое главное в короткие и красивые шпаргалки. Их можно распечатать, сохранить в телефон или просто пробежаться глазами</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== Подвал ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-logo">ОГЭ365</div>
+            <div class="footer-email">tg: @vinnipolka</div>
+            <div class="footer-year">2026</div>
+        </div>
+    </footer>
+</body>
+</html>

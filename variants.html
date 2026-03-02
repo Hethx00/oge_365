@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ОГЭ365 - Варианты</title>
+    <!-- Общий CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Стили */
+
+        .variants-header {
+            margin-bottom: 30px;
+        }
+
+        .variants-description {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 1px solid #edf2f7;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            color: #475569;
+            line-height: 1.6;
+        }
+
+            .variants-description strong {
+                color: #f57c00;
+            }
+
+        /* ТАймер */
+        .timer-container {
+            background: linear-gradient(135deg, #1e2a3a 0%, #2d3e52 100%);
+            border-radius: 60px;
+            padding: 15px 25px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: white;
+            box-shadow: 0 10px 20px -5px rgba(0,0,0,0.2);
+            border: 2px solid #f57c00;
+        }
+
+        .timer-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+            .timer-label svg {
+                width: 24px;
+                height: 24px;
+                fill: #f57c00;
+            }
+
+        .timer-display {
+            font-family: 'Courier New', monospace;
+            font-size: 36px;
+            font-weight: 700;
+            background: rgba(0,0,0,0.3);
+            padding: 8px 20px;
+            border-radius: 50px;
+            letter-spacing: 5px;
+            color: #f57c00;
+            text-shadow: 0 0 10px rgba(245,124,0,0.3);
+        }
+
+        .timer-warning {
+            background: #fee2e2;
+            border: 2px solid #ef4444;
+            animation: pulse 1s infinite;
+        }
+
+        .timer-expired {
+            background: #1e2a3a;
+            opacity: 0.7;
+        }
+
+            .timer-expired .timer-display {
+                color: #ef4444;
+            }
+
+        @keyframes pulse {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.8;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* Панель выбора заданий */
+        .selection-panel {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid #edf2f7;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            margin-bottom: 30px;
+        }
+
+        .selection-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #1e2a3a;
+        }
+
+            .selection-title span {
+                color: #f57c00;
+            }
+
+        .tasks-grid-select {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .task-checkbox-item {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            user-select: none;
+        }
+
+            .task-checkbox-item:hover {
+                border-color: #f57c00;
+                background: #fff5eb;
+            }
+
+            .task-checkbox-item.selected {
+                background: #fff0e0;
+                border-color: #f57c00;
+                box-shadow: 0 4px 10px rgba(245,124,0,0.1);
+            }
+
+            .task-checkbox-item input[type="checkbox"] {
+                width: 18px;
+                height: 18px;
+                cursor: pointer;
+                accent-color: #f57c00;
+            }
+
+        .task-checkbox-label {
+            font-weight: 500;
+            color: #334155;
+            cursor: pointer;
+        }
+
+        .selection-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+            border-top: 1px dashed #e2e8f0;
+            padding-top: 20px;
+        }
+
+        .selected-count {
+            background: #e2e8f0;
+            padding: 8px 18px;
+            border-radius: 40px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #334155;
+        }
+
+            .selected-count span {
+                color: #f57c00;
+                font-size: 18px;
+                margin-right: 5px;
+            }
+
+        .action-btn {
+            background: #f57c00;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 4px 10px rgba(245,124,0,0.2);
+        }
+
+            .action-btn:hover:not(:disabled) {
+                background: #e06d00;
+                transform: translateY(-2px);
+                box-shadow: 0 8px 18px rgba(245,124,0,0.3);
+            }
+
+            .action-btn:disabled {
+                background: #cbd5e1;
+                cursor: not-allowed;
+                box-shadow: none;
+            }
+
+            .action-btn.secondary {
+                background: white;
+                border: 2px solid #f57c00;
+                color: #f57c00;
+                box-shadow: none;
+            }
+
+                .action-btn.secondary:hover:not(:disabled) {
+                    background: #fff0e0;
+                    transform: translateY(-2px);
+                }
+
+        /* Результат составлен вариант */
+        .variant-result {
+            margin-top: 30px;
+            background: white;
+            border-radius: 24px;
+            padding: 25px;
+            border: 1px solid #edf2f7;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+        }
+
+        .variant-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f57c00;
+        }
+
+        .variant-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1e2a3a;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+            .variant-title span {
+                color: #f57c00;
+                background: #fff0e0;
+                padding: 4px 12px;
+                border-radius: 30px;
+                font-size: 16px;
+            }
+
+        .variant-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .icon-btn {
+            background: none;
+            border: 1px solid #e2e8f0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 18px;
+        }
+
+            .icon-btn:hover {
+                border-color: #f57c00;
+                color: #f57c00;
+                background: #fff5eb;
+            }
+
+        .finish-btn {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 15px;
+            transition: 0.2s;
+        }
+
+            .finish-btn:hover {
+                background: #059669;
+                transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(16,185,129,0.3);
+            }
+
+        /* Список заданий в варианте */
+        .variant-tasks-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .variant-task-card {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid #e9eef3;
+            position: relative;
+            transition: 0.2s;
+        }
+
+            .variant-task-card.extended {
+                border-left: 4px solid #f59e0b;
+                background: #fffbeb;
+            }
+
+        .variant-task-number {
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: #f57c00;
+            color: white;
+            font-weight: 700;
+            padding: 4px 15px;
+            border-radius: 30px;
+            font-size: 14px;
+            box-shadow: 0 4px 8px rgba(245,124,0,0.2);
+        }
+
+            .variant-task-number.extended {
+                background: #f59e0b;
+            }
+
+        .extended-badge {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background: #f59e0b;
+            color: white;
+            font-weight: 700;
+            padding: 4px 15px;
+            border-radius: 30px;
+            font-size: 12px;
+            box-shadow: 0 4px 8px rgba(245,158,11,0.2);
+        }
+
+        .variant-task-question {
+            margin-top: 10px;
+            margin-bottom: 15px;
+            font-size: 15px;
+            line-height: 1.5;
+            color: #1e2a3a;
+            font-weight: 500;
+        }
+
+        /* Картинка */
+        .variant-task-image {
+            margin-bottom: 15px;
+            text-align: center;
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+            .variant-task-image img {
+                max-width: 100%;
+                max-height: 150px;
+                object-fit: contain;
+            }
+
+        /* Блок ответа для обычных заданий (1-12) */
+        .variant-answer-block {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .variant-answer-input {
+            flex: 1;
+            min-width: 200px;
+            padding: 10px 14px;
+            font-size: 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+        }
+
+            .variant-answer-input:focus {
+                outline: none;
+                border-color: #f57c00;
+            }
+
+        .variant-check-btn {
+            background: white;
+            border: 2px solid #f57c00;
+            color: #f57c00;
+            padding: 8px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+        }
+
+            .variant-check-btn:hover {
+                background: #f57c00;
+                color: white;
+            }
+
+        .variant-result-badge {
+            font-size: 20px;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        /* Блок для развернутых заданий (13-16) */
+        .extended-answer-block {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            border: 1px dashed #f59e0b;
+            margin-bottom: 10px;
+        }
+
+        .extended-note {
+            color: #f59e0b;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .extended-info {
+            font-size: 14px;
+            color: #64748b;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed #e2e8f0;
+        }
+
+            .extended-info strong {
+                color: #f59e0b;
+            }
+
+        /* Подсказки */
+        .variant-hints-container {
+            margin-top: 10px;
+        }
+
+        .variant-spoiler-item {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            overflow: hidden;
+            display: none;
+        }
+
+            .variant-spoiler-item.visible {
+                display: block;
+            }
+
+        .variant-spoiler-header {
+            background: white;
+            padding: 10px 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            font-size: 13px;
+            color: #2d3e50;
+        }
+
+            .variant-spoiler-header:hover {
+                background: #f1f5f9;
+            }
+
+            .variant-spoiler-header .spoiler-icon {
+                font-size: 12px;
+                color: #f57c00;
+                transition: transform 0.2s;
+            }
+
+            .variant-spoiler-header.open .spoiler-icon {
+                transform: rotate(90deg);
+            }
+
+        .variant-spoiler-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background: #f8fafc;
+        }
+
+            .variant-spoiler-content.open {
+                max-height: 200px;
+                border-top: 1px solid #e2e8f0;
+            }
+
+        .variant-spoiler-inner {
+            padding: 15px;
+            font-size: 13px;
+            color: #475569;
+        }
+
+        /* Модальное окно статистики */
+        .stats-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .stats-content {
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            max-width: 550px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+            border: 3px solid #f57c00;
+        }
+
+        .stats-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1e2a3a;
+            margin-bottom: 10px;
+        }
+
+        .stats-subtitle {
+            color: #64748b;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .stats-score {
+            background: linear-gradient(135deg, #f57c00, #f59e0b);
+            color: white;
+            padding: 25px;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .stats-score-number {
+            font-size: 48px;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .stats-score-label {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+
+        .stats-score-note {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-top: 10px;
+            background: rgba(255,255,255,0.2);
+            padding: 8px;
+            border-radius: 30px;
+        }
+
+        .stats-detail {
+            margin-bottom: 20px;
+        }
+
+        .stats-detail-title {
+            font-weight: 600;
+            color: #1e2a3a;
+            margin-bottom: 10px;
+        }
+
+        .stats-task-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .stats-task-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .stats-task-number {
+            font-weight: 600;
+        }
+
+            .stats-task-number small {
+                font-weight: normal;
+                color: #94a3b8;
+                font-size: 12px;
+                margin-left: 5px;
+            }
+
+        .stats-task-result {
+            font-weight: 600;
+        }
+
+            .stats-task-result.correct {
+                color: #10b981;
+            }
+
+            .stats-task-result.incorrect {
+                color: #ef4444;
+            }
+
+            .stats-task-result.pending {
+                color: #94a3b8;
+            }
+
+        .stats-extended-section {
+            background: #fffbeb;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .stats-extended-title {
+            font-weight: 700;
+            color: #f59e0b;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .stats-extended-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            padding: 12px;
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 10px;
+        }
+
+        .stats-extended-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 600;
+        }
+
+        .stats-extended-answer {
+            background: #f1f5f9;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #334155;
+            word-break: break-word;
+        }
+
+        .stats-extended-note {
+            background: #f1f5f9;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 14px;
+            color: #64748b;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .stats-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .stats-btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+            .stats-btn.primary {
+                background: #f57c00;
+                color: white;
+            }
+
+                .stats-btn.primary:hover {
+                    background: #e06d00;
+                }
+
+            .stats-btn.secondary {
+                background: white;
+                border: 2px solid #f57c00;
+                color: #f57c00;
+            }
+
+                .stats-btn.secondary:hover {
+                    background: #fff0e0;
+                }
+
+        .empty-variant {
+            text-align: center;
+            padding: 40px;
+            color: #94a3b8;
+            font-size: 16px;
+            background: #f8fafc;
+            border-radius: 20px;
+            border: 1px dashed #cbd5e1;
+        }
+
+        /* Модальное окно таймера */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+            border: 3px solid #f57c00;
+        }
+
+        .modal-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1e2a3a;
+            margin-bottom: 15px;
+        }
+
+        .modal-text {
+            color: #64748b;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .modal-btn {
+            background: #f57c00;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+        }
+
+            .modal-btn:hover {
+                background: #e06d00;
+            }
+
+        @media (max-width: 600px) {
+            .tasks-grid-select {
+                grid-template-columns: 1fr;
+            }
+
+            .variant-header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: start;
+            }
+
+            .timer-container {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+
+            .stats-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ШАпка -->
+    <header class="header">
+        <div class="container">
+            <div class="logo" onclick="window.location.href='index.html'">ОГЭ365</div>
+            <div class="nav">
+                <button class="nav-btn" onclick="window.location.href='index.html'">Главная</button>
+                <button class="nav-btn" onclick="window.location.href='theory.html'">Теория</button>
+                <button class="nav-btn" onclick="window.location.href='tasks.html'">База заданий</button>
+                <button class="nav-btn active" onclick="window.location.href='variants.html'">Варианты</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Осн контент -->
+    <main class="main-content">
+        <div class="container">
+            <div class="variants-header">
+                <h1 class="page-title">
+                    Варианты <span>ОГЭ по информатике</span>
+                </h1>
+                <div class="variants-description">
+                    <strong>Составь свой вариант!</strong> Выбери задания, нажми "Составить вариант" и решай как на настоящем экзамене.<br>
+                    <span style="color: #f59e0b;">✍️ Задания 13-16 с развернутым ответом - проверь себя по ответам в статистике (задания 13, 15, 16 оцениваются до 2 баллов, задание 14 оценивается до 3 баллов).</span>
+                </div>
+            </div>
+
+            <!-- Таймер -->
+            <div class="timer-container" id="timerContainer">
+                <div class="timer-label">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-.5-13v6l5.25 3.15.75-1.23-4.5-2.67V7z" />
+                    </svg>
+                    <span>Время выполнения:</span>
+                </div>
+                <div class="timer-display" id="timerDisplay">02:30:00</div>
+            </div>
+
+            <!-- Панель выбора заданий -->
+            <div class="selection-panel">
+                <div class="selection-title">
+                    <span>📋 Шаг 1.</span> Выбери номера заданий для варианта
+                </div>
+
+                <div class="tasks-grid-select" id="tasksGrid">
+                    <!-- Здесь чекбоксы -->
+                </div>
+
+                <div class="selection-actions">
+                    <div class="selected-count" id="selectedCount">
+                        <span>0</span> заданий выбрано
+                    </div>
+                    <button class="action-btn" id="selectAllBtn">Выбрать все</button>
+                    <button class="action-btn secondary" id="clearAllBtn">Очистить</button>
+                    <button class="action-btn" id="composeVariantBtn" disabled>🎲 Составить вариант</button>
+                </div>
+            </div>
+
+            <!-- Результат составленный -->
+            <div class="variant-result" id="variantResult" style="display: none;">
+                <div class="variant-header">
+                    <div class="variant-title">
+                        Твой вариант <span id="variantTasksCount">0 заданий</span>
+                    </div>
+                    <div class="variant-actions">
+                        <button class="finish-btn" id="finishExamBtn">
+                            🏁 Завершить экзамен
+                        </button>
+                        <button class="icon-btn" id="refreshVariantBtn" title="Новые случайные задания">🔄</button>
+                        <button class="icon-btn" id="clearVariantBtn" title="Очистить вариант">✕</button>
+                    </div>
+                </div>
+
+                <div id="variantTasksContainer">
+                    <!-- Сюда будут добавляться задания -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Подвал -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-logo">ОГЭ365</div>
+            <div class="footer-email">tg: @vinnipolka</div>
+            <div class="footer-year">2026</div>
+        </div>
+    </footer>
+
+    <!-- Окно для таймера -->
+    <div id="timeoutModal" style="display: none;">
+        <div class="modal-overlay">
+            <div class="modal-content">
+                <div class="modal-icon">⏰</div>
+                <div class="modal-title">Время вышло!</div>
+                <div class="modal-text">
+                    Экзаменационное время завершено.<br>
+                    Ты можешь продолжить решать, но это уже сверх норматива.
+                </div>
+                <button class="modal-btn" onclick="closeTimeoutModal()">Понятно</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Окно статистики -->
+    <div id="statsModal" style="display: none;"></div>
+
+    <script>
+        // ===== константы =====
+        const API_URL = 'https://script.google.com/macros/s/AKfycbwZT2VsEsQFv7PophKATDA78ITSS37_s3FCcTMSRqSNWOCsGOMCOVAI5ZUp6VTQTG8S-A/exec';
+        let allTasks = [];
+        let selectedNumbers = new Set();
+        let currentVariant = [];
+        let attemptCounts = {};
+
+        // Хранилище для ответов
+        let userAnswers = {};
+
+        // Таймер
+        let timerInterval = null;
+        let timeLeft = 150 * 60;
+        let timerRunning = false;
+
+        // Номера заданий с развернутым ответом
+        const extendedTasks = [13, 14, 15, 16];
+
+        // Названия заданий
+        const taskNames = {
+            1: 'Количественные параметры',
+            2: 'Кодирование и декодирование',
+            3: 'Значение логического выражения',
+            4: 'Формальные описания объектов',
+            5: 'Линейный алгоритм',
+            6: 'Программа с условным оператором',
+            7: 'ИКТ технологии',
+            8: 'Поисковые запросы',
+            9: 'Анализ схем',
+            10: 'Системы счисления',
+            11: 'Поиск в ОС и текстовом редакторе',
+            12: 'Поисковые средства ОС',
+            13: 'Создание презентации или форматирование текста',
+            14: 'Обработка большого массива данных',
+            15: 'Короткий алгоритм в различных средах исполнения',
+            16: 'Программирование'
+        };
+
+        // Загружаем задания
+        document.addEventListener('DOMContentLoaded', loadTasks);
+
+        async function loadTasks() {
+            try {
+                const response = await fetch(API_URL);
+                allTasks = await response.json();
+                console.log('Загружено заданий:', allTasks.length);
+                renderTaskCheckboxes();
+            } catch (error) {
+                console.error('Ошибка загрузки:', error);
+                document.getElementById('tasksGrid').innerHTML = `
+                        <div style="grid-column: 1/-1; text-align: center; padding: 30px; color: #ef4444;">
+                            ❌ Ошибка загрузки базы заданий
+                        </div>
+                    `;
+            }
+        }
+
+        // Функции таймера
+        function startTimer() {
+            if (timerRunning) return;
+
+            timerRunning = true;
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+
+        function stopTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+                timerRunning = false;
+            }
+        }
+
+        function resetTimer() {
+            stopTimer();
+            timeLeft = 150 * 60;
+            updateTimerDisplay();
+
+            const timerContainer = document.getElementById('timerContainer');
+            timerContainer.classList.remove('timer-warning', 'timer-expired');
+        }
+
+        function updateTimer() {
+            if (timeLeft <= 0) {
+                stopTimer();
+                showTimeoutModal();
+
+                const timerContainer = document.getElementById('timerContainer');
+                timerContainer.classList.add('timer-expired');
+                return;
+            }
+
+            timeLeft--;
+            updateTimerDisplay();
+
+            if (timeLeft === 300) {
+                const timerContainer = document.getElementById('timerContainer');
+                timerContainer.classList.add('timer-warning');
+            }
+        }
+
+        function updateTimerDisplay() {
+            const hours = Math.floor(timeLeft / 3600);
+            const minutes = Math.floor((timeLeft % 3600) / 60);
+            const seconds = timeLeft % 60;
+
+            const display = document.getElementById('timerDisplay');
+            display.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        }
+
+        function showTimeoutModal() {
+            const modal = document.getElementById('timeoutModal');
+            modal.style.display = 'block';
+        }
+
+        window.closeTimeoutModal = function () {
+            const modal = document.getElementById('timeoutModal');
+            modal.style.display = 'none';
+        };
+
+        // Функция для переключения спойлера
+        window.toggleVariantSpoiler = function (spoilerId) {
+            const content = document.getElementById(`v-spoiler-content-${spoilerId}`);
+            const header = document.getElementById(`v-spoiler-header-${spoilerId}`);
+
+            if (content && header) {
+                content.classList.toggle('open');
+                header.classList.toggle('open');
+            }
+        };
+
+        // Отрисовка чекбоксов
+        function renderTaskCheckboxes() {
+            const grid = document.getElementById('tasksGrid');
+            let html = '';
+
+            for (let i = 1; i <= 16; i++) {
+                const isExtended = extendedTasks.includes(i);
+                html += `
+                        <div class="task-checkbox-item ${selectedNumbers.has(i) ? 'selected' : ''}" onclick="toggleTask(${i})">
+                            <input type="checkbox" id="task-${i}" ${selectedNumbers.has(i) ? 'checked' : ''}>
+                            <label for="task-${i}" class="task-checkbox-label">
+                                <strong>Задание ${i}${isExtended ? ' ✍️' : ''}:</strong> ${taskNames[i]}
+                            </label>
+                        </div>
+                    `;
+            }
+
+            grid.innerHTML = html;
+            updateSelectedCount();
+        }
+
+        window.toggleTask = function (number) {
+            if (selectedNumbers.has(number)) {
+                selectedNumbers.delete(number);
+            } else {
+                selectedNumbers.add(number);
+            }
+            renderTaskCheckboxes();
+            updateComposeButton();
+        };
+
+        function updateSelectedCount() {
+            const countEl = document.getElementById('selectedCount');
+            countEl.innerHTML = `<span>${selectedNumbers.size}</span> заданий выбрано`;
+        }
+
+        function updateComposeButton() {
+            const btn = document.getElementById('composeVariantBtn');
+            btn.disabled = selectedNumbers.size === 0;
+        }
+
+        // Выбрать все
+        document.getElementById('selectAllBtn').addEventListener('click', function () {
+            for (let i = 1; i <= 16; i++) {
+                selectedNumbers.add(i);
+            }
+            renderTaskCheckboxes();
+            updateComposeButton();
+        });
+
+        // Очистить все
+        document.getElementById('clearAllBtn').addEventListener('click', function () {
+            selectedNumbers.clear();
+            renderTaskCheckboxes();
+            updateComposeButton();
+        });
+
+        // Составить вариант
+        document.getElementById('composeVariantBtn').addEventListener('click', function () {
+            composeVariant();
+            resetTimer();
+            startTimer();
+        });
+
+        // Обновить вариант
+        document.getElementById('refreshVariantBtn').addEventListener('click', function () {
+            if (selectedNumbers.size > 0) {
+                composeVariant();
+                resetTimer();
+                startTimer();
+            }
+        });
+
+        // Очистить вариант
+        document.getElementById('clearVariantBtn').addEventListener('click', function () {
+            document.getElementById('variantResult').style.display = 'none';
+            currentVariant = [];
+            userAnswers = {};
+            stopTimer();
+            resetTimer();
+
+            const timerContainer = document.getElementById('timerContainer');
+            timerContainer.classList.remove('timer-warning', 'timer-expired');
+        });
+
+        // Завершить экзамен
+        document.getElementById('finishExamBtn').addEventListener('click', function () {
+            showExamStats();
+        });
+
+        // Функция составления варианта
+        function composeVariant() {
+            if (selectedNumbers.size === 0) return;
+
+            const numbers = Array.from(selectedNumbers);
+
+            currentVariant = numbers.map(number => {
+                const tasksWithNumber = allTasks.filter(task => task.number == number);
+
+                if (tasksWithNumber.length === 0) {
+                    return {
+                        number: number,
+                        question: `Нет заданий с номером ${number} в базе`,
+                        answer: '',
+                        hint1: '',
+                        hint2: '',
+                        image_url: '',
+                        isPlaceholder: true
+                    };
+                }
+
+                const randomIndex = Math.floor(Math.random() * tasksWithNumber.length);
+                return tasksWithNumber[randomIndex];
+            });
+
+            // Сортируем по номеру задания
+            currentVariant.sort((a, b) => a.number - b.number);
+
+            // Сбрасываем счетчики и ответы
+            attemptCounts = {};
+            userAnswers = {};
+
+            displayVariant();
+        }
+
+        // Отображение варианта
+        function displayVariant() {
+            const container = document.getElementById('variantTasksContainer');
+            const variantResult = document.getElementById('variantResult');
+            const countSpan = document.getElementById('variantTasksCount');
+
+            if (currentVariant.length === 0) {
+                variantResult.style.display = 'none';
+                return;
+            }
+
+            variantResult.style.display = 'block';
+            countSpan.textContent = `${currentVariant.length} заданий`;
+
+            let html = '<div class="variant-tasks-list">';
+
+            currentVariant.forEach((task, index) => {
+                const hasImage = task.image_url && task.image_url.trim() !== '' && !task.isPlaceholder;
+                const taskId = `variant-${index}`;
+                const isExtended = extendedTasks.includes(task.number);
+
+                if (!attemptCounts[taskId]) {
+                    attemptCounts[taskId] = 0;
+                }
+
+                html += `
+                        <div class="variant-task-card ${isExtended ? 'extended' : ''}" id="${taskId}">
+                            <div class="variant-task-number ${isExtended ? 'extended' : ''}">Задание ${task.number}</div>
+                            ${isExtended ? '<div class="extended-badge">✍️ Развернутый ответ</div>' : ''}
+
+                            <div class="variant-task-question">${task.question}</div>
+
+                            ${hasImage ? `
+                                <div class="variant-task-image">
+                                    <img src="${task.image_url}" alt="Task image">
+                                </div>
+                            ` : ''}
+
+                            ${isExtended ? renderExtendedBlock(task, taskId) : renderRegularBlock(task, taskId)}
+
+                            <div class="variant-hints-container" id="hints-${taskId}">
+                                ${task.hint1 ? `
+                                    <div class="variant-spoiler-item" id="spoiler-item-hint1-${taskId}">
+                                        <div class="variant-spoiler-header" id="v-spoiler-header-hint1-${taskId}" onclick="toggleVariantSpoiler('hint1-${taskId}')">
+                                            <span class="spoiler-icon">▶</span>
+                                            <span class="spoiler-title">Подсказка 1</span>
+                                        </div>
+                                        <div class="variant-spoiler-content" id="v-spoiler-content-hint1-${taskId}">
+                                            <div class="variant-spoiler-inner">
+                                                ${task.hint1}
+                                            </div>
+                                        </div>
+                                    </div>
+                                ` : ''}
+
+                                ${task.hint2 ? `
+                                    <div class="variant-spoiler-item" id="spoiler-item-hint2-${taskId}">
+                                        <div class="variant-spoiler-header" id="v-spoiler-header-hint2-${taskId}" onclick="toggleVariantSpoiler('hint2-${taskId}')">
+                                            <span class="spoiler-icon">▶</span>
+                                            <span class="spoiler-title">Подсказка 2</span>
+                                        </div>
+                                        <div class="variant-spoiler-content" id="v-spoiler-content-hint2-${taskId}">
+                                            <div class="variant-spoiler-inner">
+                                                ${task.hint2}
+                                            </div>
+                                        </div>
+                                    </div>
+                                ` : ''}
+                            </div>
+                        </div>
+                    `;
+            });
+
+            html += '</div>';
+            container.innerHTML = html;
+        }
+
+        // Блок для обычных заданий (1-12)
+        function renderRegularBlock(task, taskId) {
+            return `
+                    <div class="variant-answer-block">
+                        <input type="text"
+                               class="variant-answer-input"
+                               id="input-${taskId}"
+                               placeholder="Введите ответ..."
+                               value="${userAnswers[taskId]?.answer || ''}">
+                        <button class="variant-check-btn" onclick="checkRegularAnswer('${taskId}')">
+                            Проверить
+                        </button>
+                        <span class="variant-result-badge" id="result-${taskId}">${userAnswers[taskId]?.result || ''}</span>
+                    </div>
+                `;
+        }
+
+        // Блок для развернутых заданий (13-16)
+        function renderExtendedBlock(task, taskId) {
+            return `
+                    <div class="extended-answer-block">
+                        <div class="extended-note">
+                            ⚡ Задание с развернутым ответом
+                        </div>
+                        <div class="extended-info">
+                            <strong>📝 Правильный ответ появится в статистике после завершения экзамена.</strong><br>
+                            Сравни своё решение с ответом и оцени самостоятельно.
+                        </div>
+                    </div>
+                `;
+        }
+
+        // Проверка обычного ответа (1-12)
+        window.checkRegularAnswer = function (taskId) {
+            const input = document.getElementById(`input-${taskId}`);
+            const resultSpan = document.getElementById(`result-${taskId}`);
+
+            if (!input || !resultSpan) return;
+
+            const taskIndex = parseInt(taskId.split('-')[1]);
+            const task = currentVariant[taskIndex];
+
+            if (!task) return;
+
+            const userAnswer = input.value;
+            const isCorrect = userAnswer.trim().toLowerCase() === (task.answer || '').trim().toLowerCase();
+
+            // Сохраняем ответ
+            userAnswers[taskId] = {
+                answer: userAnswer,
+                result: isCorrect ? '✅' : '❌',
+                isCorrect: isCorrect
+            };
+
+            // Увеличиваем счетчик попыток
+            attemptCounts[taskId] = (attemptCounts[taskId] || 0) + 1;
+
+            const hint1Item = document.getElementById(`spoiler-item-hint1-${taskId}`);
+            const hint2Item = document.getElementById(`spoiler-item-hint2-${taskId}`);
+
+            if (isCorrect) {
+                resultSpan.innerHTML = '✅';
+                resultSpan.style.color = '#10b981';
+            } else {
+                resultSpan.innerHTML = '❌';
+                resultSpan.style.color = '#ef4444';
+
+                if (attemptCounts[taskId] === 1 && hint1Item) {
+                    hint1Item.classList.add('visible');
+                }
+
+                if (attemptCounts[taskId] === 2 && hint2Item) {
+                    hint2Item.classList.add('visible');
+                }
+            }
+        };
+
+        // Показать статистику экзамена
+        function showExamStats() {
+            if (currentVariant.length === 0) return;
+
+            let correctCount = 0;
+            let totalNormalCount = 0; // Только 1-12
+            let extendedList = [];
+
+            // Собираем статистику
+            currentVariant.forEach((task, index) => {
+                const taskId = `variant-${index}`;
+                const isExtended = extendedTasks.includes(task.number);
+
+                if (isExtended) {
+                    extendedList.push({
+                        number: task.number,
+                        name: taskNames[task.number],
+                        answer: task.answer || 'Ответ не указан'
+                    });
+                } else {
+                    totalNormalCount++;
+                    const answer = userAnswers[taskId];
+                    if (answer?.isCorrect) {
+                        correctCount++;
+                    }
+                }
+            });
+
+            // Сортируем
+            extendedList.sort((a, b) => a.number - b.number);
+
+            const modal = document.getElementById('statsModal');
+
+            let extendedHTML = '';
+            if (extendedList.length > 0) {
+                extendedHTML = `
+                        <div class="stats-extended-section">
+                            <div class="stats-extended-title">✍️ Задания с развернутым ответом (13-16)</div>
+                    `;
+
+                extendedList.forEach(item => {
+                    extendedHTML += `
+                            <div class="stats-extended-item">
+                                <div class="stats-extended-header">
+                                    <span>Задание ${item.number}</span>
+                                    <span>${item.name}</span>
+                                </div>
+                                <div class="stats-extended-answer">
+                                    <strong>Правильный ответ:</strong> ${item.answer}
+                                </div>
+                            </div>
+                        `;
+                });
+
+                extendedHTML += `
+                            <div class="stats-extended-note">
+                                ⚡ Оцени себя сам! Сравни свой ответ с правильным и посчитай баллы.
+                            </div>
+                        </div>
+                    `;
+            }
+
+            let statsHTML = `
+                    <div class="stats-modal">
+                        <div class="stats-content">
+                            <div class="stats-title">📊 Результат экзамена</div>
+                            <div class="stats-subtitle">ОГЭ по информатике</div>
+
+                            <div class="stats-score">
+                                <div class="stats-score-number">${correctCount}/${totalNormalCount}</div>
+                                <div class="stats-score-label">правильных ответов (задания 1-12)</div>
+                                <div class="stats-score-note">✍️ Задания 13-16 оцениваются отдельно</div>
+                            </div>
+
+                            <div class="stats-detail">
+                                <div class="stats-detail-title">Детали по заданиям 1-12:</div>
+                                <ul class="stats-task-list">
+                `;
+
+            // Список заданий 1-12
+            currentVariant.forEach((task, index) => {
+                const taskId = `variant-${index}`;
+                const isExtended = extendedTasks.includes(task.number);
+
+                if (!isExtended) {
+                    const answer = userAnswers[taskId];
+                    let resultText = '⏳ Не проверено';
+                    let resultClass = 'pending';
+
+                    if (answer) {
+                        resultText = answer.isCorrect ? '✅ Верно' : '❌ Неверно';
+                        resultClass = answer.isCorrect ? 'correct' : 'incorrect';
+                    }
+
+                    statsHTML += `
+                            <li class="stats-task-item">
+                                <span class="stats-task-number">Задание ${task.number}</span>
+                                <span class="stats-task-result ${resultClass}">${resultText}</span>
+                            </li>
+                        `;
+                }
+            });
+
+            statsHTML += `
+                                </ul>
+                            </div>
+
+                            ${extendedHTML}
+
+                            <div class="stats-buttons">
+                                <button class="stats-btn primary" onclick="closeStatsModal()">Продолжить</button>
+                                <button class="stats-btn secondary" onclick="closeStatsModal(); clearVariantAndRestart()">Новый вариант</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+            modal.innerHTML = statsHTML;
+            modal.style.display = 'block';
+        }
+
+        window.closeStatsModal = function () {
+            const modal = document.getElementById('statsModal');
+            modal.style.display = 'none';
+        };
+
+        window.clearVariantAndRestart = function () {
+            closeStatsModal();
+            document.getElementById('clearVariantBtn').click();
+        };
+    </script>
+</body>
+</html>
