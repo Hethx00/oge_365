@@ -1,4 +1,4 @@
-/* ===== ОБЩИЕ СТИЛИ ДЛЯ ВСЕГО САЙТА ===== */
+
 * {
     margin: 0;
     padding: 0;
@@ -20,7 +20,7 @@ body {
     padding: 0 20px;
 }
 
-/* ===== ШАПКА ===== */
+
 .header {
     padding: 15px 0;
     background: white;
@@ -67,7 +67,7 @@ body {
         border-bottom-color: #f57c00;
     }
 
-/* ===== ПОДВАЛ ===== */
+
 .footer {
     margin-top: auto;
     background: #1e2a3a;
@@ -99,7 +99,6 @@ body {
     color: #8a9fb0;
 }
 
-/* ===== ОСНОВНОЙ КОНТЕНТ ===== */
 .main-content {
     flex: 1;
     padding: 30px 0;
@@ -114,54 +113,52 @@ body {
     .page-title span {
         color: #f57c00;
     }
-/* ===== МОБИЛЬНАЯ АДАПТАЦИЯ (iPhone и др.) ===== */
 
-/* Для очень маленьких экранов (до 400px) */
 @media (max-width: 400px) {
     .header .container {
-        flex-direction: column; /* Логотип сверху, меню снизу */
+        flex-direction: column; 
         gap: 10px;
         padding: 10px 0;
     }
 
     .logo {
-        font-size: 22px; /* Чуть меньше */
+        font-size: 22px; 
     }
 
     .nav {
-        gap: 15px; /* Уменьшаем расстояние между кнопками */
-        flex-wrap: wrap; /* Если не влезут - перенесутся */
+        gap: 15px; 
+        flex-wrap: wrap; 
         justify-content: center;
     }
 
     .nav-btn {
-        font-size: 14px; /* Уменьшаем текст кнопок */
+        font-size: 14px; 
         padding: 5px 8px;
-        white-space: nowrap; /* Запрещаем перенос внутри кнопки */
+        white-space: nowrap; 
     }
 
-    /* Для главной страницы */
+   
     .hero-title {
-        font-size: 28px; /* Было 42px - сильно уменьшаем */
+        font-size: 28px; 
     }
 
     .books-illustration {
-        max-width: 280px; /* Уменьшаем блок с книгами */
+        max-width: 280px; 
     }
 
     .book {
-        width: 180px; /* Уменьшаем сами книги */
+        width: 180px; 
         font-size: 13px;
         padding: 10px 15px;
     }
 
-    /* Для страницы заданий */
+  
     .task-item {
         padding: 15px;
     }
 
     .answer-input-group {
-        flex-direction: column; /* Поле ввода и кнопка друг под другом */
+        flex-direction: column; 
         gap: 8px;
     }
 
@@ -174,7 +171,7 @@ body {
     }
 }
 
-/* Для средних экранов (до 500px) */
+
 @media (max-width: 500px) {
     .nav {
         gap: 10px;
@@ -199,15 +196,15 @@ body {
     }
 }
 
-/* Общие правила для всех мобильных */
+
 @media (max-width: 600px) {
     .container {
-        padding: 0 15px; /* Уменьшаем боковые отступы */
+        padding: 0 15px; 
     }
 
     /* Для карточек заданий */
     .tasks-grid {
-        grid-template-columns: 1fr; /* Одна колонка на мобилках */
+        grid-template-columns: 1fr; 
     }
 
     /* Для вариантов */
@@ -237,7 +234,7 @@ body {
     }
 }
 
-/* Фикс для очень маленьких (iPhone SE - 375px) */
+
 @media (max-width: 380px) {
     .nav {
         gap: 5px;
@@ -252,3 +249,4 @@ body {
         font-size: 20px;
     }
 }
+
