@@ -7,7 +7,7 @@
     <!-- Общий CSS -->
     <link rel="stylesheet" href="css/style.css">
     <style>
-        /* Стили */
+        /* ===== Стили для вариантов ===== */
 
         .variants-header {
             margin-bottom: 30px;
@@ -28,7 +28,7 @@
                 color: #f57c00;
             }
 
-        /* ТАймер */
+        /* ===== Таймер ===== */
         .timer-container {
             background: linear-gradient(135deg, #1e2a3a 0%, #2d3e52 100%);
             border-radius: 60px;
@@ -40,6 +40,8 @@
             color: white;
             box-shadow: 0 10px 20px -5px rgba(0,0,0,0.2);
             border: 2px solid #f57c00;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .timer-label {
@@ -58,12 +60,12 @@
 
         .timer-display {
             font-family: 'Courier New', monospace;
-            font-size: 36px;
+            font-size: 32px;
             font-weight: 700;
             background: rgba(0,0,0,0.3);
             padding: 8px 20px;
             border-radius: 50px;
-            letter-spacing: 5px;
+            letter-spacing: 3px;
             color: #f57c00;
             text-shadow: 0 0 10px rgba(245,124,0,0.3);
         }
@@ -73,6 +75,10 @@
             border: 2px solid #ef4444;
             animation: pulse 1s infinite;
         }
+
+            .timer-warning .timer-display {
+                color: #ef4444;
+            }
 
         .timer-expired {
             background: #1e2a3a;
@@ -97,7 +103,7 @@
             }
         }
 
-        /* Панель выбора заданий */
+        /* ===== Панель выбора заданий ===== */
         .selection-panel {
             background: white;
             border-radius: 20px;
@@ -118,50 +124,143 @@
                 color: #f57c00;
             }
 
+        /* ===== Счетчики для заданий ===== */
         .tasks-grid-select {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 12px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
             margin-bottom: 25px;
         }
 
-        .task-checkbox-item {
+        .task-counter-item {
             background: #f8fafc;
             border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 12px 15px;
+            border-radius: 14px;
+            padding: 15px;
             display: flex;
             align-items: center;
-            gap: 10px;
-            cursor: pointer;
+            justify-content: space-between;
             transition: all 0.2s;
-            user-select: none;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
-            .task-checkbox-item:hover {
+            .task-counter-item:hover {
                 border-color: #f57c00;
                 background: #fff5eb;
             }
 
-            .task-checkbox-item.selected {
-                background: #fff0e0;
-                border-color: #f57c00;
-                box-shadow: 0 4px 10px rgba(245,124,0,0.1);
-            }
-
-            .task-checkbox-item input[type="checkbox"] {
-                width: 18px;
-                height: 18px;
-                cursor: pointer;
-                accent-color: #f57c00;
-            }
-
-        .task-checkbox-label {
-            font-weight: 500;
-            color: #334155;
-            cursor: pointer;
+        .task-counter-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            min-width: 150px;
         }
 
+        .task-counter-number {
+            background: #f57c00;
+            color: white;
+            min-width: 32px;
+            height: 32px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .task-counter-label {
+            font-weight: 500;
+            color: #334155;
+            font-size: 14px;
+        }
+
+            .task-counter-label strong {
+                display: block;
+                margin-bottom: 2px;
+            }
+
+            .task-counter-label small {
+                font-size: 12px;
+                color: #64748b;
+            }
+
+        .task-counter-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: white;
+            padding: 5px;
+            border-radius: 40px;
+            border: 2px solid #e2e8f0;
+        }
+
+        .counter-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: #f57c00;
+            color: white;
+            font-size: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+        }
+
+            .counter-btn:hover:not(:disabled) {
+                background: #e06d00;
+                transform: scale(1.05);
+            }
+
+            .counter-btn:disabled {
+                background: #cbd5e1;
+                cursor: not-allowed;
+                opacity: 0.5;
+            }
+
+        .counter-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1e2a3a;
+            min-width: 40px;
+            text-align: center;
+        }
+
+            .counter-value span {
+                font-size: 12px;
+                font-weight: normal;
+                color: #64748b;
+                margin-left: 2px;
+            }
+
+        /* ===== Спинер ===== */
+        .loader-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #f57c00;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ===== Кнопки действий ===== */
         .selection-actions {
             display: flex;
             gap: 15px;
@@ -169,6 +268,7 @@
             flex-wrap: wrap;
             border-top: 1px dashed #e2e8f0;
             padding-top: 20px;
+            margin-top: 10px;
         }
 
         .selected-count {
@@ -197,6 +297,7 @@
             cursor: pointer;
             transition: 0.2s;
             box-shadow: 0 4px 10px rgba(245,124,0,0.2);
+            white-space: nowrap;
         }
 
             .action-btn:hover:not(:disabled) {
@@ -205,10 +306,15 @@
                 box-shadow: 0 8px 18px rgba(245,124,0,0.3);
             }
 
+            .action-btn:active:not(:disabled) {
+                transform: translateY(0);
+            }
+
             .action-btn:disabled {
                 background: #cbd5e1;
                 cursor: not-allowed;
                 box-shadow: none;
+                opacity: 0.7;
             }
 
             .action-btn.secondary {
@@ -223,7 +329,7 @@
                     transform: translateY(-2px);
                 }
 
-        /* Результат составлен вариант */
+        /* ===== Результат ===== */
         .variant-result {
             margin-top: 30px;
             background: white;
@@ -240,6 +346,8 @@
             margin-bottom: 20px;
             padding-bottom: 15px;
             border-bottom: 2px solid #f57c00;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .variant-title {
@@ -263,6 +371,7 @@
         .variant-actions {
             display: flex;
             gap: 10px;
+            flex-wrap: wrap;
         }
 
         .icon-btn {
@@ -298,6 +407,7 @@
             gap: 8px;
             font-size: 15px;
             transition: 0.2s;
+            white-space: nowrap;
         }
 
             .finish-btn:hover {
@@ -306,7 +416,11 @@
                 box-shadow: 0 5px 15px rgba(16,185,129,0.3);
             }
 
-        /* Список заданий в варианте */
+            .finish-btn:active {
+                transform: translateY(0);
+            }
+
+        /* ===== Задания в варианте ===== */
         .variant-tasks-list {
             display: flex;
             flex-direction: column;
@@ -366,7 +480,6 @@
             font-weight: 500;
         }
 
-        /* Картинка */
         .variant-task-image {
             margin-bottom: 15px;
             text-align: center;
@@ -381,7 +494,7 @@
                 object-fit: contain;
             }
 
-        /* Блок ответа для обычных заданий (1-12) */
+        /* ===== Блок ответа в варианте ===== */
         .variant-answer-block {
             display: flex;
             gap: 10px;
@@ -397,6 +510,7 @@
             font-size: 14px;
             border: 2px solid #e2e8f0;
             border-radius: 8px;
+            transition: 0.2s;
         }
 
             .variant-answer-input:focus {
@@ -413,6 +527,8 @@
             font-weight: 600;
             border-radius: 30px;
             cursor: pointer;
+            transition: 0.2s;
+            white-space: nowrap;
         }
 
             .variant-check-btn:hover {
@@ -426,7 +542,7 @@
             text-align: center;
         }
 
-        /* Блок для развернутых заданий (13-16) */
+        /* ===== Задания с развернутым ответом ===== */
         .extended-answer-block {
             background: white;
             border-radius: 12px;
@@ -457,7 +573,7 @@
                 color: #f59e0b;
             }
 
-        /* Подсказки */
+        /* ===== Подсказки ===== */
         .variant-hints-container {
             margin-top: 10px;
         }
@@ -484,6 +600,7 @@
             font-weight: 500;
             font-size: 13px;
             color: #2d3e50;
+            transition: 0.2s;
         }
 
             .variant-spoiler-header:hover {
@@ -505,11 +622,12 @@
             overflow: hidden;
             transition: max-height 0.3s ease-out;
             background: #f8fafc;
+            border-top: 1px solid transparent;
         }
 
             .variant-spoiler-content.open {
                 max-height: 200px;
-                border-top: 1px solid #e2e8f0;
+                border-top-color: #e2e8f0;
             }
 
         .variant-spoiler-inner {
@@ -518,7 +636,118 @@
             color: #475569;
         }
 
-        /* Модальное окно статистики */
+        /* ===== Стили с выбором ===== */
+        .choice-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        .choice-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 14px;
+        }
+
+            .choice-item:hover {
+                border-color: #f57c00;
+                background: #fff5eb;
+            }
+
+            .choice-item.selected {
+                border-color: #f57c00;
+                background: #fff0e0;
+                box-shadow: 0 4px 10px rgba(245,124,0,0.1);
+            }
+
+            .choice-item input[type="radio"] {
+                width: 18px;
+                height: 18px;
+                accent-color: #f57c00;
+                cursor: pointer;
+            }
+
+        /* ===== Модальные окна ===== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+            padding: 15px;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 30px;
+            padding: 30px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+            border: 3px solid #f57c00;
+        }
+
+        .modal-icon {
+            font-size: 56px;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: #1e2a3a;
+            margin-bottom: 15px;
+        }
+
+        .modal-text {
+            color: #64748b;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .modal-btn {
+            background: #f57c00;
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+            .modal-btn:hover {
+                background: #e06d00;
+            }
+
+        .empty-variant {
+            text-align: center;
+            padding: 40px;
+            color: #94a3b8;
+            font-size: 16px;
+            background: #f8fafc;
+            border-radius: 20px;
+            border: 1px dashed #cbd5e1;
+        }
+
+        /* ===== Стили для старого меню ===== */
         .stats-modal {
             position: fixed;
             top: 0;
@@ -531,6 +760,7 @@
             justify-content: center;
             z-index: 1000;
             backdrop-filter: blur(5px);
+            padding: 15px;
         }
 
         .stats-content {
@@ -722,88 +952,64 @@
                     background: #fff0e0;
                 }
 
-        .empty-variant {
-            text-align: center;
-            padding: 40px;
-            color: #94a3b8;
-            font-size: 16px;
-            background: #f8fafc;
-            border-radius: 20px;
-            border: 1px dashed #cbd5e1;
-        }
-
-        /* Модальное окно таймера */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            backdrop-filter: blur(5px);
-        }
-
-        .modal-content {
-            background: white;
-            border-radius: 30px;
-            padding: 40px;
-            max-width: 400px;
-            text-align: center;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
-            border: 3px solid #f57c00;
-        }
-
-        .modal-icon {
-            font-size: 64px;
-            margin-bottom: 20px;
-        }
-
-        .modal-title {
-            font-size: 28px;
-            font-weight: 700;
-            color: #1e2a3a;
-            margin-bottom: 15px;
-        }
-
-        .modal-text {
-            color: #64748b;
-            margin-bottom: 30px;
-            line-height: 1.6;
-        }
-
-        .modal-btn {
-            background: #f57c00;
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            font-size: 18px;
+        /* ===== Стили для tusk_number ===== */
+        .variant-task-subnumber {
+            color: #3b82f6;
             font-weight: 600;
-            border-radius: 50px;
-            cursor: pointer;
+            margin-left: 10px;
+            font-size: 14px;
+            background: #eff6ff;
+            padding: 2px 8px;
+            border-radius: 20px;
+            display: inline-block;
         }
 
-            .modal-btn:hover {
-                background: #e06d00;
+        /* ===== Адаптация для мобилок ===== */
+        @media (max-width: 600px) {
+            .timer-container {
+                flex-direction: column;
+                text-align: center;
+                padding: 15px;
             }
 
-        @media (max-width: 600px) {
+            .timer-label {
+                justify-content: center;
+            }
+
+            .timer-display {
+                font-size: 24px;
+                letter-spacing: 2px;
+            }
+
+            .variant-answer-block {
+                flex-direction: column;
+            }
+
+            .variant-answer-input,
+            .variant-check-btn {
+                width: 100%;
+            }
+
             .tasks-grid-select {
                 grid-template-columns: 1fr;
             }
 
-            .variant-header {
+            .task-counter-item {
                 flex-direction: column;
-                gap: 15px;
-                align-items: start;
+                align-items: flex-start;
             }
 
-            .timer-container {
-                flex-direction: column;
-                gap: 10px;
+            .task-counter-controls {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .selection-actions {
+                justify-content: center;
+            }
+
+            .action-btn {
+                width: 100%;
                 text-align: center;
             }
 
@@ -811,10 +1017,26 @@
                 flex-direction: column;
             }
         }
+
+        @media (max-width: 400px) {
+            .timer-display {
+                font-size: 20px;
+                letter-spacing: 1px;
+            }
+
+            .variant-title {
+                font-size: 18px;
+            }
+
+            .finish-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- ШАпка -->
+    <!-- ===== Шапка ===== -->
     <header class="header">
         <div class="container">
             <div class="logo" onclick="window.location.href='index.html'">ОГЭ365</div>
@@ -827,7 +1049,7 @@
         </div>
     </header>
 
-    <!-- Осн контент -->
+    <!-- ===== Основной контент ===== -->
     <main class="main-content">
         <div class="container">
             <div class="variants-header">
@@ -835,8 +1057,8 @@
                     Варианты <span>ОГЭ по информатике</span>
                 </h1>
                 <div class="variants-description">
-                    <strong>Составь свой вариант!</strong> Выбери задания, нажми "Составить вариант" и решай как на настоящем экзамене.<br>
-                    <span style="color: #f59e0b;">✍️ Задания 13-16 с развернутым ответом - проверь себя по ответам в статистике (задания 13, 15, 16 оцениваются до 2 баллов, задание 14 оценивается до 3 баллов).</span>
+                    <strong>Составь свой вариант!</strong> Составь свой вариант! Выбери задания, нажми "Составить вариант" и решай как на настоящем экзамене.
+                    ✍️ Задания 13-16 с развернутым ответом - проверь себя по ответам в статистике (задания 13, 15, 16 оцениваются до 2 баллов, задание 14 оценивается до 3 баллов).
                 </div>
             </div>
 
@@ -851,27 +1073,26 @@
                 <div class="timer-display" id="timerDisplay">02:30:00</div>
             </div>
 
-            <!-- Панель выбора заданий -->
+            <!-- панель выбора количества заданий -->
             <div class="selection-panel">
                 <div class="selection-title">
-                    <span>📋 Шаг 1.</span> Выбери номера заданий для варианта
+                    <span>📋 Шаг 1.</span> Укажи, сколько заданий каждого номера добавить
                 </div>
 
                 <div class="tasks-grid-select" id="tasksGrid">
-                    <!-- Здесь чекбоксы -->
                 </div>
 
                 <div class="selection-actions">
                     <div class="selected-count" id="selectedCount">
                         <span>0</span> заданий выбрано
                     </div>
-                    <button class="action-btn" id="selectAllBtn">Выбрать все</button>
-                    <button class="action-btn secondary" id="clearAllBtn">Очистить</button>
-                    <button class="action-btn" id="composeVariantBtn" disabled>🎲 Составить вариант</button>
+                    <button class="action-btn" id="selectAllBtn">Выбрать все (по 1)</button>
+                    <button class="action-btn secondary" id="clearAllBtn">Очистить все</button>
+                    <button class="action-btn" id="composeVariantBtn" disabled>Составить вариант</button>
                 </div>
             </div>
 
-            <!-- Результат составленный -->
+            <!-- результат - составленный вариант -->
             <div class="variant-result" id="variantResult" style="display: none;">
                 <div class="variant-header">
                     <div class="variant-title">
@@ -887,13 +1108,12 @@
                 </div>
 
                 <div id="variantTasksContainer">
-                    <!-- Сюда будут добавляться задания -->
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- Подвал -->
+    <!-- ===== подвал ===== -->
     <footer class="footer">
         <div class="container">
             <div class="footer-logo">ОГЭ365</div>
@@ -902,7 +1122,7 @@
         </div>
     </footer>
 
-    <!-- Окно для таймера -->
+    <!-- модальное окно для таймера -->
     <div id="timeoutModal" style="display: none;">
         <div class="modal-overlay">
             <div class="modal-content">
@@ -917,26 +1137,26 @@
         </div>
     </div>
 
-    <!-- Окно статистики -->
+    <!-- модальное окно статистики -->
     <div id="statsModal" style="display: none;"></div>
 
     <script>
-        // ===== константы =====
         const API_URL = 'https://script.google.com/macros/s/AKfycbwZT2VsEsQFv7PophKATDA78ITSS37_s3FCcTMSRqSNWOCsGOMCOVAI5ZUp6VTQTG8S-A/exec';
+
+        // ===== переменные =====
         let allTasks = [];
-        let selectedNumbers = new Set();
         let currentVariant = [];
         let attemptCounts = {};
-
-        // Хранилище для ответов
         let userAnswers = {};
+        let taskCounts = {};
+        let isLoading = true;
 
         // Таймер
         let timerInterval = null;
         let timeLeft = 150 * 60;
         let timerRunning = false;
 
-        // Номера заданий с развернутым ответом
+        // Номера с развернутым ответом
         const extendedTasks = [13, 14, 15, 16];
 
         // Названия заданий
@@ -959,29 +1179,157 @@
             16: 'Программирование'
         };
 
-        // Загружаем задания
-        document.addEventListener('DOMContentLoaded', loadTasks);
+        // ===== загрузка при старте =====
+        document.addEventListener('DOMContentLoaded', function () {
+            showMainLoader();
+            loadTasks();
+        });
 
+        // ===== функции показа загрузки =====
+        function showMainLoader() {
+            const grid = document.getElementById('tasksGrid');
+            grid.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 40px;">
+                        <div class="loader-spinner" style="width: 50px; height: 50px;"></div>
+                        <p style="margin-top: 20px; color: #64748b;">⏳ Загрузка заданий...</p>
+                        <p style="font-size: 14px; color: #94a3b8;">Пожалуйста, подождите</p>
+                    </div>
+                `;
+        }
+
+        function showVariantLoader() {
+            const container = document.getElementById('variantTasksContainer');
+            container.innerHTML = `
+                    <div style="text-align: center; padding: 40px;">
+                        <div class="loader-spinner" style="width: 50px; height: 50px;"></div>
+                        <p style="margin-top: 20px; color: #64748b;">⏳ Составляем вариант...</p>
+                        <p style="font-size: 14px; color: #94a3b8;">Выбираем случайные задания</p>
+                    </div>
+                `;
+        }
+
+        // ===== функция загрузки данных =====
         async function loadTasks() {
             try {
                 const response = await fetch(API_URL);
+
+                if (!response.ok) {
+                    throw new Error(`Ошибка HTTP: ${response.status}`);
+                }
+
                 allTasks = await response.json();
-                console.log('Загружено заданий:', allTasks.length);
-                renderTaskCheckboxes();
+
+                if (!allTasks || allTasks.length === 0) {
+                    throw new Error('Нет данных');
+                }
+
+                console.log('✅ Загружено заданий:', allTasks.length);
+                for (let i = 1; i <= 16; i++) {
+                    taskCounts[i] = 0;
+                }
+
+                isLoading = false;
+                renderTaskCounters();
+
             } catch (error) {
-                console.error('Ошибка загрузки:', error);
-                document.getElementById('tasksGrid').innerHTML = `
-                        <div style="grid-column: 1/-1; text-align: center; padding: 30px; color: #ef4444;">
-                            ❌ Ошибка загрузки базы заданий
+                console.error('❌ Ошибка:', error);
+                const grid = document.getElementById('tasksGrid');
+                grid.innerHTML = `
+                        <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #ef4444;">
+                            ❌ Не удалось загрузить задания<br>
+                            <small>${error.message}</small><br>
+                            <button onclick="location.reload()"
+                                    style="margin-top: 15px; padding: 8px 20px; background: #f57c00;
+                                           color: white; border: none; border-radius: 30px; cursor: pointer;">
+                                🔄 Попробовать снова
+                            </button>
                         </div>
                     `;
+                isLoading = false;
             }
         }
 
-        // Функции таймера
+        // ===== функции для счетчиков =====
+        function renderTaskCounters() {
+            if (isLoading) return;
+
+            const grid = document.getElementById('tasksGrid');
+            let html = '';
+
+            for (let i = 1; i <= 16; i++) {
+                const isExtended = extendedTasks.includes(i);
+
+                html += `
+                        <div class="task-counter-item" id="task-counter-${i}">
+                            <div class="task-counter-info">
+                                <div class="task-counter-number">${i}</div>
+                                <div class="task-counter-label">
+                                    <strong>Задание ${i}${isExtended ? ' ✍️' : ''}</strong>
+                                    <small>${taskNames[i]}</small>
+                                </div>
+                            </div>
+
+                            <div class="task-counter-controls">
+                                <button class="counter-btn" onclick="decrementCount(${i})" ${taskCounts[i] === 0 ? 'disabled' : ''}>−</button>
+                                <div class="counter-value" id="count-${i}">
+                                    ${taskCounts[i]} <span>шт.</span>
+                                </div>
+                                <button class="counter-btn" onclick="incrementCount(${i})" ${taskCounts[i] === 5 ? 'disabled' : ''}>+</button>
+                            </div>
+                        </div>
+                    `;
+            }
+
+            grid.innerHTML = html;
+            updateTotalCount();
+        }
+
+        window.incrementCount = function (number) {
+            if (taskCounts[number] < 5) {
+                taskCounts[number]++;
+                updateCountDisplay(number);
+                updateComposeButton();
+            }
+        };
+
+        window.decrementCount = function (number) {
+            if (taskCounts[number] > 0) {
+                taskCounts[number]--;
+                updateCountDisplay(number);
+                updateComposeButton();
+            }
+        };
+
+        function updateCountDisplay(number) {
+            const countEl = document.getElementById(`count-${number}`);
+            if (countEl) {
+                countEl.innerHTML = `${taskCounts[number]} <span>шт.</span>`;
+            }
+
+            const decrementBtn = document.querySelector(`#task-counter-${number} .counter-btn:first-child`);
+            const incrementBtn = document.querySelector(`#task-counter-${number} .counter-btn:last-child`);
+
+            if (decrementBtn) decrementBtn.disabled = taskCounts[number] === 0;
+            if (incrementBtn) incrementBtn.disabled = taskCounts[number] === 5;
+        }
+
+        function updateTotalCount() {
+            const total = Object.values(taskCounts).reduce((sum, count) => sum + count, 0);
+            const countEl = document.getElementById('selectedCount');
+            if (countEl) {
+                countEl.innerHTML = `<span>${total}</span> заданий выбрано`;
+            }
+        }
+
+        function updateComposeButton() {
+            const total = Object.values(taskCounts).reduce((sum, count) => sum + count, 0);
+            const btn = document.getElementById('composeVariantBtn');
+            if (btn) btn.disabled = total === 0 || isLoading;
+        }
+
+        // ===== функции таймера =====
         function startTimer() {
             if (timerRunning) return;
-
             timerRunning = true;
             timerInterval = setInterval(updateTimer, 1000);
         }
@@ -1000,7 +1348,9 @@
             updateTimerDisplay();
 
             const timerContainer = document.getElementById('timerContainer');
-            timerContainer.classList.remove('timer-warning', 'timer-expired');
+            if (timerContainer) {
+                timerContainer.classList.remove('timer-warning', 'timer-expired');
+            }
         }
 
         function updateTimer() {
@@ -1009,7 +1359,7 @@
                 showTimeoutModal();
 
                 const timerContainer = document.getElementById('timerContainer');
-                timerContainer.classList.add('timer-expired');
+                if (timerContainer) timerContainer.classList.add('timer-expired');
                 return;
             }
 
@@ -1018,7 +1368,7 @@
 
             if (timeLeft === 300) {
                 const timerContainer = document.getElementById('timerContainer');
-                timerContainer.classList.add('timer-warning');
+                if (timerContainer) timerContainer.classList.add('timer-warning');
             }
         }
 
@@ -1028,156 +1378,78 @@
             const seconds = timeLeft % 60;
 
             const display = document.getElementById('timerDisplay');
-            display.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            if (display) {
+                display.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            }
         }
 
         function showTimeoutModal() {
             const modal = document.getElementById('timeoutModal');
-            modal.style.display = 'block';
+            if (modal) modal.style.display = 'block';
         }
 
         window.closeTimeoutModal = function () {
             const modal = document.getElementById('timeoutModal');
-            modal.style.display = 'none';
+            if (modal) modal.style.display = 'none';
         };
 
-        // Функция для переключения спойлера
-        window.toggleVariantSpoiler = function (spoilerId) {
-            const content = document.getElementById(`v-spoiler-content-${spoilerId}`);
-            const header = document.getElementById(`v-spoiler-header-${spoilerId}`);
+        // ===== функции для варианта =====
+        function composeVariant() {
+            const totalTasks = Object.values(taskCounts).reduce((sum, count) => sum + count, 0);
 
-            if (content && header) {
-                content.classList.toggle('open');
-                header.classList.toggle('open');
-            }
-        };
-
-        // Отрисовка чекбоксов
-        function renderTaskCheckboxes() {
-            const grid = document.getElementById('tasksGrid');
-            let html = '';
-
-            for (let i = 1; i <= 16; i++) {
-                const isExtended = extendedTasks.includes(i);
-                html += `
-                        <div class="task-checkbox-item ${selectedNumbers.has(i) ? 'selected' : ''}" onclick="toggleTask(${i})">
-                            <input type="checkbox" id="task-${i}" ${selectedNumbers.has(i) ? 'checked' : ''}>
-                            <label for="task-${i}" class="task-checkbox-label">
-                                <strong>Задание ${i}${isExtended ? ' ✍️' : ''}:</strong> ${taskNames[i]}
-                            </label>
-                        </div>
-                    `;
+            if (totalTasks === 0) {
+                alert('Выберите хотя бы одно задание');
+                return;
             }
 
-            grid.innerHTML = html;
-            updateSelectedCount();
-        }
-
-        window.toggleTask = function (number) {
-            if (selectedNumbers.has(number)) {
-                selectedNumbers.delete(number);
-            } else {
-                selectedNumbers.add(number);
+            if (isLoading) {
+                alert('База заданий ещё загружается, подождите');
+                return;
             }
-            renderTaskCheckboxes();
-            updateComposeButton();
-        };
 
-        function updateSelectedCount() {
-            const countEl = document.getElementById('selectedCount');
-            countEl.innerHTML = `<span>${selectedNumbers.size}</span> заданий выбрано`;
-        }
+            showVariantLoader();
+            document.getElementById('variantResult').style.display = 'block';
 
-        function updateComposeButton() {
-            const btn = document.getElementById('composeVariantBtn');
-            btn.disabled = selectedNumbers.size === 0;
-        }
+            setTimeout(() => {
+                let newVariant = [];
+                for (let number = 1; number <= 16; number++) {
+                    const count = taskCounts[number] || 0;
+                    if (count === 0) continue;
 
-        // Выбрать все
-        document.getElementById('selectAllBtn').addEventListener('click', function () {
-            for (let i = 1; i <= 16; i++) {
-                selectedNumbers.add(i);
-            }
-            renderTaskCheckboxes();
-            updateComposeButton();
-        });
+                    const tasksWithNumber = allTasks.filter(task => task.number == number);
 
-        // Очистить все
-        document.getElementById('clearAllBtn').addEventListener('click', function () {
-            selectedNumbers.clear();
-            renderTaskCheckboxes();
-            updateComposeButton();
-        });
+                    if (tasksWithNumber.length === 0) {
+                        for (let i = 0; i < count; i++) {
+                            newVariant.push({
+                                number: number,
+                                question: `Нет заданий с номером ${number} в базе`,
+                                answer: '',
+                                hint1: '',
+                                hint2: '',
+                                image_url: '',
+                                isPlaceholder: true
+                            });
+                        }
+                        continue;
+                    }
 
-        // Составить вариант
-        document.getElementById('composeVariantBtn').addEventListener('click', function () {
-            composeVariant();
-            resetTimer();
-            startTimer();
-        });
+                    const shuffled = [...tasksWithNumber].sort(() => Math.random() - 0.5);
 
-        // Обновить вариант
-        document.getElementById('refreshVariantBtn').addEventListener('click', function () {
-            if (selectedNumbers.size > 0) {
-                composeVariant();
+                    for (let i = 0; i < count; i++) {
+                        newVariant.push({ ...shuffled[i % shuffled.length] });
+                    }
+                }
+                currentVariant = newVariant;
+
+                attemptCounts = {};
+                userAnswers = {};
+
+                displayVariant();
                 resetTimer();
                 startTimer();
-            }
-        });
-
-        // Очистить вариант
-        document.getElementById('clearVariantBtn').addEventListener('click', function () {
-            document.getElementById('variantResult').style.display = 'none';
-            currentVariant = [];
-            userAnswers = {};
-            stopTimer();
-            resetTimer();
-
-            const timerContainer = document.getElementById('timerContainer');
-            timerContainer.classList.remove('timer-warning', 'timer-expired');
-        });
-
-        // Завершить экзамен
-        document.getElementById('finishExamBtn').addEventListener('click', function () {
-            showExamStats();
-        });
-
-        // Функция составления варианта
-        function composeVariant() {
-            if (selectedNumbers.size === 0) return;
-
-            const numbers = Array.from(selectedNumbers);
-
-            currentVariant = numbers.map(number => {
-                const tasksWithNumber = allTasks.filter(task => task.number == number);
-
-                if (tasksWithNumber.length === 0) {
-                    return {
-                        number: number,
-                        question: `Нет заданий с номером ${number} в базе`,
-                        answer: '',
-                        hint1: '',
-                        hint2: '',
-                        image_url: '',
-                        isPlaceholder: true
-                    };
-                }
-
-                const randomIndex = Math.floor(Math.random() * tasksWithNumber.length);
-                return tasksWithNumber[randomIndex];
-            });
-
-            // Сортируем по номеру задания
-            currentVariant.sort((a, b) => a.number - b.number);
-
-            // Сбрасываем счетчики и ответы
-            attemptCounts = {};
-            userAnswers = {};
-
-            displayVariant();
+            }, 500);
         }
 
-        // Отображение варианта
         function displayVariant() {
             const container = document.getElementById('variantTasksContainer');
             const variantResult = document.getElementById('variantResult');
@@ -1192,11 +1464,21 @@
             countSpan.textContent = `${currentVariant.length} заданий`;
 
             let html = '<div class="variant-tasks-list">';
+            const numberCounters = {};
 
             currentVariant.forEach((task, index) => {
+                const taskNumber = task.number;
+                if (!numberCounters[taskNumber]) {
+                    numberCounters[taskNumber] = 1;
+                } else {
+                    numberCounters[taskNumber]++;
+                }
+
+                const displayNumber = task.task_number || `${taskNumber}.${numberCounters[taskNumber]}`;
+
                 const hasImage = task.image_url && task.image_url.trim() !== '' && !task.isPlaceholder;
                 const taskId = `variant-${index}`;
-                const isExtended = extendedTasks.includes(task.number);
+                const isExtended = extendedTasks.includes(taskNumber);
 
                 if (!attemptCounts[taskId]) {
                     attemptCounts[taskId] = 0;
@@ -1204,7 +1486,10 @@
 
                 html += `
                         <div class="variant-task-card ${isExtended ? 'extended' : ''}" id="${taskId}">
-                            <div class="variant-task-number ${isExtended ? 'extended' : ''}">Задание ${task.number}</div>
+                            <div class="variant-task-number ${isExtended ? 'extended' : ''}">
+                                Задание ${taskNumber}
+                                <span class="variant-task-subnumber">${displayNumber}</span>
+                            </div>
                             ${isExtended ? '<div class="extended-badge">✍️ Развернутый ответ</div>' : ''}
 
                             <div class="variant-task-question">${task.question}</div>
@@ -1215,7 +1500,7 @@
                                 </div>
                             ` : ''}
 
-                            ${isExtended ? renderExtendedBlock(task, taskId) : renderRegularBlock(task, taskId)}
+                            ${renderVariantAnswerBlock(task, taskId)}
 
                             <div class="variant-hints-container" id="hints-${taskId}">
                                 ${task.hint1 ? `
@@ -1254,42 +1539,56 @@
             container.innerHTML = html;
         }
 
-        // Блок для обычных заданий (1-12)
-        function renderRegularBlock(task, taskId) {
-            return `
-                    <div class="variant-answer-block">
-                        <input type="text"
-                               class="variant-answer-input"
-                               id="input-${taskId}"
-                               placeholder="Введите ответ..."
-                               value="${userAnswers[taskId]?.answer || ''}">
-                        <button class="variant-check-btn" onclick="checkRegularAnswer('${taskId}')">
-                            Проверить
-                        </button>
-                        <span class="variant-result-badge" id="result-${taskId}">${userAnswers[taskId]?.result || ''}</span>
-                    </div>
-                `;
+        function renderVariantAnswerBlock(task, taskId) {
+            const taskType = task.type || 'text';
+
+            if (taskType === 'choice' && task.options) {
+                const options = task.options.split(';').map(opt => opt.trim());
+
+                let choicesHtml = `
+                        <div class="choice-group" id="variant-choice-group-${taskId}">
+                    `;
+
+                options.forEach((option, idx) => {
+                    const optionId = `variant-choice-${taskId}-${idx}`;
+                    choicesHtml += `
+                            <label class="choice-item" for="${optionId}">
+                                <input type="radio"
+                                       name="variant-answer-${taskId}"
+                                       id="${optionId}"
+                                       value="${option}">
+                                ${option}
+                            </label>
+                        `;
+                });
+
+                choicesHtml += `</div>`;
+
+                return `
+                        <div class="variant-answer-block">
+                            ${choicesHtml}
+                            <button class="variant-check-btn" onclick="checkVariantChoiceAnswer('${taskId}')">Проверить</button>
+                            <span class="variant-result-badge" id="variant-result-${taskId}"></span>
+                        </div>
+                    `;
+            } else {
+                return `
+                        <div class="variant-answer-block">
+                            <input type="text"
+                                   class="variant-answer-input"
+                                   id="variant-input-${taskId}"
+                                   placeholder="Введите ответ...">
+                            <button class="variant-check-btn" onclick="checkVariantRegularAnswer('${taskId}')">Проверить</button>
+                            <span class="variant-result-badge" id="variant-result-${taskId}"></span>
+                        </div>
+                    `;
+            }
         }
 
-        // Блок для развернутых заданий (13-16)
-        function renderExtendedBlock(task, taskId) {
-            return `
-                    <div class="extended-answer-block">
-                        <div class="extended-note">
-                            ⚡ Задание с развернутым ответом
-                        </div>
-                        <div class="extended-info">
-                            <strong>📝 Правильный ответ появится в статистике после завершения экзамена.</strong><br>
-                            Сравни своё решение с ответом и оцени самостоятельно.
-                        </div>
-                    </div>
-                `;
-        }
-
-        // Проверка обычного ответа (1-12)
-        window.checkRegularAnswer = function (taskId) {
-            const input = document.getElementById(`input-${taskId}`);
-            const resultSpan = document.getElementById(`result-${taskId}`);
+        // ===== функции проверки =====
+        window.checkVariantRegularAnswer = function (taskId) {
+            const input = document.getElementById(`variant-input-${taskId}`);
+            const resultSpan = document.getElementById(`variant-result-${taskId}`);
 
             if (!input || !resultSpan) return;
 
@@ -1301,18 +1600,10 @@
             const userAnswer = input.value;
             const isCorrect = userAnswer.trim().toLowerCase() === (task.answer || '').trim().toLowerCase();
 
-            // Сохраняем ответ
             userAnswers[taskId] = {
                 answer: userAnswer,
-                result: isCorrect ? '✅' : '❌',
                 isCorrect: isCorrect
             };
-
-            // Увеличиваем счетчик попыток
-            attemptCounts[taskId] = (attemptCounts[taskId] || 0) + 1;
-
-            const hint1Item = document.getElementById(`spoiler-item-hint1-${taskId}`);
-            const hint2Item = document.getElementById(`spoiler-item-hint2-${taskId}`);
 
             if (isCorrect) {
                 resultSpan.innerHTML = '✅';
@@ -1320,26 +1611,68 @@
             } else {
                 resultSpan.innerHTML = '❌';
                 resultSpan.style.color = '#ef4444';
-
-                if (attemptCounts[taskId] === 1 && hint1Item) {
-                    hint1Item.classList.add('visible');
-                }
-
-                if (attemptCounts[taskId] === 2 && hint2Item) {
-                    hint2Item.classList.add('visible');
-                }
             }
         };
 
-        // Показать статистику экзамена
+        window.checkVariantChoiceAnswer = function (taskId) {
+            const radios = document.getElementsByName(`variant-answer-${taskId}`);
+            let selectedValue = null;
+
+            for (let radio of radios) {
+                if (radio.checked) {
+                    selectedValue = radio.value;
+                    break;
+                }
+            }
+
+            if (!selectedValue) {
+                alert('Выберите вариант ответа');
+                return;
+            }
+
+            const resultSpan = document.getElementById(`variant-result-${taskId}`);
+            if (!resultSpan) return;
+
+            const taskIndex = parseInt(taskId.split('-')[1]);
+            const task = currentVariant[taskIndex];
+
+            if (!task) return;
+
+            const isCorrect = selectedValue.trim().toLowerCase() === (task.answer || '').trim().toLowerCase();
+
+            userAnswers[taskId] = {
+                answer: selectedValue,
+                isCorrect: isCorrect
+            };
+
+            if (isCorrect) {
+                resultSpan.innerHTML = '✅';
+                resultSpan.style.color = '#10b981';
+            } else {
+                resultSpan.innerHTML = '❌';
+                resultSpan.style.color = '#ef4444';
+            }
+        };
+
+        // ===== функции для подсказок =====
+        window.toggleVariantSpoiler = function (spoilerId) {
+            const content = document.getElementById(`v-spoiler-content-${spoilerId}`);
+            const header = document.getElementById(`v-spoiler-header-${spoilerId}`);
+
+            if (content && header) {
+                content.classList.toggle('open');
+                header.classList.toggle('open');
+            }
+        };
+
+        // ===== старое меню подведения итогов =====
         function showExamStats() {
             if (currentVariant.length === 0) return;
 
             let correctCount = 0;
-            let totalNormalCount = 0; // Только 1-12
+            let totalNormalCount = 0;
             let extendedList = [];
 
-            // Собираем статистику
             currentVariant.forEach((task, index) => {
                 const taskId = `variant-${index}`;
                 const isExtended = extendedTasks.includes(task.number);
@@ -1359,7 +1692,6 @@
                 }
             });
 
-            // Сортируем
             extendedList.sort((a, b) => a.number - b.number);
 
             const modal = document.getElementById('statsModal');
@@ -1410,7 +1742,6 @@
                                 <ul class="stats-task-list">
                 `;
 
-            // Список заданий 1-12
             currentVariant.forEach((task, index) => {
                 const taskId = `variant-${index}`;
                 const isExtended = extendedTasks.includes(task.number);
@@ -1453,14 +1784,60 @@
         }
 
         window.closeStatsModal = function () {
-            const modal = document.getElementById('statsModal');
-            modal.style.display = 'none';
+            document.getElementById('statsModal').style.display = 'none';
         };
 
         window.clearVariantAndRestart = function () {
             closeStatsModal();
             document.getElementById('clearVariantBtn').click();
         };
+
+        // ===== обработчики =====
+        document.getElementById('composeVariantBtn').addEventListener('click', composeVariant);
+
+        document.getElementById('refreshVariantBtn').addEventListener('click', function () {
+            const total = Object.values(taskCounts).reduce((sum, count) => sum + count, 0);
+            if (total > 0) {
+                composeVariant();
+            } else {
+                alert('Сначала выберите задания');
+            }
+        });
+
+        document.getElementById('clearVariantBtn').addEventListener('click', function () {
+            document.getElementById('variantResult').style.display = 'none';
+            currentVariant = [];
+            userAnswers = {};
+            stopTimer();
+            resetTimer();
+
+            for (let i = 1; i <= 16; i++) {
+                taskCounts[i] = 0;
+                updateCountDisplay(i);
+            }
+            updateTotalCount();
+            updateComposeButton();
+        });
+
+        document.getElementById('selectAllBtn').addEventListener('click', function () {
+            for (let i = 1; i <= 16; i++) {
+                taskCounts[i] = 1;
+                updateCountDisplay(i);
+            }
+            updateTotalCount();
+            updateComposeButton();
+        });
+
+        document.getElementById('clearAllBtn').addEventListener('click', function () {
+            for (let i = 1; i <= 16; i++) {
+                taskCounts[i] = 0;
+                updateCountDisplay(i);
+            }
+            updateTotalCount();
+            updateComposeButton();
+        });
+
+        document.getElementById('finishExamBtn').addEventListener('click', showExamStats);
     </script>
 </body>
 </html>

@@ -7,9 +7,7 @@
     <!-- Общий CSS -->
     <link rel="stylesheet" href="css/style.css">
     <style>
-        /* СТИЛИ */
-
-        /* Панель поиска */
+        /* ===== основные стили ===== */
         .search-card {
             background: white;
             border-radius: 16px;
@@ -79,7 +77,178 @@
                 transform: translateY(-2px);
             }
 
-        /* Результаты */
+        /* ===== стили для фильтров ===== */
+        .filters-panel {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 1px solid #edf2f7;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+        }
+
+        .filters-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #1e2a3a;
+        }
+
+            .filters-title span {
+                color: #f57c00;
+                background: #fff0e0;
+                padding: 4px 12px;
+                border-radius: 30px;
+                font-size: 14px;
+            }
+
+        .filters-options {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .filter-radio {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            padding: 8px 16px;
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 40px;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+
+            .filter-radio:hover {
+                border-color: #f57c00;
+                background: #fff5eb;
+            }
+
+            .filter-radio input[type="radio"] {
+                width: 18px;
+                height: 18px;
+                accent-color: #f57c00;
+                cursor: pointer;
+            }
+
+            .filter-radio span {
+                font-size: 14px;
+                color: #334155;
+                white-space: nowrap;
+            }
+
+        .apply-filter-btn {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+            white-space: nowrap;
+            margin-left: 0;
+        }
+
+            .apply-filter-btn:hover {
+                background: #2563eb;
+                transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(59,130,246,0.3);
+            }
+
+        /* ===== переключатель режимов ===== */
+        .mode-switcher {
+            background: white;
+            border-radius: 16px;
+            padding: 12px 20px;
+            margin-bottom: 25px;
+            border: 1px solid #edf2f7;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .mode-switcher-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #64748b;
+        }
+
+        .mode-toggle {
+            display: flex;
+            background: #f1f5f9;
+            border-radius: 40px;
+            padding: 3px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .mode-btn {
+            padding: 6px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            background: transparent;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #64748b;
+        }
+
+            .mode-btn.active {
+                background: #f57c00;
+                color: white;
+                box-shadow: 0 2px 8px rgba(245,124,0,0.2);
+            }
+
+        @media (max-width: 700px) {
+            .filters-options {
+                gap: 8px;
+            }
+
+            .filter-radio {
+                padding: 6px 12px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .filters-options {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 8px;
+            }
+
+            .filter-radio {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .apply-filter-btn {
+                width: 100%;
+            }
+
+            .mode-switcher {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .mode-toggle {
+                width: 100%;
+            }
+
+            .mode-btn {
+                flex: 1;
+                text-align: center;
+            }
+        }
+
+        /* ===== результаты ===== */
         .results-header {
             display: flex;
             justify-content: space-between;
@@ -111,7 +280,7 @@
                 color: #f57c00;
             }
 
-        /* Список заданий */
+        /* ===== список заданий ===== */
         .tasks-list {
             display: flex;
             flex-direction: column;
@@ -124,6 +293,8 @@
             padding: 20px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.01);
             border: 1px solid #e9eef3;
+            position: relative;
+            transition: 0.2s;
         }
 
             .task-item:hover {
@@ -146,6 +317,16 @@
             font-size: 13px;
         }
 
+        .task-subnumber {
+            color: #3b82f6;
+            font-weight: 600;
+            font-size: 14px;
+            background: #eff6ff;
+            padding: 2px 8px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
         .task-question {
             font-size: 15px;
             line-height: 1.5;
@@ -154,7 +335,6 @@
             font-weight: 500;
         }
 
-        /* Картинка */
         .task-image {
             margin-bottom: 16px;
             text-align: center;
@@ -170,7 +350,7 @@
                 border-radius: 6px;
             }
 
-        /* Блок ответа */
+        /* ===== блок ответа ===== */
         .answer-block {
             background: #f8fafc;
             border-radius: 10px;
@@ -192,6 +372,7 @@
             font-size: 14px;
             border: 2px solid #e2e8f0;
             border-radius: 8px;
+            transition: 0.2s;
         }
 
             .answer-input:focus {
@@ -230,7 +411,7 @@
             color: #ef4444;
         }
 
-        /* Подсказки-спойлеры */
+        /* ===== подсказки ===== */
         .hints-container {
             margin-top: 10px;
         }
@@ -240,11 +421,11 @@
             border-radius: 8px;
             margin-bottom: 8px;
             overflow: hidden;
-            display: none; /* Изначально скрыты */
+            display: none;
         }
 
             .spoiler-item.visible {
-                display: block; /* Показываем только после ошибок */
+                display: block;
             }
 
         .spoiler-header {
@@ -305,30 +486,111 @@
             color: #166534;
         }
 
-        .no-results {
-            text-align: center;
-            padding: 50px 20px;
-            background: white;
-            border-radius: 20px;
-            color: #94a3b8;
-            font-size: 16px;
-            border: 1px dashed #cbd5e1;
+        /* ===== стили для решенных заданий ===== */
+        .solved-badge {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background: #10b981;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 600;
+            box-shadow: 0 4px 8px rgba(16,185,129,0.2);
+            z-index: 10;
         }
 
+        /* ===== стили для заданий с выбором ответа ===== */
+        .choice-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        .choice-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 14px;
+        }
+
+            .choice-item:hover {
+                border-color: #f57c00;
+                background: #fff5eb;
+            }
+
+            .choice-item.selected {
+                border-color: #f57c00;
+                background: #fff0e0;
+                box-shadow: 0 4px 10px rgba(245,124,0,0.1);
+            }
+
+            .choice-item input[type="radio"] {
+                width: 18px;
+                height: 18px;
+                accent-color: #f57c00;
+                cursor: pointer;
+            }
+
+        /* ===== стили для пагинации ===== */
+        .pagination-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .load-more-btn {
+            background: white;
+            border: 2px solid #f57c00;
+            color: #f57c00;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 4px 10px rgba(245,124,0,0.1);
+        }
+
+            .load-more-btn:hover {
+                background: #f57c00;
+                color: white;
+                transform: translateY(-2px);
+                box-shadow: 0 8px 20px rgba(245,124,0,0.2);
+            }
+
+        .pagination-info {
+            text-align: center;
+            margin: 10px 0;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        /* ===== загрузчик ===== */
         .loader {
             text-align: center;
-            padding: 50px 20px;
-            color: #94a3b8;
+            padding: 60px 20px;
+            background: white;
+            border-radius: 20px;
+            border: 1px solid #edf2f7;
         }
 
         .loader-spinner {
-            border: 3px solid #f1f5f9;
-            border-top: 3px solid #f57c00;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #f57c00;
             border-radius: 50%;
-            width: 30px;
-            height: 30px;
+            width: 50px;
+            height: 50px;
             animation: spin 1s linear infinite;
-            margin: 0 auto 12px;
+            margin: 0 auto 20px;
         }
 
         @keyframes spin {
@@ -341,6 +603,17 @@
             }
         }
 
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            border-radius: 20px;
+            color: #94a3b8;
+            font-size: 16px;
+            border: 1px dashed #cbd5e1;
+        }
+
+        /* ===== адаптация ===== */
         @media (max-width: 600px) {
             .search-form {
                 flex-direction: column;
@@ -350,6 +623,21 @@
                 width: 100%;
             }
 
+            .filters-options {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-radio {
+                width: 100%;
+            }
+
+            .apply-filter-btn {
+                width: 100%;
+                margin-left: 0;
+                margin-top: 10px;
+            }
+
             .answer-input-group {
                 flex-direction: column;
             }
@@ -357,11 +645,15 @@
             .check-btn {
                 width: 100%;
             }
+
+            .load-more-btn {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Шапка -->
+    <!-- ===== шапка ===== -->
     <header class="header">
         <div class="container">
             <div class="logo" onclick="window.location.href='index.html'">ОГЭ365</div>
@@ -374,14 +666,14 @@
         </div>
     </header>
 
-    <!-- Осн контент -->
+    <!-- ===== основной контент ===== -->
     <main class="main-content">
         <div class="container">
             <h1 class="page-title">
                 База заданий <span>по информатике</span>
             </h1>
 
-            <!-- Панель поиска -->
+            <!-- панель поиска -->
             <div class="search-card">
                 <div class="search-form">
                     <div class="form-group">
@@ -410,6 +702,37 @@
                 </div>
             </div>
 
+            <!-- Панель фильтров -->
+            <div class="filters-panel">
+                <div class="filters-title">
+                    <span>Сортировка заданий:</span>
+                </div>
+                <div class="filters-options">
+                    <label class="filter-radio">
+                        <input type="radio" name="sortOrder" value="random" checked>
+                        <span>🎲 Случайный порядок</span>
+                    </label>
+                    <label class="filter-radio">
+                        <input type="radio" name="sortOrder" value="asc">
+                        <span>↑ По возрастанию</span>
+                    </label>
+                    <label class="filter-radio">
+                        <input type="radio" name="sortOrder" value="desc">
+                        <span>↓ По убыванию</span>
+                    </label>
+                    <button class="apply-filter-btn" id="applySortBtn">Применить</button>
+                </div>
+            </div>
+
+            <!-- Переключатель режимов -->
+            <div class="mode-switcher">
+                <span class="mode-switcher-label">Режим:</span>
+                <div class="mode-toggle" id="modeToggle">
+                    <button class="mode-btn active" data-mode="pro">Про</button>
+                    <button class="mode-btn" data-mode="novice">Новичок</button>
+                </div>
+            </div>
+
             <!-- Результаты -->
             <div class="results-section">
                 <div class="results-header" id="resultsHeader" style="display: none;">
@@ -425,7 +748,7 @@
         </div>
     </main>
 
-    <!-- ПОдвал -->
+    <!-- ===== подвал ===== -->
     <footer class="footer">
         <div class="container">
             <div class="footer-logo">ОГЭ365</div>
@@ -434,52 +757,201 @@
         </div>
     </footer>
 
-    <!-- Скрипты -->
     <script>
-        // Константа с URL твоего AppScript
         const API_URL = 'https://script.google.com/macros/s/AKfycbwZT2VsEsQFv7PophKATDA78ITSS37_s3FCcTMSRqSNWOCsGOMCOVAI5ZUp6VTQTG8S-A/exec';
 
-        // Переменные для хранения данных
         let allTasks = [];
         let attemptCounts = {};
+        let isLoading = true;
+        let currentSortOrder = 'random';
+        let currentUserMode = 'pro';
 
-        // Загружаем задания при загрузке страницы
-        document.addEventListener('DOMContentLoaded', loadTasks);
+        // ===== переменные для пагинации =====
+        let currentPage = 1;
+        let tasksPerPage = 6;
+        let currentFilteredTasks = [];
 
-        // Функция загрузки заданий из Google Sheets
+        // ===== переменные для прогресса =====
+        let solvedTasks = {};
+        const STORAGE_KEY = 'oge365_solved_tasks';
+        const MODE_KEY = 'oge365_user_mode';
+
+        // ===== загрузка при старте =====
+        document.addEventListener('DOMContentLoaded', function () {
+            const container = document.getElementById('tasksContainer');
+            container.innerHTML = `
+                    <div class="loader">
+                        <div class="loader-spinner"></div>
+                        <p>⏳ Загрузка заданий...</p>
+                        <p style="font-size: 14px; color: #94a3b8; margin-top: 5px;">Подождите немного</p>
+                    </div>
+                `;
+
+            const savedSort = localStorage.getItem('oge365_sort_order');
+            if (savedSort) {
+                currentSortOrder = savedSort;
+                const radio = document.querySelector(`input[name="sortOrder"][value="${savedSort}"]`);
+                if (radio) radio.checked = true;
+            }
+
+            const savedMode = localStorage.getItem(MODE_KEY);
+            if (savedMode) {
+                currentUserMode = savedMode;
+                updateModeButtons(savedMode);
+            }
+
+            loadProgress();
+
+            loadTasks();
+        });
+
+        // ===== функция обновления кнопок режима =====
+        function updateModeButtons(mode) {
+            const buttons = document.querySelectorAll('.mode-btn');
+            buttons.forEach(btn => {
+                if (btn.dataset.mode === mode) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+
+        // ===== функции для работы с прогрессом =====
+        function loadProgress() {
+            try {
+                const saved = localStorage.getItem(STORAGE_KEY);
+                if (saved) {
+                    solvedTasks = JSON.parse(saved);
+                    console.log('📊 Загружен прогресс:', Object.keys(solvedTasks).length, 'решенных заданий');
+                }
+            } catch (e) {
+                console.error('Ошибка загрузки прогресса:', e);
+                solvedTasks = {};
+            }
+        }
+
+        function saveProgress() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(solvedTasks));
+            } catch (e) {
+                console.error('Ошибка сохранения прогресса:', e);
+            }
+        }
+
+        function markTaskAsSolved(taskId, taskNumber) {
+            if (!solvedTasks[taskNumber]) {
+                solvedTasks[taskNumber] = {};
+            }
+            solvedTasks[taskNumber][taskId] = {
+                solved: true,
+                date: new Date().toISOString()
+            };
+            saveProgress();
+            addSolvedBadge(taskId);
+        }
+
+        function isTaskSolved(taskId, taskNumber) {
+            return solvedTasks[taskNumber] && solvedTasks[taskNumber][taskId];
+        }
+
+        function addSolvedBadge(taskId) {
+            const taskCard = document.getElementById(taskId);
+            if (!taskCard) return;
+
+            const oldBadge = taskCard.querySelector('.solved-badge');
+            if (oldBadge) oldBadge.remove();
+
+            const badge = document.createElement('div');
+            badge.className = 'solved-badge';
+            badge.innerHTML = '✅ Выполнено';
+            taskCard.appendChild(badge);
+        }
+
+        // ===== функция загрузки данных =====
         async function loadTasks() {
             try {
                 const response = await fetch(API_URL);
+                if (!response.ok) throw new Error(`Ошибка HTTP: ${response.status}`);
+
                 allTasks = await response.json();
-                console.log('Загружено заданий:', allTasks.length);
+                if (!allTasks || allTasks.length === 0) throw new Error('Нет данных');
+
+                console.log('✅ Загружено заданий:', allTasks.length);
+                isLoading = false;
+
+                const container = document.getElementById('tasksContainer');
+                container.innerHTML = `
+                        <div class="no-results">
+                            🔍 Выберите номер задания и нажмите "НАЙТИ"
+                        </div>
+                    `;
+
             } catch (error) {
-                console.error('Ошибка загрузки:', error);
+                console.error('❌ Ошибка загрузки:', error);
+                const container = document.getElementById('tasksContainer');
+                container.innerHTML = `
+                        <div class="no-results">
+                            ❌ Не удалось загрузить задания<br>
+                            <small style="color: #ef4444;">${error.message}</small><br>
+                            <button onclick="location.reload()"
+                                    style="margin-top: 15px; padding: 8px 20px; background: #f57c00;
+                                           color: white; border: none; border-radius: 30px; cursor: pointer;">
+                                🔄 Попробовать снова
+                            </button>
+                        </div>
+                    `;
+                isLoading = false;
             }
         }
 
-        // Функция проверки ответа
-        function checkAnswer(userAnswer, correctAnswer) {
-            if (!userAnswer || !correctAnswer) return false;
-            return userAnswer.trim().toLowerCase() === correctAnswer.trim().toLowerCase();
+        // ===== функция сортировки =====
+        function sortTasksByNumber(tasks, order) {
+            if (!tasks || tasks.length === 0) return tasks;
+
+            return [...tasks].sort((a, b) => {
+                function getNumberValue(task) {
+                    if (task.task_number) {
+                        return parseFloat(task.task_number.replace('_', '.'));
+                    }
+                    const index = tasks.indexOf(task);
+                    return task.number + (index / 1000);
+                }
+
+                const aVal = getNumberValue(a);
+                const bVal = getNumberValue(b);
+
+                return order === 'asc' ? aVal - bVal : bVal - aVal;
+            });
         }
 
-        // Функция для переключения спойлера
-        window.toggleSpoiler = function (spoilerId) {
-            const content = document.getElementById(`spoiler-content-${spoilerId}`);
-            const header = document.getElementById(`spoiler-header-${spoilerId}`);
-
-            if (content && header) {
-                content.classList.toggle('open');
-                header.classList.toggle('open');
+        // ===== функция для получения заданий по режиму =====
+        function getTasksByMode(tasks, mode) {
+            if (mode === 'pro') {
+                return tasks;
+            } else {
+                return tasks.filter(task => task.options && task.options.trim() !== '');
             }
-        };
+        }
 
-        // Функция отображения заданий
-        function displayFilteredTasks() {
+        // ===== отобразить задания с пагинацией =====
+        function displayPaginatedTasks() {
             const container = document.getElementById('tasksContainer');
             const resultsHeader = document.getElementById('resultsHeader');
             const countEl = document.getElementById('resultsCount');
+            const resetBtn = document.getElementById('resetBtn');
             const selectedNumber = document.getElementById('taskNumberSelect').value;
+
+            if (isLoading) {
+                container.innerHTML = `
+                        <div class="loader">
+                            <div class="loader-spinner"></div>
+                            <p>⏳ Загрузка заданий...</p>
+                        </div>
+                    `;
+                resultsHeader.style.display = 'none';
+                return;
+            }
 
             if (!selectedNumber) {
                 container.innerHTML = '<div class="no-results">⚠️ Выберите номер задания</div>';
@@ -487,53 +959,90 @@
                 return;
             }
 
-            const filtered = allTasks.filter(task => task.number == selectedNumber);
+            const tasksWithNumber = allTasks.filter(task => task.number == selectedNumber);
 
-            if (filtered.length === 0) {
-                container.innerHTML = `<div class="no-results">😕 Заданий с номером ${selectedNumber} не найдено - попробуйте еще раз</div>`;
+            currentFilteredTasks = getTasksByMode(tasksWithNumber, currentUserMode);
+
+            if (currentFilteredTasks.length === 0) {
+                container.innerHTML = `
+                        <div class="no-results">
+                            😕 В этом режиме заданий с номером ${selectedNumber} не найдено
+                        </div>
+                    `;
                 resultsHeader.style.display = 'none';
                 return;
             }
 
             resultsHeader.style.display = 'flex';
-            countEl.textContent = `Найдено: ${filtered.length}`;
+            countEl.textContent = `Найдено: ${currentFilteredTasks.length}`;
+
+            const endIndex = currentPage * tasksPerPage;
+            const visibleTasks = currentFilteredTasks.slice(0, endIndex);
+            const hasMore = currentFilteredTasks.length > endIndex;
+
+            displayTasksList(visibleTasks, hasMore, currentFilteredTasks.length);
+        }
+
+        // ===== отрисовать список заданий =====
+        function displayTasksList(tasks, hasMore, totalCount) {
+            const container = document.getElementById('tasksContainer');
 
             let html = '<div class="tasks-list">';
 
-            filtered.forEach((task, index) => {
+            tasks.forEach((task, index) => {
                 const hasImage = task.image_url && task.image_url.trim() !== '';
                 const taskId = `task-${task.id || index}`.replace(/[^a-zA-Z0-9]/g, '-');
+                const displayNumber = task.task_number || `${task.number}.${index + 1}`;
+                
+                let answerHtml = '';
+                if (currentUserMode === 'novice') {
+                    const options = task.options.split(';').map(opt => opt.trim());
 
-                if (!attemptCounts[taskId]) {
-                    attemptCounts[taskId] = 0;
+                    answerHtml = `
+                            <div class="choice-group" id="choice-group-${taskId}">
+                                ${options.map((option, optIdx) => `
+                                    <label class="choice-item" for="choice-${taskId}-${optIdx}">
+                                        <input type="radio"
+                                               name="answer-${taskId}"
+                                               id="choice-${taskId}-${optIdx}"
+                                               value="${option}">
+                                        ${option}
+                                    </label>
+                                `).join('')}
+                            </div>
+                            <button class="check-btn" onclick="checkChoiceAnswer('${taskId}')">Проверить</button>
+                        `;
+                } else {
+                    answerHtml = `
+                            <input type="text"
+                                   class="answer-input"
+                                   id="input-${taskId}"
+                                   placeholder="Введите ответ..."
+                                   autocomplete="off"
+                                   autocorrect="off"
+                                   autocapitalize="off"
+                                   spellcheck="false">
+                            <button class="check-btn" onclick="checkTaskAnswer('${taskId}')">Проверить</button>
+                        `;
                 }
 
                 html += `
                         <div class="task-item" id="${taskId}">
                             <div class="task-header">
                                 <span class="task-number-badge">Задание ${task.number}</span>
+                                <span class="task-subnumber">${displayNumber}</span>
                             </div>
-
                             <div class="task-question">${task.question}</div>
-
                             ${hasImage ? `
                                 <div class="task-image">
-                                    <img src="${task.image_url}" alt="Task image">
+                                    <img src="${task.image_url}" alt="Задание ${task.number}">
                                 </div>
                             ` : ''}
-
                             <div class="answer-block">
                                 <div class="answer-input-group">
-                                    <input type="text"
-                                           class="answer-input"
-                                           id="input-${taskId}"
-                                           placeholder="Введите ответ...">
-                                    <button class="check-btn" onclick="checkTaskAnswer('${taskId}')">
-                                        Проверить
-                                    </button>
+                                    ${answerHtml}
                                     <span class="result-badge" id="result-${taskId}"></span>
                                 </div>
-
                                 <div class="hints-container" id="hints-${taskId}">
                                     ${task.hint1 ? `
                                         <div class="spoiler-item" id="spoiler-item-hint1-${taskId}">
@@ -542,13 +1051,10 @@
                                                 <span class="spoiler-title">Подсказка 1</span>
                                             </div>
                                             <div class="spoiler-content" id="spoiler-content-hint1-${taskId}">
-                                                <div class="spoiler-inner">
-                                                    ${task.hint1}
-                                                </div>
+                                                <div class="spoiler-inner">${task.hint1}</div>
                                             </div>
                                         </div>
                                     ` : ''}
-
                                     ${task.hint2 ? `
                                         <div class="spoiler-item" id="spoiler-item-hint2-${taskId}">
                                             <div class="spoiler-header" id="spoiler-header-hint2-${taskId}" onclick="toggleSpoiler('hint2-${taskId}')">
@@ -556,9 +1062,7 @@
                                                 <span class="spoiler-title">Подсказка 2</span>
                                             </div>
                                             <div class="spoiler-content" id="spoiler-content-hint2-${taskId}">
-                                                <div class="spoiler-inner">
-                                                    ${task.hint2}
-                                                </div>
+                                                <div class="spoiler-inner">${task.hint2}</div>
                                             </div>
                                         </div>
                                     ` : ''}
@@ -569,14 +1073,96 @@
             });
 
             html += '</div>';
+
+            if (hasMore) {
+                const remaining = totalCount - tasks.length;
+                const nextCount = Math.min(tasksPerPage, remaining);
+                html += `
+                        <div class="pagination-container">
+                            <button class="load-more-btn" onclick="loadMoreTasks()">
+                                📚 Показать ещё ${nextCount} из ${remaining}
+                            </button>
+                        </div>
+                    `;
+            }
+
+            html += `
+                    <div class="pagination-info">
+                        Показано ${tasks.length} из ${totalCount} заданий
+                    </div>
+                `;
+
             container.innerHTML = html;
+
+            setTimeout(() => {
+                tasks.forEach(task => {
+                    const taskId = `task-${task.id || tasks.indexOf(task)}`.replace(/[^a-zA-Z0-9]/g, '-');
+                    if (isTaskSolved(taskId, task.number)) {
+                        addSolvedBadge(taskId);
+                    }
+                    attemptCounts[taskId] = 0;
+                });
+            }, 100);
         }
 
-        // Функция проверки ответа для конкретного задания
+        // ===== загрузить ещё =====
+        function loadMoreTasks() {
+            currentPage++;
+            const selectedNumber = document.getElementById('taskNumberSelect').value;
+            const tasksWithNumber = allTasks.filter(task => task.number == selectedNumber);
+            currentFilteredTasks = getTasksByMode(tasksWithNumber, currentUserMode);
+            const endIndex = currentPage * tasksPerPage;
+            const visibleTasks = currentFilteredTasks.slice(0, endIndex);
+            const hasMore = currentFilteredTasks.length > endIndex;
+            displayTasksList(visibleTasks, hasMore, currentFilteredTasks.length);
+        }
+
+        // ===== применить сортировку =====
+        function applySorting() {
+            if (isLoading) {
+                alert('Данные ещё загружаются, подождите');
+                return;
+            }
+
+            const selectedNumber = document.getElementById('taskNumberSelect').value;
+            if (!selectedNumber) {
+                alert('Сначала выберите номер задания');
+                return;
+            }
+
+            const radios = document.getElementsByName('sortOrder');
+            for (let radio of radios) {
+                if (radio.checked) {
+                    currentSortOrder = radio.value;
+                    localStorage.setItem('oge365_sort_order', currentSortOrder);
+                    break;
+                }
+            }
+
+            if (currentSortOrder === 'random') {
+                allTasks = [...allTasks].sort(() => Math.random() - 0.5);
+            } else {
+                const sortedTasks = sortTasksByNumber(allTasks, currentSortOrder);
+                const currentTasks = sortedTasks.filter(t => t.number == selectedNumber);
+                const otherTasks = sortedTasks.filter(t => t.number != selectedNumber);
+                allTasks = [...currentTasks, ...otherTasks];
+            }
+
+            currentPage = 1;
+            displayPaginatedTasks();
+            console.log(`✅ Сортировка "${currentSortOrder}" применена`);
+        }
+
+        // ===== функция поиска заданий =====
+        function displayFilteredTasks() {
+            currentPage = 1;
+            displayPaginatedTasks();
+        }
+
+        // ===== функция проверки ответа (текст) =====
         window.checkTaskAnswer = function (taskId) {
             const input = document.getElementById(`input-${taskId}`);
             const resultSpan = document.getElementById(`result-${taskId}`);
-
             if (!input || !resultSpan) return;
 
             const task = allTasks.find(t => {
@@ -590,7 +1176,7 @@
             }
 
             const userAnswer = input.value;
-            const isCorrect = checkAnswer(userAnswer, task.answer);
+            const isCorrect = userAnswer.trim().toLowerCase() === (task.answer || '').trim().toLowerCase();
 
             attemptCounts[taskId] = (attemptCounts[taskId] || 0) + 1;
 
@@ -601,8 +1187,26 @@
                 resultSpan.innerHTML = '✅';
                 resultSpan.className = 'result-badge result-correct';
 
-                const hintsContainer = document.getElementById(`hints-${taskId}`);
+                if (hint1Item) {
+                    hint1Item.classList.remove('visible');
+                    const header1 = document.getElementById(`spoiler-header-hint1-${taskId}`);
+                    const content1 = document.getElementById(`spoiler-content-hint1-${taskId}`);
+                    if (header1 && content1) {
+                        header1.classList.remove('open');
+                        content1.classList.remove('open');
+                    }
+                }
+                if (hint2Item) {
+                    hint2Item.classList.remove('visible');
+                    const header2 = document.getElementById(`spoiler-header-hint2-${taskId}`);
+                    const content2 = document.getElementById(`spoiler-content-hint2-${taskId}`);
+                    if (header2 && content2) {
+                        header2.classList.remove('open');
+                        content2.classList.remove('open');
+                    }
+                }
 
+                const hintsContainer = document.getElementById(`hints-${taskId}`);
                 const oldCorrect = hintsContainer?.querySelector('.correct-message');
                 if (oldCorrect) oldCorrect.remove();
 
@@ -612,6 +1216,8 @@
                 if (hintsContainer) {
                     hintsContainer.insertBefore(correctMsg, hintsContainer.firstChild);
                 }
+
+                markTaskAsSolved(taskId, task.number);
             } else {
                 resultSpan.innerHTML = '❌';
                 resultSpan.className = 'result-badge result-wrong';
@@ -619,15 +1225,129 @@
                 if (attemptCounts[taskId] === 1 && hint1Item) {
                     hint1Item.classList.add('visible');
                 }
-
                 if (attemptCounts[taskId] === 2 && hint2Item) {
                     hint2Item.classList.add('visible');
                 }
             }
         };
 
-        // Обработчики кнопок
+        // ===== функция проверки ответа (выбор) =====
+        window.checkChoiceAnswer = function (taskId) {
+            const radios = document.getElementsByName(`answer-${taskId}`);
+            let selectedValue = null;
+
+            for (let radio of radios) {
+                if (radio.checked) {
+                    selectedValue = radio.value;
+                    break;
+                }
+            }
+
+            if (!selectedValue) {
+                alert('Пожалуйста, выберите вариант ответа');
+                return;
+            }
+
+            const resultSpan = document.getElementById(`result-${taskId}`);
+            if (!resultSpan) return;
+
+            const task = allTasks.find(t => {
+                const id = `task-${t.id || allTasks.indexOf(t)}`.replace(/[^a-zA-Z0-9]/g, '-');
+                return id === taskId;
+            });
+
+            if (!task) {
+                console.error('Задание не найдено');
+                return;
+            }
+
+            const isCorrect = selectedValue.trim().toLowerCase() === (task.answer || '').trim().toLowerCase();
+
+            attemptCounts[taskId] = (attemptCounts[taskId] || 0) + 1;
+
+            const hint1Item = document.getElementById(`spoiler-item-hint1-${taskId}`);
+            const hint2Item = document.getElementById(`spoiler-item-hint2-${taskId}`);
+
+            const choiceItems = document.querySelectorAll(`#choice-group-${taskId} .choice-item`);
+            choiceItems.forEach(item => item.classList.remove('selected'));
+            const selectedLabel = Array.from(radios).find(r => r.checked)?.closest('.choice-item');
+            if (selectedLabel) selectedLabel.classList.add('selected');
+
+            if (isCorrect) {
+                resultSpan.innerHTML = '✅';
+                resultSpan.className = 'result-badge result-correct';
+
+                if (hint1Item) {
+                    hint1Item.classList.remove('visible');
+                    const header1 = document.getElementById(`spoiler-header-hint1-${taskId}`);
+                    const content1 = document.getElementById(`spoiler-content-hint1-${taskId}`);
+                    if (header1 && content1) {
+                        header1.classList.remove('open');
+                        content1.classList.remove('open');
+                    }
+                }
+                if (hint2Item) {
+                    hint2Item.classList.remove('visible');
+                    const header2 = document.getElementById(`spoiler-header-hint2-${taskId}`);
+                    const content2 = document.getElementById(`spoiler-content-hint2-${taskId}`);
+                    if (header2 && content2) {
+                        header2.classList.remove('open');
+                        content2.classList.remove('open');
+                    }
+                }
+
+                const hintsContainer = document.getElementById(`hints-${taskId}`);
+                const oldCorrect = hintsContainer?.querySelector('.correct-message');
+                if (oldCorrect) oldCorrect.remove();
+
+                const correctMsg = document.createElement('div');
+                correctMsg.className = 'correct-message';
+                correctMsg.innerHTML = '✅ Правильно! Так держать!';
+                if (hintsContainer) {
+                    hintsContainer.insertBefore(correctMsg, hintsContainer.firstChild);
+                }
+
+                markTaskAsSolved(taskId, task.number);
+            } else {
+                resultSpan.innerHTML = '❌';
+                resultSpan.className = 'result-badge result-wrong';
+
+                if (attemptCounts[taskId] === 1 && hint1Item) {
+                    hint1Item.classList.add('visible');
+                }
+                if (attemptCounts[taskId] === 2 && hint2Item) {
+                    hint2Item.classList.add('visible');
+                }
+            }
+        };
+
+        // ===== функция для спойлеров =====
+        window.toggleSpoiler = function (spoilerId) {
+            const content = document.getElementById(`spoiler-content-${spoilerId}`);
+            const header = document.getElementById(`spoiler-header-${spoilerId}`);
+            if (content && header) {
+                content.classList.toggle('open');
+                header.classList.toggle('open');
+            }
+        };
+
+        // ===== обработчики кнопок =====
         document.getElementById('searchBtn').addEventListener('click', displayFilteredTasks);
+        document.getElementById('applySortBtn').addEventListener('click', applySorting);
+
+        const modeButtons = document.querySelectorAll('.mode-btn');
+        modeButtons.forEach(btn => {
+            btn.addEventListener('click', function () {
+                const mode = this.dataset.mode;
+                if (mode === currentUserMode) return;
+
+                currentUserMode = mode;
+                localStorage.setItem(MODE_KEY, currentUserMode);
+                updateModeButtons(mode);
+                currentPage = 1;
+                displayPaginatedTasks();
+            });
+        });
 
         document.getElementById('resetBtn').addEventListener('click', function () {
             document.getElementById('taskNumberSelect').value = '';
@@ -637,4 +1357,4 @@
         });
     </script>
 </body>
-</html> 
+</html>

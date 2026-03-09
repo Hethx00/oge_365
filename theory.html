@@ -7,7 +7,7 @@
     <!-- Общий CSS-->
     <link rel="stylesheet" href="css/style.css">
     <style>
-        /* СТИЛИ */
+        /* стили */
 
         .theory-header {
             margin-bottom: 30px;
@@ -801,7 +801,6 @@
     </footer>
 
     <script>
-        // Функция для открытия/закрытия спойлеров
         function toggleTheory(number) {
             const content = document.getElementById(`theory-${number}`);
             const header = event.currentTarget;
@@ -812,7 +811,6 @@
             }
         }
 
-        // Останавливаем видео при закрытии спойлера
         document.querySelectorAll('.spoiler-header').forEach(header => {
             header.addEventListener('click', function () {
                 const content = this.nextElementSibling;
