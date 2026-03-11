@@ -77,6 +77,24 @@
                 transform: translateY(-2px);
             }
 
+
+        /* Стили для таблиц с кодом */
+        .task-table td {
+            background: white;
+            color: #1e2a3a;
+            text-align: left !important;
+            font-family: 'Courier New', monospace !important;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .task-table th {
+            background: #f57c00;
+            color: white;
+            font-weight: 600;
+            white-space: nowrap;
+            text-align: center;
+        }
         /* ===== стили для фильтров ===== */
         .filters-panel {
             background: white;
@@ -354,6 +372,7 @@
         .task-table-container {
             margin: 15px 0;
             overflow-x: auto;
+            max-width: 100%;
         }
 
         .task-table {
@@ -367,15 +386,17 @@
 
             .task-table th,
             .task-table td {
-                padding: 12px 15px;
+                padding: 8px 12px;
                 text-align: center;
                 border: 1px solid #e2e8f0;
+                font-size: 14px;
             }
 
             .task-table th {
                 background: #f57c00;
                 color: white;
                 font-weight: 600;
+                white-space: nowrap;
             }
 
             .task-table td {
@@ -383,9 +404,40 @@
                 color: #1e2a3a;
             }
 
-            .task-table tr:last-child td {
+        /* Стили для длинных таблиц */
+        .task-table-container::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .task-table-container::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 4px;
+        }
+
+        .task-table-container::-webkit-scrollbar-thumb {
+            background: #f57c00;
+            border-radius: 4px;
+        }
+
+        /* Специальные стили для таблицы задания 6 */
+        .task-table td {
+            vertical-align: top;
+            padding: 12px;
+        }
+
+            .task-table td:first-child {
                 background: #f8fafc;
-                font-weight: 500;
+                font-weight: 600;
+                white-space: nowrap;
+                width: 120px;
+            }
+
+            .task-table td:last-child {
+                background: white;
+                font-family: 'Courier New', monospace;
+                white-space: pre-wrap;
+                word-break: break-word;
+                text-align: left;
             }
 
         /* ===== блок ответа ===== */
@@ -687,6 +739,12 @@
             .load-more-btn {
                 width: 100%;
             }
+
+            .task-table th,
+            .task-table td {
+                padding: 6px 8px;
+                font-size: 12px;
+            }
         }
     </style>
 </head>
@@ -817,28 +875,46 @@
         // ===== ФУНКЦИЯ ДЛЯ ФОРМАТИРОВАНИЯ ТЕКСТА =====
         function formatText(text) {
             if (!text) return '';
-            return text.replace(/\n/g, '<br>').replace(/\r\n/g, '<br>');
+            return String(text).replace(/\n/g, '<br>').replace(/\r\n/g, '<br>');
         }
 
-        // ===== ФУНКЦИЯ ДЛЯ ОТОБРАЖЕНИЯ ТАБЛИЦ =====
+        // ===== УНИВЕРСАЛЬНАЯ ФУНКЦИЯ ДЛЯ ОТОБРАЖЕНИЯ ТАБЛИЦ =====
         function renderTable(tableData) {
             if (!tableData) return '';
 
             try {
-                const rows = tableData.split(';').map(row => row.split(','));
+                console.log('Данные таблицы:', tableData);
+
+                // Пробуем разные разделители
+                let rows;
+                if (String(tableData).includes(';')) {
+                    rows = String(tableData).split(';').map(row => row.split(','));
+                } else if (String(tableData).includes('|')) {
+                    rows = String(tableData).split('|').map(row => row.split(','));
+                } else {
+                    return '';
+                }
+
                 if (rows.length < 2) return '';
 
                 let tableHtml = '<div class="task-table-container"><table class="task-table">';
-                tableHtml += '<thead><tr>';
-                rows[0].forEach(cell => {
-                    tableHtml += `<th>${cell.trim()}</th>`;
-                });
-                tableHtml += '</tr></thead>';
-                tableHtml += '<tbody><tr>';
-                rows[1].forEach(cell => {
-                    tableHtml += `<td>${cell.trim()}</td>`;
-                });
-                tableHtml += '</tr></tbody>';
+
+                for (let i = 0; i < rows.length; i++) {
+                    tableHtml += '<tr>';
+                    rows[i].forEach(cell => {
+                        const cellContent = cell.trim();
+                        // Заменяем \n на <br> для отображения переносов
+                        const formattedContent = cellContent.replace(/\\n/g, '<br>');
+
+                        if (i === 0) {
+                            tableHtml += `<th>${formattedContent}</th>`;
+                        } else {
+                            tableHtml += `<td style="text-align: left; font-family: monospace;">${formattedContent}</td>`;
+                        }
+                    });
+                    tableHtml += '</tr>';
+                }
+
                 tableHtml += '</table></div>';
                 return tableHtml;
             } catch (e) {
@@ -847,16 +923,56 @@
             }
         }
 
+        
+        // ===== СПЕЦИАЛЬНАЯ ФУНКЦИЯ ДЛЯ ЗАДАНИЯ 6 =====
+        function renderTask6Table(tableData) {
+            if (!tableData) return '';
+
+            try {
+                // Разбиваем на строки по && (двойной амперсанд - редко встречается в коде)
+                const rows = String(tableData).split('&&').map(row => row.split('::'));
+
+                if (rows.length === 0) return '';
+
+                let tableHtml = '<div class="task-table-container"><table class="task-table">';
+
+                // Создаем заголовки
+                tableHtml += '<thead><tr><th>Язык программирования</th><th>Код программы</th></tr></thead>';
+
+                // Создаем тело таблицы
+                tableHtml += '<tbody>';
+                for (let i = 0; i < rows.length; i++) {
+                    if (rows[i].length >= 2) {
+                        const language = rows[i][0].trim();
+                        // ЗАМЕНЯЕМ \n на <br> для переносов
+                        const code = rows[i][1].trim().replace(/\\n/g, '<br>');
+
+                        tableHtml += '<tr>';
+                        tableHtml += `<td style="font-weight: 600; white-space: nowrap;">${language}</td>`;
+                        tableHtml += `<td style="text-align: left; font-family: monospace; white-space: pre-wrap;">${code}</td>`;
+                        tableHtml += '</tr>';
+                    }
+                }
+                tableHtml += '</tbody>';
+
+                tableHtml += '</table></div>';
+                return tableHtml;
+            } catch (e) {
+                console.error('Ошибка рендеринга таблицы задания 6:', e);
+                return '';
+            }
+        }
+
         // ===== загрузка при старте =====
         document.addEventListener('DOMContentLoaded', function () {
             const container = document.getElementById('tasksContainer');
             container.innerHTML = `
-                    <div class="loader">
-                        <div class="loader-spinner"></div>
-                        <p>⏳ Загрузка заданий...</p>
-                        <p style="font-size: 14px; color: #94a3b8; margin-top: 5px;">Подождите немного</p>
-                    </div>
-                `;
+                        <div class="loader">
+                            <div class="loader-spinner"></div>
+                            <p>⏳ Загрузка заданий...</p>
+                            <p style="font-size: 14px; color: #94a3b8; margin-top: 5px;">Подождите немного</p>
+                        </div>
+                    `;
 
             const savedSort = localStorage.getItem('oge365_sort_order');
             if (savedSort) {
@@ -952,25 +1068,25 @@
 
                 const container = document.getElementById('tasksContainer');
                 container.innerHTML = `
-                        <div class="no-results">
-                            🔍 Выберите номер задания и нажмите "НАЙТИ"
-                        </div>
-                    `;
+                            <div class="no-results">
+                                🔍 Выберите номер задания и нажмите "НАЙТИ"
+                            </div>
+                        `;
 
             } catch (error) {
                 console.error('❌ Ошибка загрузки:', error);
                 const container = document.getElementById('tasksContainer');
                 container.innerHTML = `
-                        <div class="no-results">
-                            ❌ Не удалось загрузить задания<br>
-                            <small style="color: #ef4444;">${error.message}</small><br>
-                            <button onclick="location.reload()"
-                                    style="margin-top: 15px; padding: 8px 20px; background: #f57c00;
-                                           color: white; border: none; border-radius: 30px; cursor: pointer;">
-                                🔄 Попробовать снова
-                            </button>
-                        </div>
-                    `;
+                            <div class="no-results">
+                                ❌ Не удалось загрузить задания<br>
+                                <small style="color: #ef4444;">${error.message}</small><br>
+                                <button onclick="location.reload()"
+                                        style="margin-top: 15px; padding: 8px 20px; background: #f57c00;
+                                               color: white; border: none; border-radius: 30px; cursor: pointer;">
+                                    🔄 Попробовать снова
+                                </button>
+                            </div>
+                        `;
                 isLoading = false;
             }
         }
@@ -982,7 +1098,7 @@
             return [...tasks].sort((a, b) => {
                 function getNumberValue(task) {
                     if (task.task_number) {
-                        return parseFloat(task.task_number.replace('_', '.'));
+                        return parseFloat(String(task.task_number).replace('_', '.'));
                     }
                     const index = tasks.indexOf(task);
                     return task.number + (index / 1000);
@@ -1000,7 +1116,7 @@
             if (mode === 'pro') {
                 return tasks;
             } else {
-                return tasks.filter(task => task.options && task.options.trim() !== '');
+                return tasks.filter(task => task.options && String(task.options).trim() !== '');
             }
         }
 
@@ -1014,11 +1130,11 @@
 
             if (isLoading) {
                 container.innerHTML = `
-                        <div class="loader">
-                            <div class="loader-spinner"></div>
-                            <p>⏳ Загрузка заданий...</p>
-                        </div>
-                    `;
+                            <div class="loader">
+                                <div class="loader-spinner"></div>
+                                <p>⏳ Загрузка заданий...</p>
+                            </div>
+                        `;
                 resultsHeader.style.display = 'none';
                 return;
             }
@@ -1034,10 +1150,10 @@
 
             if (currentFilteredTasks.length === 0) {
                 container.innerHTML = `
-                        <div class="no-results">
-                            😕 В этом режиме заданий с номером ${selectedNumber} не найдено
-                        </div>
-                    `;
+                            <div class="no-results">
+                                😕 В этом режиме заданий с номером ${selectedNumber} не найдено
+                            </div>
+                        `;
                 resultsHeader.style.display = 'none';
                 return;
             }
@@ -1059,93 +1175,101 @@
             let html = '<div class="tasks-list">';
 
             tasks.forEach((task, index) => {
-                const hasImage = task.image_url && task.image_url.trim() !== '';
+                const hasImage = task.image_url && String(task.image_url).trim() !== '';
                 const taskId = `task-${task.id || index}`.replace(/[^a-zA-Z0-9]/g, '-');
                 const displayNumber = task.task_number || `${task.number}.${index + 1}`;
 
                 let answerHtml = '';
                 if (currentUserMode === 'novice') {
-                    const options = task.options.split(';').map(opt => opt.trim());
+                    const options = String(task.options).split(';').map(opt => opt.trim());
 
                     answerHtml = `
-                            <div class="choice-group" id="choice-group-${taskId}">
-                                ${options.map((option, optIdx) => `
-                                    <label class="choice-item" for="choice-${taskId}-${optIdx}">
-                                        <input type="radio"
-                                               name="answer-${taskId}"
-                                               id="choice-${taskId}-${optIdx}"
-                                               value="${option}">
-                                        ${option}
-                                    </label>
-                                `).join('')}
-                            </div>
-                            <button class="check-btn" onclick="checkChoiceAnswer('${taskId}')">Проверить</button>
-                        `;
+                                <div class="choice-group" id="choice-group-${taskId}">
+                                    ${options.map((option, optIdx) => `
+                                        <label class="choice-item" for="choice-${taskId}-${optIdx}">
+                                            <input type="radio"
+                                                   name="answer-${taskId}"
+                                                   id="choice-${taskId}-${optIdx}"
+                                                   value="${option}">
+                                            ${option}
+                                        </label>
+                                    `).join('')}
+                                </div>
+                                <button class="check-btn" onclick="checkChoiceAnswer('${taskId}')">Проверить</button>
+                            `;
                 } else {
                     answerHtml = `
-                            <input type="text"
-                                   class="answer-input"
-                                   id="input-${taskId}"
-                                   placeholder="Введите ответ..."
-                                   autocomplete="off"
-                                   autocorrect="off"
-                                   autocapitalize="off"
-                                   spellcheck="false">
-                            <button class="check-btn" onclick="checkTaskAnswer('${taskId}')">Проверить</button>
-                        `;
+                                <input type="text"
+                                       class="answer-input"
+                                       id="input-${taskId}"
+                                       placeholder="Введите ответ..."
+                                       autocomplete="off"
+                                       autocorrect="off"
+                                       autocapitalize="off"
+                                       spellcheck="false">
+                                <button class="check-btn" onclick="checkTaskAnswer('${taskId}')">Проверить</button>
+                            `;
+                }
+
+                // Для задания 6 используем специальную функцию
+                let tableHtml = '';
+                if (task.number == 6) {
+                    tableHtml = renderTask6Table(task.table_data);
+                } else {
+                    tableHtml = renderTable(task.table_data);
                 }
 
                 html += `
-                        <div class="task-item" id="${taskId}">
-                            <div class="task-header">
-                                <span class="task-number-badge">Задание ${task.number}</span>
-                                <span class="task-subnumber">${displayNumber}</span>
-                            </div>
-                            <div class="task-question">${formatText(task.question)}</div>
-
-                            ${renderTable(task.table_data)}
-
-                            ${hasImage ? `
-                                <div class="task-image">
-                                    <img src="${task.image_url}" alt="Задание ${task.number}">
+                            <div class="task-item" id="${taskId}">
+                                <div class="task-header">
+                                    <span class="task-number-badge">Задание ${task.number}</span>
+                                    <span class="task-subnumber">${displayNumber}</span>
                                 </div>
-                            ` : ''}
-                            <div class="answer-block">
-                                <div class="answer-input-group">
-                                    ${answerHtml}
-                                    <span class="result-badge" id="result-${taskId}"></span>
-                                </div>
-                                <div class="hints-container" id="hints-${taskId}">
-                                    ${task.hint1 ? `
-                                        <div class="spoiler-item" id="spoiler-item-hint1-${taskId}">
-                                            <div class="spoiler-header" id="spoiler-header-hint1-${taskId}" onclick="toggleSpoiler('hint1-${taskId}')">
-                                                <span class="spoiler-icon">▶</span>
-                                                <span class="spoiler-title">Подсказка 1</span>
-                                            </div>
-                                            <div class="spoiler-content" id="spoiler-content-hint1-${taskId}">
-                                                <div class="spoiler-inner">
-                                                    ${formatText(task.hint1)}
+                                <div class="task-question">${formatText(task.question)}</div>
+
+                                ${tableHtml}
+
+                                ${hasImage ? `
+                                    <div class="task-image">
+                                        <img src="${task.image_url}" alt="Задание ${task.number}">
+                                    </div>
+                                ` : ''}
+                                <div class="answer-block">
+                                    <div class="answer-input-group">
+                                        ${answerHtml}
+                                        <span class="result-badge" id="result-${taskId}"></span>
+                                    </div>
+                                    <div class="hints-container" id="hints-${taskId}">
+                                        ${task.hint1 ? `
+                                            <div class="spoiler-item" id="spoiler-item-hint1-${taskId}">
+                                                <div class="spoiler-header" id="spoiler-header-hint1-${taskId}" onclick="toggleSpoiler('hint1-${taskId}')">
+                                                    <span class="spoiler-icon">▶</span>
+                                                    <span class="spoiler-title">Подсказка 1</span>
+                                                </div>
+                                                <div class="spoiler-content" id="spoiler-content-hint1-${taskId}">
+                                                    <div class="spoiler-inner">
+                                                        ${formatText(task.hint1)}
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    ` : ''}
-                                    ${task.hint2 ? `
-                                        <div class="spoiler-item" id="spoiler-item-hint2-${taskId}">
-                                            <div class="spoiler-header" id="spoiler-header-hint2-${taskId}" onclick="toggleSpoiler('hint2-${taskId}')">
-                                                <span class="spoiler-icon">▶</span>
-                                                <span class="spoiler-title">Подсказка 2</span>
-                                            </div>
-                                            <div class="spoiler-content" id="spoiler-content-hint2-${taskId}">
-                                                <div class="spoiler-inner">
-                                                    ${formatText(task.hint2)}
+                                        ` : ''}
+                                        ${task.hint2 ? `
+                                            <div class="spoiler-item" id="spoiler-item-hint2-${taskId}">
+                                                <div class="spoiler-header" id="spoiler-header-hint2-${taskId}" onclick="toggleSpoiler('hint2-${taskId}')">
+                                                    <span class="spoiler-icon">▶</span>
+                                                    <span class="spoiler-title">Подсказка 2</span>
+                                                </div>
+                                                <div class="spoiler-content" id="spoiler-content-hint2-${taskId}">
+                                                    <div class="spoiler-inner">
+                                                        ${formatText(task.hint2)}
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    ` : ''}
+                                        ` : ''}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    `;
+                        `;
             });
 
             html += '</div>';
@@ -1154,19 +1278,19 @@
                 const remaining = totalCount - tasks.length;
                 const nextCount = Math.min(tasksPerPage, remaining);
                 html += `
-                        <div class="pagination-container">
-                            <button class="load-more-btn" onclick="loadMoreTasks()">
-                                📚 Показать ещё ${nextCount} из ${remaining}
-                            </button>
-                        </div>
-                    `;
+                            <div class="pagination-container">
+                                <button class="load-more-btn" onclick="loadMoreTasks()">
+                                    📚 Показать ещё ${nextCount} из ${remaining}
+                                </button>
+                            </div>
+                        `;
             }
 
             html += `
-                    <div class="pagination-info">
-                        Показано ${tasks.length} из ${totalCount} заданий
-                    </div>
-                `;
+                        <div class="pagination-info">
+                            Показано ${tasks.length} из ${totalCount} заданий
+                        </div>
+                    `;
 
             container.innerHTML = html;
 
@@ -1252,7 +1376,7 @@
             }
 
             const userAnswer = input.value;
-            const isCorrect = userAnswer.trim().toLowerCase() === (task.answer || '').trim().toLowerCase();
+            const isCorrect = String(userAnswer).trim().toLowerCase() === String(task.answer || '').trim().toLowerCase();
 
             attemptCounts[taskId] = (attemptCounts[taskId] || 0) + 1;
 
@@ -1337,7 +1461,7 @@
                 return;
             }
 
-            const isCorrect = selectedValue.trim().toLowerCase() === (task.answer || '').trim().toLowerCase();
+            const isCorrect = String(selectedValue).trim().toLowerCase() === String(task.answer || '').trim().toLowerCase();
 
             attemptCounts[taskId] = (attemptCounts[taskId] || 0) + 1;
 
