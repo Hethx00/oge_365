@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -805,6 +805,13 @@
             loadTasks();
         });
 
+        // ===== ФУНКЦИЯ ДЛЯ ФОРМАТИРОВАНИЯ ТЕКСТА =====
+        function formatText(text) {
+            if (!text) return '';
+            // Заменяем переносы строк на <br>
+            return text.replace(/\n/g, '<br>').replace(/\r\n/g, '<br>');
+        }
+
         // ===== функция обновления кнопок режима =====
         function updateModeButtons(mode) {
             const buttons = document.querySelectorAll('.mode-btn');
@@ -1032,7 +1039,7 @@
                                 <span class="task-number-badge">Задание ${task.number}</span>
                                 <span class="task-subnumber">${displayNumber}</span>
                             </div>
-                            <div class="task-question">${task.question}</div>
+                            <div class="task-question">${formatText(task.question)}</div>
                             ${hasImage ? `
                                 <div class="task-image">
                                     <img src="${task.image_url}" alt="Задание ${task.number}">
@@ -1051,7 +1058,9 @@
                                                 <span class="spoiler-title">Подсказка 1</span>
                                             </div>
                                             <div class="spoiler-content" id="spoiler-content-hint1-${taskId}">
-                                                <div class="spoiler-inner">${task.hint1}</div>
+                                                <div class="spoiler-inner">
+                                                    ${formatText(task.hint1)}
+                                                </div>
                                             </div>
                                         </div>
                                     ` : ''}
@@ -1061,8 +1070,10 @@
                                                 <span class="spoiler-icon">▶</span>
                                                 <span class="spoiler-title">Подсказка 2</span>
                                             </div>
-                                            <div class="spoiler-content" id="spoiler-content-hint2-${taskId}">
-                                                <div class="spoiler-inner">${task.hint2}</div>
+                                            <div class="spoiler-content" id="spoiler-content-hint1-${taskId}">
+                                                <div class="spoiler-inner">
+                                                    ${formatText(task.hint2)}
+                                                </div>
                                             </div>
                                         </div>
                                     ` : ''}
