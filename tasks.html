@@ -350,6 +350,44 @@
                 border-radius: 6px;
             }
 
+        /* ===== СТИЛИ ДЛЯ ТАБЛИЦ ===== */
+        .task-table-container {
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+
+        .task-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+            .task-table th,
+            .task-table td {
+                padding: 12px 15px;
+                text-align: center;
+                border: 1px solid #e2e8f0;
+            }
+
+            .task-table th {
+                background: #f57c00;
+                color: white;
+                font-weight: 600;
+            }
+
+            .task-table td {
+                background: white;
+                color: #1e2a3a;
+            }
+
+            .task-table tr:last-child td {
+                background: #f8fafc;
+                font-weight: 500;
+            }
+
         /* ===== блок ответа ===== */
         .answer-block {
             background: #f8fafc;
@@ -776,6 +814,39 @@
         const STORAGE_KEY = 'oge365_solved_tasks';
         const MODE_KEY = 'oge365_user_mode';
 
+        // ===== ФУНКЦИЯ ДЛЯ ФОРМАТИРОВАНИЯ ТЕКСТА =====
+        function formatText(text) {
+            if (!text) return '';
+            return text.replace(/\n/g, '<br>').replace(/\r\n/g, '<br>');
+        }
+
+        // ===== ФУНКЦИЯ ДЛЯ ОТОБРАЖЕНИЯ ТАБЛИЦ =====
+        function renderTable(tableData) {
+            if (!tableData) return '';
+
+            try {
+                const rows = tableData.split(';').map(row => row.split(','));
+                if (rows.length < 2) return '';
+
+                let tableHtml = '<div class="task-table-container"><table class="task-table">';
+                tableHtml += '<thead><tr>';
+                rows[0].forEach(cell => {
+                    tableHtml += `<th>${cell.trim()}</th>`;
+                });
+                tableHtml += '</tr></thead>';
+                tableHtml += '<tbody><tr>';
+                rows[1].forEach(cell => {
+                    tableHtml += `<td>${cell.trim()}</td>`;
+                });
+                tableHtml += '</tr></tbody>';
+                tableHtml += '</table></div>';
+                return tableHtml;
+            } catch (e) {
+                console.error('Ошибка рендеринга таблицы:', e);
+                return '';
+            }
+        }
+
         // ===== загрузка при старте =====
         document.addEventListener('DOMContentLoaded', function () {
             const container = document.getElementById('tasksContainer');
@@ -801,16 +872,8 @@
             }
 
             loadProgress();
-
             loadTasks();
         });
-
-        // ===== ФУНКЦИЯ ДЛЯ ФОРМАТИРОВАНИЯ ТЕКСТА =====
-        function formatText(text) {
-            if (!text) return '';
-            // Заменяем переносы строк на <br>
-            return text.replace(/\n/g, '<br>').replace(/\r\n/g, '<br>');
-        }
 
         // ===== функция обновления кнопок режима =====
         function updateModeButtons(mode) {
@@ -967,7 +1030,6 @@
             }
 
             const tasksWithNumber = allTasks.filter(task => task.number == selectedNumber);
-
             currentFilteredTasks = getTasksByMode(tasksWithNumber, currentUserMode);
 
             if (currentFilteredTasks.length === 0) {
@@ -1000,7 +1062,7 @@
                 const hasImage = task.image_url && task.image_url.trim() !== '';
                 const taskId = `task-${task.id || index}`.replace(/[^a-zA-Z0-9]/g, '-');
                 const displayNumber = task.task_number || `${task.number}.${index + 1}`;
-                
+
                 let answerHtml = '';
                 if (currentUserMode === 'novice') {
                     const options = task.options.split(';').map(opt => opt.trim());
@@ -1040,6 +1102,9 @@
                                 <span class="task-subnumber">${displayNumber}</span>
                             </div>
                             <div class="task-question">${formatText(task.question)}</div>
+
+                            ${renderTable(task.table_data)}
+
                             ${hasImage ? `
                                 <div class="task-image">
                                     <img src="${task.image_url}" alt="Задание ${task.number}">
@@ -1070,7 +1135,7 @@
                                                 <span class="spoiler-icon">▶</span>
                                                 <span class="spoiler-title">Подсказка 2</span>
                                             </div>
-                                            <div class="spoiler-content" id="spoiler-content-hint1-${taskId}">
+                                            <div class="spoiler-content" id="spoiler-content-hint2-${taskId}">
                                                 <div class="spoiler-inner">
                                                     ${formatText(task.hint2)}
                                                 </div>
