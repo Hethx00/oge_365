@@ -1185,27 +1185,35 @@
             loadTasks();
         });
 
+        // ===== ФУНКЦИЯ ДЛЯ ФОРМАТИРОВАНИЯ ТЕКСТА =====
+        function formatText(text) {
+            if (text === null || text === undefined) return '';
+            if (typeof text !== 'string') return String(text);
+            // Заменяем переносы строк на <br>
+            return text.replace(/\n/g, '<br>').replace(/\r\n/g, '<br>');
+        }
+
         // ===== функции показа загрузки =====
         function showMainLoader() {
             const grid = document.getElementById('tasksGrid');
             grid.innerHTML = `
-                    <div style="grid-column: 1/-1; text-align: center; padding: 40px;">
-                        <div class="loader-spinner" style="width: 50px; height: 50px;"></div>
-                        <p style="margin-top: 20px; color: #64748b;">⏳ Загрузка заданий...</p>
-                        <p style="font-size: 14px; color: #94a3b8;">Пожалуйста, подождите</p>
-                    </div>
-                `;
+                        <div style="grid-column: 1/-1; text-align: center; padding: 40px;">
+                            <div class="loader-spinner" style="width: 50px; height: 50px;"></div>
+                            <p style="margin-top: 20px; color: #64748b;">⏳ Загрузка заданий...</p>
+                            <p style="font-size: 14px; color: #94a3b8;">Пожалуйста, подождите</p>
+                        </div>
+                    `;
         }
 
         function showVariantLoader() {
             const container = document.getElementById('variantTasksContainer');
             container.innerHTML = `
-                    <div style="text-align: center; padding: 40px;">
-                        <div class="loader-spinner" style="width: 50px; height: 50px;"></div>
-                        <p style="margin-top: 20px; color: #64748b;">⏳ Составляем вариант...</p>
-                        <p style="font-size: 14px; color: #94a3b8;">Выбираем случайные задания</p>
-                    </div>
-                `;
+                        <div style="text-align: center; padding: 40px;">
+                            <div class="loader-spinner" style="width: 50px; height: 50px;"></div>
+                            <p style="margin-top: 20px; color: #64748b;">⏳ Составляем вариант...</p>
+                            <p style="font-size: 14px; color: #94a3b8;">Выбираем случайные задания</p>
+                        </div>
+                    `;
         }
 
         // ===== функция загрузки данных =====
@@ -1235,16 +1243,16 @@
                 console.error('❌ Ошибка:', error);
                 const grid = document.getElementById('tasksGrid');
                 grid.innerHTML = `
-                        <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #ef4444;">
-                            ❌ Не удалось загрузить задания<br>
-                            <small>${error.message}</small><br>
-                            <button onclick="location.reload()"
-                                    style="margin-top: 15px; padding: 8px 20px; background: #f57c00;
-                                           color: white; border: none; border-radius: 30px; cursor: pointer;">
-                                🔄 Попробовать снова
-                            </button>
-                        </div>
-                    `;
+                            <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #ef4444;">
+                                ❌ Не удалось загрузить задания<br>
+                                <small>${error.message}</small><br>
+                                <button onclick="location.reload()"
+                                        style="margin-top: 15px; padding: 8px 20px; background: #f57c00;
+                                               color: white; border: none; border-radius: 30px; cursor: pointer;">
+                                    🔄 Попробовать снова
+                                </button>
+                            </div>
+                        `;
                 isLoading = false;
             }
         }
@@ -1260,24 +1268,24 @@
                 const isExtended = extendedTasks.includes(i);
 
                 html += `
-                        <div class="task-counter-item" id="task-counter-${i}">
-                            <div class="task-counter-info">
-                                <div class="task-counter-number">${i}</div>
-                                <div class="task-counter-label">
-                                    <strong>Задание ${i}${isExtended ? ' ✍️' : ''}</strong>
-                                    <small>${taskNames[i]}</small>
+                            <div class="task-counter-item" id="task-counter-${i}">
+                                <div class="task-counter-info">
+                                    <div class="task-counter-number">${i}</div>
+                                    <div class="task-counter-label">
+                                        <strong>Задание ${i}${isExtended ? ' ✍️' : ''}</strong>
+                                        <small>${taskNames[i]}</small>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="task-counter-controls">
-                                <button class="counter-btn" onclick="decrementCount(${i})" ${taskCounts[i] === 0 ? 'disabled' : ''}>−</button>
-                                <div class="counter-value" id="count-${i}">
-                                    ${taskCounts[i]} <span>шт.</span>
+                                <div class="task-counter-controls">
+                                    <button class="counter-btn" onclick="decrementCount(${i})" ${taskCounts[i] === 0 ? 'disabled' : ''}>−</button>
+                                    <div class="counter-value" id="count-${i}">
+                                        ${taskCounts[i]} <span>шт.</span>
+                                    </div>
+                                    <button class="counter-btn" onclick="incrementCount(${i})" ${taskCounts[i] === 5 ? 'disabled' : ''}>+</button>
                                 </div>
-                                <button class="counter-btn" onclick="incrementCount(${i})" ${taskCounts[i] === 5 ? 'disabled' : ''}>+</button>
                             </div>
-                        </div>
-                    `;
+                        `;
             }
 
             grid.innerHTML = html;
@@ -1484,55 +1492,62 @@
                     attemptCounts[taskId] = 0;
                 }
 
+                // Безопасная функция для замены переносов
+                function safeReplace(text) {
+                    if (text === null || text === undefined) return '';
+                    if (typeof text !== 'string') return String(text);
+                    return text.replace(/\n/g, '<br>').replace(/\r\n/g, '<br>');
+                }
+
                 html += `
-                        <div class="variant-task-card ${isExtended ? 'extended' : ''}" id="${taskId}">
-                            <div class="variant-task-number ${isExtended ? 'extended' : ''}">
-                                Задание ${taskNumber}
-                                <span class="variant-task-subnumber">${displayNumber}</span>
+            <div class="variant-task-card ${isExtended ? 'extended' : ''}" id="${taskId}">
+                <div class="variant-task-number ${isExtended ? 'extended' : ''}">
+                    Задание ${taskNumber}
+                    <span class="variant-task-subnumber">${displayNumber}</span>
+                </div>
+                ${isExtended ? '<div class="extended-badge">✍️ Развернутый ответ</div>' : ''}
+
+                <div class="variant-task-question">${safeReplace(task.question)}</div>
+
+                ${hasImage ? `
+                    <div class="variant-task-image">
+                        <img src="${task.image_url}" alt="Task image">
+                    </div>
+                ` : ''}
+
+                ${renderVariantAnswerBlock(task, taskId)}
+
+                <div class="variant-hints-container" id="hints-${taskId}">
+                    ${task.hint1 ? `
+                        <div class="variant-spoiler-item" id="spoiler-item-hint1-${taskId}">
+                            <div class="variant-spoiler-header" id="v-spoiler-header-hint1-${taskId}" onclick="toggleVariantSpoiler('hint1-${taskId}')">
+                                <span class="spoiler-icon">▶</span>
+                                <span class="spoiler-title">Подсказка 1</span>
                             </div>
-                            ${isExtended ? '<div class="extended-badge">✍️ Развернутый ответ</div>' : ''}
-
-                            <div class="variant-task-question">${task.question}</div>
-
-                            ${hasImage ? `
-                                <div class="variant-task-image">
-                                    <img src="${task.image_url}" alt="Task image">
+                            <div class="variant-spoiler-content" id="v-spoiler-content-hint1-${taskId}">
+                                <div class="variant-spoiler-inner">
+                                    ${safeReplace(task.hint1)}
                                 </div>
-                            ` : ''}
-
-                            ${renderVariantAnswerBlock(task, taskId)}
-
-                            <div class="variant-hints-container" id="hints-${taskId}">
-                                ${task.hint1 ? `
-                                    <div class="variant-spoiler-item" id="spoiler-item-hint1-${taskId}">
-                                        <div class="variant-spoiler-header" id="v-spoiler-header-hint1-${taskId}" onclick="toggleVariantSpoiler('hint1-${taskId}')">
-                                            <span class="spoiler-icon">▶</span>
-                                            <span class="spoiler-title">Подсказка 1</span>
-                                        </div>
-                                        <div class="variant-spoiler-content" id="v-spoiler-content-hint1-${taskId}">
-                                            <div class="variant-spoiler-inner">
-                                                ${task.hint1}
-                                            </div>
-                                        </div>
-                                    </div>
-                                ` : ''}
-
-                                ${task.hint2 ? `
-                                    <div class="variant-spoiler-item" id="spoiler-item-hint2-${taskId}">
-                                        <div class="variant-spoiler-header" id="v-spoiler-header-hint2-${taskId}" onclick="toggleVariantSpoiler('hint2-${taskId}')">
-                                            <span class="spoiler-icon">▶</span>
-                                            <span class="spoiler-title">Подсказка 2</span>
-                                        </div>
-                                        <div class="variant-spoiler-content" id="v-spoiler-content-hint2-${taskId}">
-                                            <div class="variant-spoiler-inner">
-                                                ${task.hint2}
-                                            </div>
-                                        </div>
-                                    </div>
-                                ` : ''}
                             </div>
                         </div>
-                    `;
+                    ` : ''}
+
+                    ${task.hint2 ? `
+                        <div class="variant-spoiler-item" id="spoiler-item-hint2-${taskId}">
+                            <div class="variant-spoiler-header" id="v-spoiler-header-hint2-${taskId}" onclick="toggleVariantSpoiler('hint2-${taskId}')">
+                                <span class="spoiler-icon">▶</span>
+                                <span class="spoiler-title">Подсказка 2</span>
+                            </div>
+                            <div class="variant-spoiler-content" id="v-spoiler-content-hint2-${taskId}">
+                                <div class="variant-spoiler-inner">
+                                    ${safeReplace(task.hint2)}
+                                </div>
+                            </div>
+                        </div>
+                    ` : ''}
+                </div>
+            </div>
+        `;
             });
 
             html += '</div>';
@@ -1546,42 +1561,42 @@
                 const options = task.options.split(';').map(opt => opt.trim());
 
                 let choicesHtml = `
-                        <div class="choice-group" id="variant-choice-group-${taskId}">
-                    `;
+                            <div class="choice-group" id="variant-choice-group-${taskId}">
+                        `;
 
                 options.forEach((option, idx) => {
                     const optionId = `variant-choice-${taskId}-${idx}`;
                     choicesHtml += `
-                            <label class="choice-item" for="${optionId}">
-                                <input type="radio"
-                                       name="variant-answer-${taskId}"
-                                       id="${optionId}"
-                                       value="${option}">
-                                ${option}
-                            </label>
-                        `;
+                                <label class="choice-item" for="${optionId}">
+                                    <input type="radio"
+                                           name="variant-answer-${taskId}"
+                                           id="${optionId}"
+                                           value="${option}">
+                                    ${option}
+                                </label>
+                            `;
                 });
 
                 choicesHtml += `</div>`;
 
                 return `
-                        <div class="variant-answer-block">
-                            ${choicesHtml}
-                            <button class="variant-check-btn" onclick="checkVariantChoiceAnswer('${taskId}')">Проверить</button>
-                            <span class="variant-result-badge" id="variant-result-${taskId}"></span>
-                        </div>
-                    `;
+                            <div class="variant-answer-block">
+                                ${choicesHtml}
+                                <button class="variant-check-btn" onclick="checkVariantChoiceAnswer('${taskId}')">Проверить</button>
+                                <span class="variant-result-badge" id="variant-result-${taskId}"></span>
+                            </div>
+                        `;
             } else {
                 return `
-                        <div class="variant-answer-block">
-                            <input type="text"
-                                   class="variant-answer-input"
-                                   id="variant-input-${taskId}"
-                                   placeholder="Введите ответ...">
-                            <button class="variant-check-btn" onclick="checkVariantRegularAnswer('${taskId}')">Проверить</button>
-                            <span class="variant-result-badge" id="variant-result-${taskId}"></span>
-                        </div>
-                    `;
+                            <div class="variant-answer-block">
+                                <input type="text"
+                                       class="variant-answer-input"
+                                       id="variant-input-${taskId}"
+                                       placeholder="Введите ответ...">
+                                <button class="variant-check-btn" onclick="checkVariantRegularAnswer('${taskId}')">Проверить</button>
+                                <span class="variant-result-badge" id="variant-result-${taskId}"></span>
+                            </div>
+                        `;
             }
         }
 
@@ -1699,48 +1714,48 @@
             let extendedHTML = '';
             if (extendedList.length > 0) {
                 extendedHTML = `
-                        <div class="stats-extended-section">
-                            <div class="stats-extended-title">✍️ Задания с развернутым ответом (13-16)</div>
-                    `;
+                            <div class="stats-extended-section">
+                                <div class="stats-extended-title">✍️ Задания с развернутым ответом (13-16)</div>
+                        `;
 
                 extendedList.forEach(item => {
                     extendedHTML += `
-                            <div class="stats-extended-item">
-                                <div class="stats-extended-header">
-                                    <span>Задание ${item.number}</span>
-                                    <span>${item.name}</span>
+                                <div class="stats-extended-item">
+                                    <div class="stats-extended-header">
+                                        <span>Задание ${item.number}</span>
+                                        <span>${item.name}</span>
+                                    </div>
+                                    <div class="stats-extended-answer">
+                                        <strong>Правильный ответ:</strong> ${item.answer}
+                                    </div>
                                 </div>
-                                <div class="stats-extended-answer">
-                                    <strong>Правильный ответ:</strong> ${item.answer}
-                                </div>
-                            </div>
-                        `;
+                            `;
                 });
 
                 extendedHTML += `
-                            <div class="stats-extended-note">
-                                ⚡ Оцени себя сам! Сравни свой ответ с правильным и посчитай баллы.
+                                <div class="stats-extended-note">
+                                    ⚡ Оцени себя сам! Сравни свой ответ с правильным и посчитай баллы.
+                                </div>
                             </div>
-                        </div>
-                    `;
+                        `;
             }
 
             let statsHTML = `
-                    <div class="stats-modal">
-                        <div class="stats-content">
-                            <div class="stats-title">📊 Результат экзамена</div>
-                            <div class="stats-subtitle">ОГЭ по информатике</div>
+                        <div class="stats-modal">
+                            <div class="stats-content">
+                                <div class="stats-title">📊 Результат экзамена</div>
+                                <div class="stats-subtitle">ОГЭ по информатике</div>
 
-                            <div class="stats-score">
-                                <div class="stats-score-number">${correctCount}/${totalNormalCount}</div>
-                                <div class="stats-score-label">правильных ответов (задания 1-12)</div>
-                                <div class="stats-score-note">✍️ Задания 13-16 оцениваются отдельно</div>
-                            </div>
+                                <div class="stats-score">
+                                    <div class="stats-score-number">${correctCount}/${totalNormalCount}</div>
+                                    <div class="stats-score-label">правильных ответов (задания 1-12)</div>
+                                    <div class="stats-score-note">✍️ Задания 13-16 оцениваются отдельно</div>
+                                </div>
 
-                            <div class="stats-detail">
-                                <div class="stats-detail-title">Детали по заданиям 1-12:</div>
-                                <ul class="stats-task-list">
-                `;
+                                <div class="stats-detail">
+                                    <div class="stats-detail-title">Детали по заданиям 1-12:</div>
+                                    <ul class="stats-task-list">
+                    `;
 
             currentVariant.forEach((task, index) => {
                 const taskId = `variant-${index}`;
@@ -1757,27 +1772,27 @@
                     }
 
                     statsHTML += `
-                            <li class="stats-task-item">
-                                <span class="stats-task-number">Задание ${task.number}</span>
-                                <span class="stats-task-result ${resultClass}">${resultText}</span>
-                            </li>
-                        `;
+                                <li class="stats-task-item">
+                                    <span class="stats-task-number">Задание ${task.number}</span>
+                                    <span class="stats-task-result ${resultClass}">${resultText}</span>
+                                </li>
+                            `;
                 }
             });
 
             statsHTML += `
-                                </ul>
-                            </div>
+                                    </ul>
+                                </div>
 
-                            ${extendedHTML}
+                                ${extendedHTML}
 
-                            <div class="stats-buttons">
-                                <button class="stats-btn primary" onclick="closeStatsModal()">Продолжить</button>
-                                <button class="stats-btn secondary" onclick="closeStatsModal(); clearVariantAndRestart()">Новый вариант</button>
+                                <div class="stats-buttons">
+                                    <button class="stats-btn primary" onclick="closeStatsModal()">Продолжить</button>
+                                    <button class="stats-btn secondary" onclick="closeStatsModal(); clearVariantAndRestart()">Новый вариант</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                `;
+                    `;
 
             modal.innerHTML = statsHTML;
             modal.style.display = 'block';
