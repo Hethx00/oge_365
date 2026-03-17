@@ -120,6 +120,91 @@
                 margin-bottom: 10px;
             }
 
+
+
+        /* ===== Уведомление о cookies ===== */
+        .cookie-consent {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #1e2a3a;
+            color: white;
+            padding: 15px 20px;
+            z-index: 9999;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.2);
+            border-top: 3px solid #f57c00;
+            animation: slideUp 0.3s ease;
+        }
+
+        .cookie-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .cookie-text {
+            flex: 1;
+            min-width: 250px;
+        }
+
+            .cookie-text strong {
+                color: #f57c00;
+                display: block;
+                margin-bottom: 5px;
+                font-size: 16px;
+            }
+
+            .cookie-text p {
+                margin: 0;
+                font-size: 14px;
+                color: #cbd5e1;
+                line-height: 1.5;
+            }
+
+        .cookie-btn {
+            background: #f57c00;
+            color: white;
+            border: none;
+            padding: 10px 30px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            white-space: nowrap;
+            font-size: 15px;
+        }
+
+            .cookie-btn:hover {
+                background: #e06d00;
+                transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(245,124,0,0.3);
+            }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+            }
+
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .cookie-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .cookie-btn {
+                width: 100%;
+            }
+        }
         /* Стили для видео-плеера */
         .video-container {
             margin-top: 20px;
@@ -228,7 +313,7 @@
                             </div>
 
                             <div class="video-container">
-                                <iframe src="https://rutube.ru/play/embed/e7677a705e2df3d2404d13de8429f1ba/"
+                                <iframe src="https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905e/"
                                         allow="clipboard-write; autoplay"
                                         webkitAllowFullScreen
                                         mozallowfullscreen
@@ -264,7 +349,7 @@
                             </div>
 
                             <div class="video-container">
-                                <iframe src="https://rutube.ru/play/embed/37a1963b73f558363eae3d810c612b24/"
+                                <iframe src="https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905e/"
                                         allow="clipboard-write; autoplay"
                                         webkitAllowFullScreen
                                         mozallowfullscreen
@@ -300,7 +385,7 @@
                             </div>
 
                             <div class="video-container">
-                                <iframe src="https://rutube.ru/play/embed/6e8f8fd466621c0480e5c5a052cd4237/"
+                                <iframe src="https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905e/"
                                         allow="clipboard-write; autoplay"
                                         webkitAllowFullScreen
                                         mozallowfullscreen
@@ -336,7 +421,7 @@
                             </div>
 
                             <div class="video-container">
-                                <iframe src="https://rutube.ru/play/embed/c56c17b0023d042764959f286b7b5ec4/"
+                                <iframe src="https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905e/"
                                         allow="clipboard-write; autoplay"
                                         webkitAllowFullScreen
                                         mozallowfullscreen
@@ -372,7 +457,7 @@
                             </div>
 
                             <div class="video-container">
-                                <iframe src="https://rutube.ru/play/embed/56a880dba2572bc5feecc27f23629a43/"
+                                <iframe src="https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905e/"
                                         allow="clipboard-write; autoplay"
                                         webkitAllowFullScreen
                                         mozallowfullscreen
@@ -408,7 +493,7 @@
                             </div>
 
                             <div class="video-container">
-                                <iframe src="https://rutube.ru/play/embed/97243a04af6a24488311664627d8c9fa/"
+                                <iframe src="https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905e/"
                                         allow="clipboard-write; autoplay"
                                         webkitAllowFullScreen
                                         mozallowfullscreen
@@ -444,7 +529,7 @@
                             </div>
 
                             <div class="video-container">
-                                <iframe src="https://rutube.ru/play/embed/8dec10bfd02f68684e8f5c4ac95ff3ac/"
+                                <iframe src="https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905e/"
                                         allow="clipboard-write; autoplay"
                                         webkitAllowFullScreen
                                         mozallowfullscreen
@@ -480,7 +565,7 @@
                             </div>
 
                             <div class="video-container">
-                                <iframe src="https://rutube.ru/play/embed/d71f69fce2dc7d9d89eb48efab08a31b/"
+                                <iframe src="https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905e/"
                                         allow="clipboard-write; autoplay"
                                         webkitAllowFullScreen
                                         mozallowfullscreen
@@ -517,7 +602,7 @@
                             </div>
 
                             <div class="video-container">
-                                <iframe src="https://rutube.ru/play/embed/07587d3a379c539a62148155f4a2144d/"
+                                <iframe src="https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905e/"
                                         allow="clipboard-write; autoplay"
                                         webkitAllowFullScreen
                                         mozallowfullscreen
@@ -553,7 +638,7 @@
                             </div>
 
                             <div class="video-container">
-                                <iframe src="https://rutube.ru/play/embed/153e39e4054b0a0bb2c6efee33d742bd/"
+                                <iframe src="https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905e/"
                                         allow="clipboard-write; autoplay"
                                         webkitAllowFullScreen
                                         mozallowfullscreen
@@ -589,7 +674,7 @@
                             </div>
 
                             <div class="video-container">
-                                <iframe src="https://rutube.ru/play/embed/15e30411bee83c61cd98d8e6994cf3e9/"
+                                <iframe src="https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905e/"
                                         allow="clipboard-write; autoplay"
                                         webkitAllowFullScreen
                                         mozallowfullscreen
@@ -625,7 +710,7 @@
                             </div>
 
                             <div class="video-container">
-                                <iframe src="https://rutube.ru/play/embed/b0c7c95748c3af06abbea8469933bc2b/"
+                                <iframe src="https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905e/"
                                         allow="clipboard-write; autoplay"
                                         webkitAllowFullScreen
                                         mozallowfullscreen
@@ -662,7 +747,7 @@
                             </div>
 
                             <div class="video-container">
-                                <iframe src="https://rutube.ru/play/embed/eaa76b5952a1bf4dbae575edef91cef8/"
+                                <iframe src="https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905e/"
                                         allow="clipboard-write; autoplay"
                                         webkitAllowFullScreen
                                         mozallowfullscreen
@@ -699,7 +784,7 @@
                             </div>
 
                             <div class="video-container">
-                                <iframe src="https://rutube.ru/play/embed/2d59bc5add7de3b0388eded2f9def984/"
+                                <iframe src="https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905e/"
                                         allow="clipboard-write; autoplay"
                                         webkitAllowFullScreen
                                         mozallowfullscreen
@@ -736,7 +821,7 @@
                             </div>
 
                             <div class="video-container">
-                                <iframe src="https://rutube.ru/play/embed/c966fef7eada0f16dafbf5d20774211a/"
+                                <iframe src="https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905e/"
                                         allow="clipboard-write; autoplay"
                                         webkitAllowFullScreen
                                         mozallowfullscreen
@@ -774,7 +859,7 @@
                             </div>
 
                             <div class="video-container">
-                                <iframe src="https://rutube.ru/play/embed/01468536d76a35306a461926c8fe64fd/"
+                                <iframe src="https://rutube.ru/play/embed/9e4cd81a6b2566e9d949881dbb53905e/"
                                         allow="clipboard-write; autoplay"
                                         webkitAllowFullScreen
                                         mozallowfullscreen
@@ -817,10 +902,39 @@
                 const iframe = content?.querySelector('iframe');
             });
         });
+        // ===== Управление согласием на cookies =====
+        document.addEventListener('DOMContentLoaded', function () {
+            const cookieConsent = document.getElementById('cookieConsent');
+            const acceptBtn = document.getElementById('acceptCookies');
+
+            // Проверяем, есть ли согласие в localStorage
+            const cookiesAccepted = localStorage.getItem('cookiesAccepted');
+
+            if (!cookiesAccepted) {
+                // Если согласия нет - показываем уведомление
+                cookieConsent.style.display = 'block';
+            }
+
+            // Обработчик кнопки "Принять"
+            if (acceptBtn) {
+                acceptBtn.addEventListener('click', function () {
+                    // Сохраняем согласие в localStorage
+                    localStorage.setItem('cookiesAccepted', 'true');
+                    // Прячем уведомление
+                    cookieConsent.style.display = 'none';
+                });
+            }
+        });
     </script>
+    <!-- ===== Уведомление о cookies ===== -->
+    <div id="cookieConsent" class="cookie-consent" style="display: none;">
+        <div class="cookie-content">
+            <div class="cookie-text">
+                <strong>🍪 Мы используем cookies</strong>
+                <p>Этот сайт использует cookies для хранения вашего прогресса и настроек. Продолжая использовать сайт, вы соглашаетесь с этим.</p>
+            </div>
+            <button class="cookie-btn" id="acceptCookies">Принять</button>
+        </div>
+    </div>
 </body>
-
 </html>
-
-
-

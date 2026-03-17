@@ -170,6 +170,90 @@
             line-height: 1.5;
         }
 
+        /* ===== Уведомление о cookies ===== */
+        .cookie-consent {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #1e2a3a;
+            color: white;
+            padding: 15px 20px;
+            z-index: 9999;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.2);
+            border-top: 3px solid #f57c00;
+            animation: slideUp 0.3s ease;
+        }
+
+        .cookie-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .cookie-text {
+            flex: 1;
+            min-width: 250px;
+        }
+
+            .cookie-text strong {
+                color: #f57c00;
+                display: block;
+                margin-bottom: 5px;
+                font-size: 16px;
+            }
+
+            .cookie-text p {
+                margin: 0;
+                font-size: 14px;
+                color: #cbd5e1;
+                line-height: 1.5;
+            }
+
+        .cookie-btn {
+            background: #f57c00;
+            color: white;
+            border: none;
+            padding: 10px 30px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            white-space: nowrap;
+            font-size: 15px;
+        }
+
+            .cookie-btn:hover {
+                background: #e06d00;
+                transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(245,124,0,0.3);
+            }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(100%);
+            }
+
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .cookie-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .cookie-btn {
+                width: 100%;
+            }
+        }
+
         /* Адаптация для мобильных */
         @media (max-width: 700px) {
             .hero-title {
@@ -263,5 +347,40 @@
             <div class="footer-year">2026</div>
         </div>
     </footer>
+    <script>
+        // ===== Управление согласием на cookies =====
+        document.addEventListener('DOMContentLoaded', function () {
+            const cookieConsent = document.getElementById('cookieConsent');
+            const acceptBtn = document.getElementById('acceptCookies');
+
+            // Проверяем, есть ли согласие в localStorage
+            const cookiesAccepted = localStorage.getItem('cookiesAccepted');
+
+            if (!cookiesAccepted) {
+                // Если согласия нет - показываем уведомление
+                cookieConsent.style.display = 'block';
+            }
+
+            // Обработчик кнопки "Принять"
+            if (acceptBtn) {
+                acceptBtn.addEventListener('click', function () {
+                    // Сохраняем согласие в localStorage
+                    localStorage.setItem('cookiesAccepted', 'true');
+                    // Прячем уведомление
+                    cookieConsent.style.display = 'none';
+                });
+            }
+        });
+    </script>
+    <!-- ===== Уведомление о cookies ===== -->
+    <div id="cookieConsent" class="cookie-consent" style="display: none;">
+        <div class="cookie-content">
+            <div class="cookie-text">
+                <strong>🍪 Мы используем cookies</strong>
+                <p>Этот сайт использует cookies для хранения вашего прогресса и настроек. Продолжая использовать сайт, вы соглашаетесь с этим.</p>
+            </div>
+            <button class="cookie-btn" id="acceptCookies">Принять</button>
+        </div>
+    </div>
 </body>
 </html>
