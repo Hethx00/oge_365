@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -290,6 +290,36 @@
                 color: #f57c00;
             }
 
+
+
+        /* ===== Стили для файлов ===== */
+        .task-file {
+            margin: 10px 0;
+        }
+
+        .file-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: #f57c00;
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+            .file-link:hover {
+                background: #e06d00;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 10px rgba(245,124,0,0.3);
+            }
+
+        .file-icon {
+            font-size: 16px;
+        }
         /* ===== список заданий ===== */
         .tasks-list {
             display: flex;
@@ -978,13 +1008,37 @@
         const STORAGE_KEY = 'oge365_solved_tasks';
         const MODE_KEY = 'oge365_user_mode';
 
-        // ===== ФУНКЦИЯ ДЛЯ ФОРМАТИРОВАНИЯ ТЕКСТА =====
+        // ===== функция для форматирования текста =====
         function formatText(text) {
             if (!text) return '';
             return String(text).replace(/\n/g, '<br>').replace(/\r\n/g, '<br>');
         }
 
-        // ===== УНИВЕРСАЛЬНАЯ ФУНКЦИЯ ДЛЯ ОТОБРАЖЕНИЯ ТАБЛИЦ =====
+        // ===== функция для преобразования ссылок google drive =====
+        function getGoogleDriveDirectLink(url) {
+            if (!url) return url;
+
+            // Проверяем, что это ссылка на Google Drive
+            if (url.includes('drive.google.com')) {
+                // Формат: https://drive.google.com/file/d/FILE_ID/view
+                const match = url.match(/\/d\/(.+?)\/|id=(.+?)(&|$)/);
+                if (match) {
+                    const fileId = match[1] || match[2];
+                    if (fileId) {
+                        return `https://drive.google.com/uc?export=download&id=${fileId}`;
+                    }
+                }
+            }
+
+            // Если это уже прямая ссылка на скачивание
+            if (url.includes('uc?export=download')) {
+                return url;
+            }
+
+            return url;
+        }
+
+        // ===== универсальная функция для отображения таблиц =====
         function renderTable(tableData) {
             if (!tableData) return '';
 
@@ -1283,6 +1337,7 @@
 
             tasks.forEach((task, index) => {
                 const hasImage = task.image_url && String(task.image_url).trim() !== '';
+                const hasFile = task.file_url && String(task.file_url).trim() !== '';
                 const taskId = `task-${task.id || index}`.replace(/[^a-zA-Z0-9]/g, '-');
                 const displayNumber = task.task_number || `${task.number}.${index + 1}`;
 
@@ -1291,31 +1346,31 @@
                     const options = String(task.options).split(';').map(opt => opt.trim());
 
                     answerHtml = `
-                                    <div class="choice-group" id="choice-group-${taskId}">
-                                        ${options.map((option, optIdx) => `
-                                            <label class="choice-item" for="choice-${taskId}-${optIdx}">
-                                                <input type="radio"
-                                                       name="answer-${taskId}"
-                                                       id="choice-${taskId}-${optIdx}"
-                                                       value="${option}">
-                                                ${option}
-                                            </label>
-                                        `).join('')}
-                                    </div>
-                                    <button class="check-btn" onclick="checkChoiceAnswer('${taskId}')">Проверить</button>
-                                `;
+                <div class="choice-group" id="choice-group-${taskId}">
+                    ${options.map((option, optIdx) => `
+                        <label class="choice-item" for="choice-${taskId}-${optIdx}">
+                            <input type="radio"
+                                   name="answer-${taskId}"
+                                   id="choice-${taskId}-${optIdx}"
+                                   value="${option}">
+                            ${option}
+                        </label>
+                    `).join('')}
+                </div>
+                <button class="check-btn" onclick="checkChoiceAnswer('${taskId}')">Проверить</button>
+            `;
                 } else {
                     answerHtml = `
-                                    <input type="text"
-                                           class="answer-input"
-                                           id="input-${taskId}"
-                                           placeholder="Введите ответ..."
-                                           autocomplete="off"
-                                           autocorrect="off"
-                                           autocapitalize="off"
-                                           spellcheck="false">
-                                    <button class="check-btn" onclick="checkTaskAnswer('${taskId}')">Проверить</button>
-                                `;
+                <input type="text"
+                       class="answer-input"
+                       id="input-${taskId}"
+                       placeholder="Введите ответ..."
+                       autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       spellcheck="false">
+                <button class="check-btn" onclick="checkTaskAnswer('${taskId}')">Проверить</button>
+            `;
                 }
 
                 // Для задания 6 используем специальную функцию
@@ -1327,56 +1382,66 @@
                 }
 
                 html += `
-                                <div class="task-item" id="${taskId}">
-                                    <div class="task-header">
-                                        <span class="task-number-badge">Задание ${task.number}</span>
-                                        <span class="task-subnumber">${displayNumber}</span>
-                                    </div>
-                                    <div class="task-question">${formatText(task.question)}</div>
+            <div class="task-item" id="${taskId}">
+                <div class="task-header">
+                    <span class="task-number-badge">Задание ${task.number}</span>
+                    <span class="task-subnumber">${displayNumber}</span>
+                </div>
+                <div class="task-question">${formatText(task.question)}</div>
 
-                                    ${tableHtml}
+                ${tableHtml}
 
-                                    ${hasImage ? `
-                                        <div class="task-image">
-                                            <img src="${task.image_url}" alt="Задание ${task.number}">
-                                        </div>
-                                    ` : ''}
-                                    <div class="answer-block">
-                                        <div class="answer-input-group">
-                                            ${answerHtml}
-                                            <span class="result-badge" id="result-${taskId}"></span>
-                                        </div>
-                                        <div class="hints-container" id="hints-${taskId}">
-                                            ${task.hint1 ? `
-                                                <div class="spoiler-item" id="spoiler-item-hint1-${taskId}">
-                                                    <div class="spoiler-header" id="spoiler-header-hint1-${taskId}" onclick="toggleSpoiler('hint1-${taskId}')">
-                                                        <span class="spoiler-icon">▶</span>
-                                                        <span class="spoiler-title">Подсказка 1</span>
-                                                    </div>
-                                                    <div class="spoiler-content" id="spoiler-content-hint1-${taskId}">
-                                                        <div class="spoiler-inner">
-                                                            ${formatText(task.hint1)}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            ` : ''}
-                                            ${task.hint2 ? `
-                                                <div class="spoiler-item" id="spoiler-item-hint2-${taskId}">
-                                                    <div class="spoiler-header" id="spoiler-header-hint2-${taskId}" onclick="toggleSpoiler('hint2-${taskId}')">
-                                                        <span class="spoiler-icon">▶</span>
-                                                        <span class="spoiler-title">Подсказка 2</span>
-                                                    </div>
-                                                    <div class="spoiler-content" id="spoiler-content-hint2-${taskId}">
-                                                        <div class="spoiler-inner">
-                                                            ${formatText(task.hint2)}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            ` : ''}
-                                        </div>
+                ${hasImage ? `
+                    <div class="task-image">
+                        <img src="${task.image_url}" alt="Задание ${task.number}">
+                    </div>
+                ` : ''}
+                
+                ${hasFile ? `
+                    <div class="task-file">
+                        <a href="${getGoogleDriveDirectLink(task.file_url)}" target="_blank" class="file-link" download>
+                            <span class="file-icon">📎</span>
+                            <span class="file-text">Скачать файл для задания</span>
+                        </a>
+                    </div>
+                ` : ''}
+                
+                <div class="answer-block">
+                    <div class="answer-input-group">
+                        ${answerHtml}
+                        <span class="result-badge" id="result-${taskId}"></span>
+                    </div>
+                    <div class="hints-container" id="hints-${taskId}">
+                        ${task.hint1 ? `
+                            <div class="spoiler-item" id="spoiler-item-hint1-${taskId}">
+                                <div class="spoiler-header" id="spoiler-header-hint1-${taskId}" onclick="toggleSpoiler('hint1-${taskId}')">
+                                    <span class="spoiler-icon">▶</span>
+                                    <span class="spoiler-title">Подсказка 1</span>
+                                </div>
+                                <div class="spoiler-content" id="spoiler-content-hint1-${taskId}">
+                                    <div class="spoiler-inner">
+                                        ${formatText(task.hint1)}
                                     </div>
                                 </div>
-                            `;
+                            </div>
+                        ` : ''}
+                        ${task.hint2 ? `
+                            <div class="spoiler-item" id="spoiler-item-hint2-${taskId}">
+                                <div class="spoiler-header" id="spoiler-header-hint2-${taskId}" onclick="toggleSpoiler('hint2-${taskId}')">
+                                    <span class="spoiler-icon">▶</span>
+                                    <span class="spoiler-title">Подсказка 2</span>
+                                </div>
+                                <div class="spoiler-content" id="spoiler-content-hint2-${taskId}">
+                                    <div class="spoiler-inner">
+                                        ${formatText(task.hint2)}
+                                    </div>
+                                </div>
+                            </div>
+                        ` : ''}
+                    </div>
+                </div>
+            </div>
+        `;
             });
 
             html += '</div>';
@@ -1385,19 +1450,19 @@
                 const remaining = totalCount - tasks.length;
                 const nextCount = Math.min(tasksPerPage, remaining);
                 html += `
-                                <div class="pagination-container">
-                                    <button class="load-more-btn" onclick="loadMoreTasks()">
-                                        📚 Показать ещё ${nextCount} из ${remaining}
-                                    </button>
-                                </div>
-                            `;
+            <div class="pagination-container">
+                <button class="load-more-btn" onclick="loadMoreTasks()">
+                    📚 Показать ещё ${nextCount} из ${remaining}
+                </button>
+            </div>
+        `;
             }
 
             html += `
-                            <div class="pagination-info">
-                                Показано ${tasks.length} из ${totalCount} заданий
-                            </div>
-                        `;
+        <div class="pagination-info">
+            Показано ${tasks.length} из ${totalCount} заданий
+        </div>
+    `;
 
             container.innerHTML = html;
 
