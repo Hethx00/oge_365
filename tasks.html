@@ -78,7 +78,7 @@
             }
 
 
-        
+
 
         .task-table th {
             background: #f57c00;
@@ -388,9 +388,109 @@
                 max-height: 180px;
                 object-fit: contain;
                 border-radius: 6px;
+                display: block;
+                margin: 0 auto;
             }
 
-        /* ===== СТИЛИ ДЛЯ ТАБЛИЦ ===== */
+
+
+            /* Защита от переопределения стилей для картинок */
+            .task-item img,
+            .task-image img,
+            .variant-task-card img {
+                max-width: 100%;
+                height: auto;
+                display: block;
+                margin: 0 auto;
+            }
+
+        /* Сброс стилей для картинок от таблиц */
+        .task-table img {
+            max-width: none;
+            display: inline;
+        }
+
+
+        /* ===== Стили для развернутых ответов ===== */
+        .extended-answer-block {
+            background: #fffbeb;
+            border-radius: 12px;
+            padding: 15px;
+            border: 1px solid #ffe4c4;
+        }
+
+        .extended-note {
+            color: #f59e0b;
+            font-weight: 600;
+            margin-bottom: 12px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .extended-spoiler {
+            margin-top: 8px;
+        }
+
+        .extended-spoiler-header {
+            background: white;
+            padding: 10px 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            font-size: 14px;
+            color: #f57c00;
+            border-radius: 30px;
+            border: 1px solid #f57c00;
+            transition: 0.2s;
+            width: fit-content;
+        }
+
+            .extended-spoiler-header:hover {
+                background: #f57c00;
+                color: white;
+            }
+
+            .extended-spoiler-header .spoiler-icon {
+                font-size: 12px;
+                transition: transform 0.2s;
+            }
+
+            .extended-spoiler-header.open .spoiler-icon {
+                transform: rotate(90deg);
+            }
+
+        .extended-spoiler-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            margin-top: 0;
+        }
+
+            .extended-spoiler-content.open {
+                max-height: 300px;
+                margin-top: 12px;
+            }
+
+        .extended-answer-text {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #f57c00;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #334155;
+        }
+
+            .extended-answer-text strong {
+                color: #f57c00;
+                display: block;
+                margin-bottom: 8px;
+            }
+        /* ===== стили для таблиц ===== */
         .task-table-container {
             margin: 15px 0;
             overflow-x: auto;
@@ -416,7 +516,7 @@
                 font-size: 14px;
                 text-align: center;
                 vertical-align: middle;
-                white-space: nowrap; /* ЗАПРЕЩАЕМ ПЕРЕНОС */
+                white-space: nowrap;
             }
 
             .task-table th {
@@ -425,31 +525,30 @@
                 font-weight: 600;
             }
 
-            /* Все ячейки по умолчанию */
             .task-table td {
                 background: white;
                 color: #1e2a3a;
             }
 
-            /* Специально для таблиц с алфавитом (много колонок) */
+            /* Специально для таблиц с алфавитом */
             .task-table[data-type="alphabet"] th,
             .task-table[data-type="alphabet"] td {
-                min-width: 35px; /* Фиксированная ширина для каждой ячейки */
+                min-width: 35px; 
                 max-width: 35px;
                 padding: 8px 2px;
             }
 
-            /* Стили для таблиц с кодом (задание 6) */
+            /* Стили для таблиц с кодо */
             .task-table[data-type="code"] td:first-child {
                 background: #f8fafc;
                 font-weight: 600;
-                white-space: normal; /* Разрешаем перенос для длинных названий */
+                white-space: normal; 
                 width: 160px;
                 min-width: 160px;
                 max-width: 160px;
                 text-align: center;
                 vertical-align: middle;
-                word-break: break-word; /* Разбиваем длинные слова */
+                word-break: break-word; 
                 padding: 10px 5px;
             }
 
@@ -984,7 +1083,7 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-logo">ОГЭ365</div>
-            <div class="footer-email">tg: @vinnipolka</div>
+            <div class="footer-email">Для обратной связи: leib.agency@gmail.com</div>
             <div class="footer-year">2026</div>
         </div>
     </footer>
@@ -1008,17 +1107,59 @@
         const STORAGE_KEY = 'oge365_solved_tasks';
         const MODE_KEY = 'oge365_user_mode';
 
-        // ===== функция для форматирования текста =====
+        // ===== функция для форматирования текста с поддержкой маркеров жирного текста =====
         function formatText(text) {
             if (!text) return '';
-            return String(text).replace(/\n/g, '<br>').replace(/\r\n/g, '<br>');
+
+            let formatted = String(text);
+
+            formatted = formatted.replace(/\n/g, '<br>').replace(/\r\n/g, '<br>');
+
+            formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+            formatted = formatted.replace(/(?<![\/:])\*(?!\*)(.*?)(?<![\/:])\*(?!\*)/g, '<strong>$1</strong>');
+
+            formatted = formatted.replace(/__(.*?)__/g, '<strong>$1</strong>');
+
+            return formatted;
         }
 
+        // ===== функция для форматирования ячейки таблицы =====
+        function formatTableCell(cellContent) {
+            if (!cellContent) return '';
+
+            let formatted = String(cellContent);
+
+            formatted = formatted.replace(/\\n/g, '<br>');
+
+            formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            formatted = formatted.replace(/(?<![\/:])\*(?!\*)(.*?)(?<![\/:])\*(?!\*)/g, '<strong>$1</strong>');
+            formatted = formatted.replace(/__(.*?)__/g, '<strong>$1</strong>');
+
+            return formatted;
+        }
+
+        // ===== функция для преобразования ссылок google drive для картинок =====
+        function getGoogleDriveImageUrl(url) {
+            if (!url) return url;
+
+            if (url.includes('drive.google.com')) {
+                const match = url.match(/\/d\/(.+?)\/|id=(.+?)(&|$)/);
+                if (match) {
+                    const fileId = match[1] || match[2];
+                    if (fileId) {
+                        
+                        return `https://lh3.googleusercontent.com/d/${fileId}=w800?authuser=0`;
+                    }
+                }
+            }
+            return url;
+        }
         // ===== функция для преобразования ссылок google drive =====
         function getGoogleDriveDirectLink(url) {
             if (!url) return url;
 
-            // Проверяем, что это ссылка на Google Drive
+            
             if (url.includes('drive.google.com')) {
                 // Формат: https://drive.google.com/file/d/FILE_ID/view
                 const match = url.match(/\/d\/(.+?)\/|id=(.+?)(&|$)/);
@@ -1030,7 +1171,6 @@
                 }
             }
 
-            // Если это уже прямая ссылка на скачивание
             if (url.includes('uc?export=download')) {
                 return url;
             }
@@ -1038,14 +1178,36 @@
             return url;
         }
 
-        // ===== универсальная функция для отображения таблиц =====
+        // ===== вспомогательная функция для форматирования ячейки с поддержкой жирного текста =====
+        function formatTableCell(cellContent) {
+            if (!cellContent) return '';
+
+            let formatted = String(cellContent);
+
+           
+            formatted = formatted.replace(/\\n/g, '<br>');
+
+            formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+            formatted = formatted.replace(/\*(.*?)\*/g, '<strong>$1</strong>');
+
+            formatted = formatted.replace(/__(.*?)__/g, '<strong>$1</strong>');
+
+            formatted = formatted.replace(/<b>(.*?)<\/b>/gi, '<strong>$1</strong>');
+
+            formatted = formatted.replace(/\[bold\](.*?)\[\/bold\]/gi, '<strong>$1</strong>');
+
+
+            return formatted;
+        }
+
+        // ===== обновленная функция для отображения таблиц с поддержкой жирного текста =====
         function renderTable(tableData) {
             if (!tableData) return '';
 
             try {
                 console.log('Данные таблицы:', tableData);
 
-                // Пробуем разные разделители
                 let rows;
                 if (String(tableData).includes(';')) {
                     rows = String(tableData).split(';').map(row => row.split(','));
@@ -1063,13 +1225,11 @@
                     tableHtml += '<tr>';
                     rows[i].forEach(cell => {
                         const cellContent = cell.trim();
-                        // Заменяем \n на <br> для отображения переносов
-                        const formattedContent = cellContent.replace(/\\n/g, '<br>');
+                        const formattedContent = formatTableCell(cellContent);
 
                         if (i === 0) {
                             tableHtml += `<th>${formattedContent}</th>`;
                         } else {
-                            // Для обычных таблиц (не код) не применяем monospace
                             tableHtml += `<td>${formattedContent}</td>`;
                         }
                     });
@@ -1084,32 +1244,29 @@
             }
         }
 
-
-        // ===== СПЕЦИАЛЬНАЯ ФУНКЦИЯ ДЛЯ ЗАДАНИЯ 6 =====
+        // ===== обновленная функция для задания 6 с поддержкой жирного текста =====
         function renderTask6Table(tableData) {
             if (!tableData) return '';
 
             try {
-                // Разбиваем на строки по && (двойной амперсанд - редко встречается в коде)
+                
                 const rows = String(tableData).split('&&').map(row => row.split('::'));
 
                 if (rows.length === 0) return '';
 
                 let tableHtml = '<div class="task-table-container"><table class="task-table" data-type="code">';
 
-                // Создаем заголовки
                 tableHtml += '<thead><tr><th>Язык программирования</th><th>Код программы</th></tr></thead>';
 
-                // Создаем тело таблицы
                 tableHtml += '<tbody>';
                 for (let i = 0; i < rows.length; i++) {
                     if (rows[i].length >= 2) {
                         const language = rows[i][0].trim();
-                        // ЗАМЕНЯЕМ \n на <br> для переносов
-                        const code = rows[i][1].trim().replace(/\\n/g, '<br>');
+                        let code = rows[i][1].trim().replace(/\\n/g, '<br>');
+                        code = formatTableCell(code);
 
                         tableHtml += '<tr>';
-                        tableHtml += `<td style="font-weight: 600; white-space: nowrap;">${language}</td>`;
+                        tableHtml += `<td style="font-weight: 600; white-space: nowrap;">${formatTableCell(language)}</td>`;
                         tableHtml += `<td style="text-align: left; font-family: monospace; white-space: pre-wrap;">${code}</td>`;
                         tableHtml += '</tr>';
                     }
@@ -1124,16 +1281,19 @@
             }
         }
 
+
+        
+
         // ===== загрузка при старте =====
         document.addEventListener('DOMContentLoaded', function () {
             const container = document.getElementById('tasksContainer');
             container.innerHTML = `
-                            <div class="loader">
-                                <div class="loader-spinner"></div>
-                                <p>⏳ Загрузка заданий...</p>
-                                <p style="font-size: 14px; color: #94a3b8; margin-top: 5px;">Подождите немного</p>
-                            </div>
-                        `;
+                                <div class="loader">
+                                    <div class="loader-spinner"></div>
+                                    <p>⏳ Загрузка заданий...</p>
+                                    <p style="font-size: 14px; color: #94a3b8; margin-top: 5px;">Подождите немного</p>
+                                </div>
+                            `;
 
             const savedSort = localStorage.getItem('oge365_sort_order');
             if (savedSort) {
@@ -1229,25 +1389,25 @@
 
                 const container = document.getElementById('tasksContainer');
                 container.innerHTML = `
-                                <div class="no-results">
-                                    🔍 Выберите номер задания и нажмите "НАЙТИ"
-                                </div>
-                            `;
+                                    <div class="no-results">
+                                        🔍 Выберите номер задания и нажмите "НАЙТИ"
+                                    </div>
+                                `;
 
             } catch (error) {
                 console.error('❌ Ошибка загрузки:', error);
                 const container = document.getElementById('tasksContainer');
                 container.innerHTML = `
-                                <div class="no-results">
-                                    ❌ Не удалось загрузить задания<br>
-                                    <small style="color: #ef4444;">${error.message}</small><br>
-                                    <button onclick="location.reload()"
-                                            style="margin-top: 15px; padding: 8px 20px; background: #f57c00;
-                                                   color: white; border: none; border-radius: 30px; cursor: pointer;">
-                                        🔄 Попробовать снова
-                                    </button>
-                                </div>
-                            `;
+                                    <div class="no-results">
+                                        ❌ Не удалось загрузить задания<br>
+                                        <small style="color: #ef4444;">${error.message}</small><br>
+                                        <button onclick="location.reload()"
+                                                style="margin-top: 15px; padding: 8px 20px; background: #f57c00;
+                                                       color: white; border: none; border-radius: 30px; cursor: pointer;">
+                                            🔄 Попробовать снова
+                                        </button>
+                                    </div>
+                                `;
                 isLoading = false;
             }
         }
@@ -1291,11 +1451,11 @@
 
             if (isLoading) {
                 container.innerHTML = `
-                                <div class="loader">
-                                    <div class="loader-spinner"></div>
-                                    <p>⏳ Загрузка заданий...</p>
-                                </div>
-                            `;
+                                    <div class="loader">
+                                        <div class="loader-spinner"></div>
+                                        <p>⏳ Загрузка заданий...</p>
+                                    </div>
+                                `;
                 resultsHeader.style.display = 'none';
                 return;
             }
@@ -1311,10 +1471,10 @@
 
             if (currentFilteredTasks.length === 0) {
                 container.innerHTML = `
-                                <div class="no-results">
-                                    😕 В этом режиме заданий с номером ${selectedNumber} не найдено
-                                </div>
-                            `;
+                                    <div class="no-results">
+                                        😕 В этом режиме заданий с номером ${selectedNumber} не найдено
+                                    </div>
+                                `;
                 resultsHeader.style.display = 'none';
                 return;
             }
@@ -1341,10 +1501,33 @@
                 const taskId = `task-${task.id || index}`.replace(/[^a-zA-Z0-9]/g, '-');
                 const displayNumber = task.task_number || `${task.number}.${index + 1}`;
 
-                let answerHtml = '';
-                if (currentUserMode === 'novice') {
-                    const options = String(task.options).split(';').map(opt => opt.trim());
+                const isExtended = task.number >= 13 && task.number <= 16;
 
+                let answerHtml = '';
+
+                if (isExtended) {
+                    
+                    answerHtml = `
+                <div class="extended-answer-block">
+                    <div class="extended-note">
+                        <span>✍️ Задание с развернутым ответом</span>
+                    </div>
+                    <div class="extended-spoiler">
+                        <div class="extended-spoiler-header" onclick="toggleExtendedAnswer('${taskId}')">
+                            <span class="spoiler-icon">▶</span>
+                            <span class="spoiler-title">Показать правильный ответ для самопроверки</span>
+                        </div>
+                        <div class="extended-spoiler-content" id="extended-answer-${taskId}">
+                            <div class="extended-answer-text">
+                                <strong>📝 Правильный ответ:</strong><br>
+                                ${formatText(task.answer) || 'Ответ не указан'}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+                } else if (currentUserMode === 'novice') {
+                    const options = String(task.options).split(';').map(opt => opt.trim());
                     answerHtml = `
                 <div class="choice-group" id="choice-group-${taskId}">
                     ${options.map((option, optIdx) => `
@@ -1373,7 +1556,6 @@
             `;
                 }
 
-                // Для задания 6 используем специальную функцию
                 let tableHtml = '';
                 if (task.number == 6) {
                     tableHtml = renderTask6Table(task.table_data);
@@ -1393,7 +1575,10 @@
 
                 ${hasImage ? `
                     <div class="task-image">
-                        <img src="${task.image_url}" alt="Задание ${task.number}">
+                        <img src="${getGoogleDriveImageUrl(task.image_url)}" 
+                             alt="Задание ${task.number}"
+                             style="max-width: 100%; max-height: 180px; object-fit: contain;"
+                             onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML='<div style=\'padding: 20px; text-align: center; color: #ef4444;\'>⚠️ Картинка не загрузилась (проблемы с сертификатом)</div>'">
                     </div>
                 ` : ''}
                 
@@ -1409,7 +1594,7 @@
                 <div class="answer-block">
                     <div class="answer-input-group">
                         ${answerHtml}
-                        <span class="result-badge" id="result-${taskId}"></span>
+                        ${!isExtended ? `<span class="result-badge" id="result-${taskId}"></span>` : ''}
                     </div>
                     <div class="hints-container" id="hints-${taskId}">
                         ${task.hint1 ? `
@@ -1531,7 +1716,7 @@
             displayPaginatedTasks();
         }
 
-        // ===== функция проверки ответа (текст) =====
+        // ===== функция проверки ответа =====
         window.checkTaskAnswer = function (taskId) {
             const input = document.getElementById(`input-${taskId}`);
             const resultSpan = document.getElementById(`result-${taskId}`);
@@ -1603,7 +1788,7 @@
             }
         };
 
-        // ===== функция проверки ответа (выбор) =====
+        // ===== функция проверки ответа =====
         window.checkChoiceAnswer = function (taskId) {
             const radios = document.getElementsByName(`answer-${taskId}`);
             let selectedValue = null;
@@ -1732,24 +1917,32 @@
             const cookieConsent = document.getElementById('cookieConsent');
             const acceptBtn = document.getElementById('acceptCookies');
 
-            // Проверяем, есть ли согласие в localStorage
             const cookiesAccepted = localStorage.getItem('cookiesAccepted');
 
             if (!cookiesAccepted) {
-                // Если согласия нет - показываем уведомление
+                
                 cookieConsent.style.display = 'block';
             }
 
-            // Обработчик кнопки "Принять"
             if (acceptBtn) {
                 acceptBtn.addEventListener('click', function () {
-                    // Сохраняем согласие в localStorage
+                    
                     localStorage.setItem('cookiesAccepted', 'true');
-                    // Прячем уведомление
+                    
                     cookieConsent.style.display = 'none';
                 });
             }
         });
+        // ===== Функция для переключения спойлера с ответом =====
+        window.toggleExtendedAnswer = function (taskId) {
+            const content = document.getElementById(`extended-answer-${taskId}`);
+            const header = content?.previousElementSibling;
+
+            if (content && header) {
+                content.classList.toggle('open');
+                header.classList.toggle('open');
+            }
+        };
     </script>
     <!-- ===== Уведомление о cookies ===== -->
     <div id="cookieConsent" class="cookie-consent" style="display: none;">
