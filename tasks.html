@@ -3,262 +3,293 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ОГЭ365 - Варианты</title>
+    <title>ОГЭ365 - База заданий</title>
     <!-- Общий CSS -->
     <link rel="stylesheet" href="css/style.css">
     <style>
-        /* ===== Стили для вариантов ===== */
-
-        .variants-header {
-            margin-bottom: 30px;
-        }
-
-        .variants-description {
+        /* ===== основные стили ===== */
+        .search-card {
             background: white;
             border-radius: 16px;
             padding: 20px;
-            margin-bottom: 30px;
+            border: 1px solid #edf2f7;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+        }
+
+        .search-form {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .form-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+            .form-group label {
+                display: block;
+                font-size: 13px;
+                font-weight: 600;
+                margin-bottom: 4px;
+                color: #64748b;
+                text-transform: uppercase;
+            }
+
+            .form-group select {
+                width: 100%;
+                padding: 10px 14px;
+                font-size: 15px;
+                border: 2px solid #e2e8f0;
+                border-radius: 10px;
+                background: white;
+                cursor: pointer;
+                appearance: none;
+                background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f57c00' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+                background-repeat: no-repeat;
+                background-position: right 12px center;
+                background-size: 16px;
+            }
+
+                .form-group select:focus {
+                    outline: none;
+                    border-color: #f57c00;
+                }
+
+        .search-btn {
+            background: #f57c00;
+            color: white;
+            border: none;
+            padding: 11px 30px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 4px 8px rgba(245,124,0,0.2);
+            white-space: nowrap;
+        }
+
+            .search-btn:hover {
+                background: #e06d00;
+                transform: translateY(-2px);
+            }
+
+
+
+
+        .task-table th {
+            background: #f57c00;
+            color: white;
+            font-weight: 600;
+            white-space: nowrap;
+            text-align: center;
+        }
+        /* ===== стили для фильтров ===== */
+        .filters-panel {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 25px;
             border: 1px solid #edf2f7;
             box-shadow: 0 2px 10px rgba(0,0,0,0.02);
-            color: #475569;
-            line-height: 1.6;
         }
 
-            .variants-description strong {
-                color: #f57c00;
-            }
-
-        /* ===== Таймер ===== */
-        .timer-container {
-            background: linear-gradient(135deg, #1e2a3a 0%, #2d3e52 100%);
-            border-radius: 60px;
-            padding: 15px 25px;
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            color: white;
-            box-shadow: 0 10px 20px -5px rgba(0,0,0,0.2);
-            border: 2px solid #f57c00;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .timer-label {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 18px;
-            font-weight: 600;
-        }
-
-            .timer-label svg {
-                width: 24px;
-                height: 24px;
-                fill: #f57c00;
-            }
-
-        .timer-display {
-            font-family: 'Courier New', monospace;
-            font-size: 32px;
-            font-weight: 700;
-            background: rgba(0,0,0,0.3);
-            padding: 8px 20px;
-            border-radius: 50px;
-            letter-spacing: 3px;
-            color: #f57c00;
-            text-shadow: 0 0 10px rgba(245,124,0,0.3);
-        }
-
-        .timer-warning {
-            background: #fee2e2;
-            border: 2px solid #ef4444;
-            animation: pulse 1s infinite;
-        }
-
-            .timer-warning .timer-display {
-                color: #ef4444;
-            }
-
-        .timer-expired {
-            background: #1e2a3a;
-            opacity: 0.7;
-        }
-
-            .timer-expired .timer-display {
-                color: #ef4444;
-            }
-
-        @keyframes pulse {
-            0% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0.8;
-            }
-
-            100% {
-                opacity: 1;
-            }
-        }
-
-        /* ===== Панель выбора заданий ===== */
-        .selection-panel {
-            background: white;
-            border-radius: 20px;
-            padding: 25px;
-            border: 1px solid #edf2f7;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-            margin-bottom: 30px;
-        }
-
-        .selection-title {
-            font-size: 18px;
+        .filters-title {
+            font-size: 16px;
             font-weight: 600;
             margin-bottom: 15px;
             color: #1e2a3a;
         }
 
-            .selection-title span {
+            .filters-title span {
                 color: #f57c00;
+                background: #fff0e0;
+                padding: 4px 12px;
+                border-radius: 30px;
+                font-size: 14px;
             }
 
-        /* ===== Счетчики для заданий ===== */
-        .tasks-grid-select {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 15px;
-            margin-bottom: 25px;
+        .filters-options {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: flex-start;
         }
 
-        .task-counter-item {
+        .filter-radio {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            padding: 8px 16px;
             background: #f8fafc;
             border: 2px solid #e2e8f0;
-            border-radius: 14px;
-            padding: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            transition: all 0.2s;
-            flex-wrap: wrap;
-            gap: 10px;
+            border-radius: 40px;
+            transition: 0.2s;
+            white-space: nowrap;
         }
 
-            .task-counter-item:hover {
+            .filter-radio:hover {
                 border-color: #f57c00;
                 background: #fff5eb;
             }
 
-        .task-counter-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex: 1;
-            min-width: 150px;
-        }
+            .filter-radio input[type="radio"] {
+                width: 18px;
+                height: 18px;
+                accent-color: #f57c00;
+                cursor: pointer;
+            }
 
-        .task-counter-number {
-            background: #f57c00;
+            .filter-radio span {
+                font-size: 14px;
+                color: #334155;
+                white-space: nowrap;
+            }
+
+        .apply-filter-btn {
+            background: #3b82f6;
             color: white;
-            min-width: 32px;
-            height: 32px;
-            border-radius: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 14px;
-        }
-
-        .task-counter-label {
-            font-weight: 500;
-            color: #334155;
-            font-size: 14px;
-        }
-
-            .task-counter-label strong {
-                display: block;
-                margin-bottom: 2px;
-            }
-
-            .task-counter-label small {
-                font-size: 12px;
-                color: #64748b;
-            }
-
-        .task-counter-controls {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: white;
-            padding: 5px;
-            border-radius: 40px;
-            border: 2px solid #e2e8f0;
-        }
-
-        .counter-btn {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
             border: none;
-            background: #f57c00;
-            color: white;
-            font-size: 20px;
-            font-weight: 700;
+            padding: 8px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 40px;
             cursor: pointer;
+            transition: 0.2s;
+            white-space: nowrap;
+            margin-left: 0;
+        }
+
+            .apply-filter-btn:hover {
+                background: #2563eb;
+                transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(59,130,246,0.3);
+            }
+
+        /* ===== переключатель режимов ===== */
+        .mode-switcher {
+            background: white;
+            border-radius: 16px;
+            padding: 12px 20px;
+            margin-bottom: 25px;
+            border: 1px solid #edf2f7;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .mode-switcher-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #64748b;
+        }
+
+        .mode-toggle {
+            display: flex;
+            background: #f1f5f9;
+            border-radius: 40px;
+            padding: 3px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .mode-btn {
+            padding: 6px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            background: transparent;
+            border-radius: 40px;
+            cursor: pointer;
             transition: 0.2s;
+            color: #64748b;
         }
 
-            .counter-btn:hover:not(:disabled) {
-                background: #e06d00;
-                transform: scale(1.05);
+            .mode-btn.active {
+                background: #f57c00;
+                color: white;
+                box-shadow: 0 2px 8px rgba(245,124,0,0.2);
             }
 
-            .counter-btn:disabled {
-                background: #cbd5e1;
-                cursor: not-allowed;
-                opacity: 0.5;
+        @media (max-width: 700px) {
+            .filters-options {
+                gap: 8px;
             }
 
-        .counter-value {
-            font-size: 18px;
-            font-weight: 700;
-            color: #1e2a3a;
-            min-width: 40px;
-            text-align: center;
-        }
-
-            .counter-value span {
-                font-size: 12px;
-                font-weight: normal;
-                color: #64748b;
-                margin-left: 2px;
-            }
-
-        /* ===== Спинер ===== */
-        .loader-spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #f57c00;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
+            .filter-radio {
+                padding: 6px 12px;
             }
         }
+
+        @media (max-width: 600px) {
+            .filters-options {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 8px;
+            }
+
+            .filter-radio {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .apply-filter-btn {
+                width: 100%;
+            }
+
+            .mode-switcher {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .mode-toggle {
+                width: 100%;
+            }
+
+            .mode-btn {
+                flex: 1;
+                text-align: center;
+            }
+        }
+
+        /* ===== результаты ===== */
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .results-count {
+            font-size: 14px;
+            color: #64748b;
+            background: white;
+            padding: 4px 12px;
+            border-radius: 30px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .reset-btn {
+            background: none;
+            border: 1px solid #cbd5e1;
+            color: #4a5a6a;
+            padding: 4px 16px;
+            border-radius: 30px;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+            .reset-btn:hover {
+                border-color: #f57c00;
+                color: #f57c00;
+            }
+
 
 
         /* ===== Стили для файлов ===== */
@@ -289,264 +320,176 @@
         .file-icon {
             font-size: 16px;
         }
-
-        /* ===== Кнопки действий ===== */
-        .selection-actions {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-            flex-wrap: wrap;
-            border-top: 1px dashed #e2e8f0;
-            padding-top: 20px;
-            margin-top: 10px;
-        }
-
-        .selected-count {
-            background: #e2e8f0;
-            padding: 8px 18px;
-            border-radius: 40px;
-            font-size: 14px;
-            font-weight: 600;
-            color: #334155;
-        }
-
-            .selected-count span {
-                color: #f57c00;
-                font-size: 18px;
-                margin-right: 5px;
-            }
-
-        .action-btn {
-            background: #f57c00;
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            font-size: 16px;
-            font-weight: 600;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: 0.2s;
-            box-shadow: 0 4px 10px rgba(245,124,0,0.2);
-            white-space: nowrap;
-        }
-
-            .action-btn:hover:not(:disabled) {
-                background: #e06d00;
-                transform: translateY(-2px);
-                box-shadow: 0 8px 18px rgba(245,124,0,0.3);
-            }
-
-            .action-btn:active:not(:disabled) {
-                transform: translateY(0);
-            }
-
-            .action-btn:disabled {
-                background: #cbd5e1;
-                cursor: not-allowed;
-                box-shadow: none;
-                opacity: 0.7;
-            }
-
-            .action-btn.secondary {
-                background: white;
-                border: 2px solid #f57c00;
-                color: #f57c00;
-                box-shadow: none;
-            }
-
-                .action-btn.secondary:hover:not(:disabled) {
-                    background: #fff0e0;
-                    transform: translateY(-2px);
-                }
-
-
-        /* ===== Стили для самопроверки ===== */
-        .extended-self-check {
-            background: #f8fafc;
-            border-left: 4px solid #f59e0b;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 10px;
-            font-size: 14px;
-            color: #475569;
-        }
-
-            .extended-self-check strong {
-                color: #f59e0b;
-                display: block;
-                margin-bottom: 8px;
-                font-size: 16px;
-            }
-
-            .extended-self-check p {
-                margin: 0;
-                line-height: 1.6;
-            }
-        /* ===== Результат ===== */
-        .variant-result {
-            margin-top: 30px;
-            background: white;
-            border-radius: 24px;
-            padding: 25px;
-            border: 1px solid #edf2f7;
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
-        }
-
-        .variant-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #f57c00;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .variant-title {
-            font-size: 22px;
-            font-weight: 700;
-            color: #1e2a3a;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-            .variant-title span {
-                color: #f57c00;
-                background: #fff0e0;
-                padding: 4px 12px;
-                border-radius: 30px;
-                font-size: 16px;
-            }
-
-        .variant-actions {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .icon-btn {
-            background: none;
-            border: 1px solid #e2e8f0;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: 0.2s;
-            font-size: 18px;
-        }
-
-            .icon-btn:hover {
-                border-color: #f57c00;
-                color: #f57c00;
-                background: #fff5eb;
-            }
-
-        .finish-btn {
-            background: #10b981;
-            color: white;
-            border: none;
-            padding: 10px 25px;
-            border-radius: 40px;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 15px;
-            transition: 0.2s;
-            white-space: nowrap;
-        }
-
-            .finish-btn:hover {
-                background: #059669;
-                transform: translateY(-2px);
-                box-shadow: 0 5px 15px rgba(16,185,129,0.3);
-            }
-
-            .finish-btn:active {
-                transform: translateY(0);
-            }
-
-        /* ===== Задания в варианте ===== */
-        .variant-tasks-list {
+        /* ===== список заданий ===== */
+        .tasks-list {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 16px;
         }
 
-        .variant-task-card {
-            background: #f8fafc;
-            border-radius: 16px;
+        .task-item {
+            background: white;
+            border-radius: 14px;
             padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.01);
             border: 1px solid #e9eef3;
             position: relative;
             transition: 0.2s;
         }
 
-            .variant-task-card.extended {
-                border-left: 4px solid #f59e0b;
-                background: #fffbeb;
+            .task-item:hover {
+                border-color: #f57c80;
             }
 
-        .variant-task-number {
-            position: absolute;
-            top: -10px;
-            left: 20px;
+        .task-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .task-number-badge {
             background: #f57c00;
             color: white;
-            font-weight: 700;
-            padding: 4px 15px;
+            font-weight: 600;
+            padding: 3px 10px;
             border-radius: 30px;
+            font-size: 13px;
+        }
+
+        .task-subnumber {
+            color: #3b82f6;
+            font-weight: 600;
             font-size: 14px;
-            box-shadow: 0 4px 8px rgba(245,124,0,0.2);
+            background: #eff6ff;
+            padding: 2px 8px;
+            border-radius: 20px;
+            display: inline-block;
         }
 
-            .variant-task-number.extended {
-                background: #f59e0b;
-            }
-
-        .extended-badge {
-            position: absolute;
-            top: -10px;
-            right: 20px;
-            background: #f59e0b;
-            color: white;
-            font-weight: 700;
-            padding: 4px 15px;
-            border-radius: 30px;
-            font-size: 12px;
-            box-shadow: 0 4px 8px rgba(245,158,11,0.2);
-        }
-
-        .variant-task-question {
-            margin-top: 10px;
-            margin-bottom: 15px;
+        .task-question {
             font-size: 15px;
             line-height: 1.5;
+            margin-bottom: 16px;
             color: #1e2a3a;
             font-weight: 400;
         }
 
-        .variant-task-image {
-            margin-bottom: 15px;
+        .task-image {
+            margin-bottom: 16px;
             text-align: center;
-            background: white;
-            padding: 10px;
-            border-radius: 8px;
+            background: #f8fafc;
+            padding: 12px;
+            border-radius: 10px;
         }
 
-            .variant-task-image img {
+            .task-image img {
                 max-width: 100%;
-                max-height: 150px;
+                max-height: 180px;
                 object-fit: contain;
+                border-radius: 6px;
+                display: block;
+                margin: 0 auto;
             }
 
+
+
+            /* Защита от переопределения стилей для картинок */
+            .task-item img,
+            .task-image img,
+            .variant-task-card img {
+                max-width: 100%;
+                height: auto;
+                display: block;
+                margin: 0 auto;
+            }
+
+        /* Сброс стилей для картинок от таблиц */
+        .task-table img {
+            max-width: none;
+            display: inline;
+        }
+
+
+        /* ===== Стили для развернутых ответов ===== */
+        .extended-answer-block {
+            background: #fffbeb;
+            border-radius: 12px;
+            padding: 15px;
+            border: 1px solid #ffe4c4;
+        }
+
+        .extended-note {
+            color: #f59e0b;
+            font-weight: 600;
+            margin-bottom: 12px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .extended-spoiler {
+            margin-top: 8px;
+        }
+
+        .extended-spoiler-header {
+            background: white;
+            padding: 10px 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            font-size: 14px;
+            color: #f57c00;
+            border-radius: 30px;
+            border: 1px solid #f57c00;
+            transition: 0.2s;
+            width: fit-content;
+        }
+
+            .extended-spoiler-header:hover {
+                background: #f57c00;
+                color: white;
+            }
+
+            .extended-spoiler-header .spoiler-icon {
+                font-size: 12px;
+                transition: transform 0.2s;
+            }
+
+            .extended-spoiler-header.open .spoiler-icon {
+                transform: rotate(90deg);
+            }
+
+        .extended-spoiler-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            margin-top: 0;
+        }
+
+            .extended-spoiler-content.open {
+                max-height: 300px;
+                margin-top: 12px;
+            }
+
+        .extended-answer-text {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #f57c00;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #334155;
+        }
+
+            .extended-answer-text strong {
+                color: #f57c00;
+                display: block;
+                margin-bottom: 8px;
+            }
         /* ===== стили для таблиц ===== */
         .task-table-container {
             margin: 15px 0;
@@ -573,7 +516,7 @@
                 font-size: 14px;
                 text-align: center;
                 vertical-align: middle;
-                white-space: nowrap; 
+                white-space: nowrap;
             }
 
             .task-table th {
@@ -582,13 +525,12 @@
                 font-weight: 600;
             }
 
-            /* Все ячейки по умолчанию */
             .task-table td {
                 background: white;
                 color: #1e2a3a;
             }
 
-            /* Специально для таблиц с большим количеством колонок  */
+            /* Специально для таблиц с алфавитом */
             .task-table[data-type="alphabet"] th,
             .task-table[data-type="alphabet"] td {
                 min-width: 35px; 
@@ -596,16 +538,18 @@
                 padding: 8px 2px;
             }
 
-            /* Стили для таблиц с кодом */
+            /* Стили для таблиц с кодо */
             .task-table[data-type="code"] td:first-child {
                 background: #f8fafc;
                 font-weight: 600;
-                white-space: nowrap;
-                width: 120px;
-                min-width: 120px;
-                max-width: 120px;
+                white-space: normal; 
+                width: 160px;
+                min-width: 160px;
+                max-width: 160px;
                 text-align: center;
                 vertical-align: middle;
+                word-break: break-word; 
+                padding: 10px 5px;
             }
 
             .task-table[data-type="code"] td:last-child {
@@ -622,7 +566,7 @@
         @media (max-width: 600px) {
             .task-table th,
             .task-table td {
-                padding: 6px 4px;
+                padding: 8px 4px;
                 font-size: 12px;
             }
 
@@ -635,9 +579,11 @@
             }
 
             .task-table[data-type="code"] td:first-child {
-                width: 100px;
-                min-width: 100px;
-                max-width: 100px;
+                width: 130px;
+                min-width: 130px;
+                max-width: 130px;
+                font-size: 12px;
+                white-space: normal;
             }
 
             .task-table[data-type="code"] td:last-child {
@@ -645,16 +591,22 @@
             }
         }
 
-        /* ===== Блок ответа в варианте ===== */
-        .variant-answer-block {
+        /* ===== блок ответа ===== */
+        .answer-block {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 16px;
+        }
+
+        .answer-input-group {
             display: flex;
             gap: 10px;
             align-items: center;
             flex-wrap: wrap;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
-        .variant-answer-input {
+        .answer-input {
             flex: 1;
             min-width: 200px;
             padding: 10px 14px;
@@ -664,72 +616,48 @@
             transition: 0.2s;
         }
 
-            .variant-answer-input:focus {
+            .answer-input:focus {
                 outline: none;
                 border-color: #f57c00;
             }
 
-        .variant-check-btn {
+        .check-btn {
             background: white;
             border: 2px solid #f57c00;
             color: #f57c00;
-            padding: 8px 20px;
+            padding: 8px 22px;
             font-size: 14px;
             font-weight: 600;
             border-radius: 30px;
             cursor: pointer;
             transition: 0.2s;
-            white-space: nowrap;
         }
 
-            .variant-check-btn:hover {
+            .check-btn:hover {
                 background: #f57c00;
                 color: white;
             }
 
-        .variant-result-badge {
+        .result-badge {
             font-size: 20px;
             min-width: 30px;
             text-align: center;
         }
 
-        /* ===== Задания с развернутым ответом ===== */
-        .extended-answer-block {
-            background: white;
-            border-radius: 12px;
-            padding: 15px;
-            border: 1px dashed #f59e0b;
-            margin-bottom: 10px;
+        .result-correct {
+            color: #10b981;
         }
 
-        .extended-note {
-            color: #f59e0b;
-            font-weight: 600;
-            margin-bottom: 10px;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
+        .result-wrong {
+            color: #ef4444;
         }
 
-        .extended-info {
-            font-size: 14px;
-            color: #64748b;
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 1px dashed #e2e8f0;
-        }
-
-            .extended-info strong {
-                color: #f59e0b;
-            }
-
-        /* ===== Подсказки ===== */
-        .variant-hints-container {
+        /* ===== подсказки ===== */
+        .hints-container {
             margin-top: 10px;
         }
 
-        .variant-spoiler-item {
+        .spoiler-item {
             border: 1px solid #e2e8f0;
             border-radius: 8px;
             margin-bottom: 8px;
@@ -737,11 +665,11 @@
             display: none;
         }
 
-            .variant-spoiler-item.visible {
+            .spoiler-item.visible {
                 display: block;
             }
 
-        .variant-spoiler-header {
+        .spoiler-header {
             background: white;
             padding: 10px 15px;
             cursor: pointer;
@@ -749,26 +677,27 @@
             align-items: center;
             gap: 8px;
             font-weight: 500;
-            font-size: 13px;
+            font-size: 14px;
             color: #2d3e50;
             transition: 0.2s;
+            user-select: none;
         }
 
-            .variant-spoiler-header:hover {
+            .spoiler-header:hover {
                 background: #f1f5f9;
             }
 
-            .variant-spoiler-header .spoiler-icon {
+            .spoiler-header .spoiler-icon {
                 font-size: 12px;
                 color: #f57c00;
                 transition: transform 0.2s;
             }
 
-            .variant-spoiler-header.open .spoiler-icon {
+            .spoiler-header.open .spoiler-icon {
                 transform: rotate(90deg);
             }
 
-        .variant-spoiler-content {
+        .spoiler-content {
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.3s ease-out;
@@ -776,343 +705,26 @@
             border-top: 1px solid transparent;
         }
 
-            .variant-spoiler-content.open {
+            .spoiler-content.open {
                 max-height: 200px;
                 border-top-color: #e2e8f0;
             }
 
-        .variant-spoiler-inner {
+        .spoiler-inner {
             padding: 15px;
-            font-size: 13px;
+            font-size: 14px;
             color: #475569;
+            line-height: 1.5;
         }
 
-        /* ===== Стили с выбором ===== */
-        .choice-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin-bottom: 10px;
-            width: 100%;
-        }
-
-        .choice-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 14px;
-            background: white;
-            border: 2px solid #e2e8f0;
+        .correct-message {
+            background: #f0fdf4;
+            border-left: 3px solid #10b981;
+            padding: 12px 15px;
             border-radius: 8px;
-            cursor: pointer;
-            transition: 0.2s;
-            font-size: 14px;
-        }
-
-            .choice-item:hover {
-                border-color: #f57c00;
-                background: #fff5eb;
-            }
-
-            .choice-item.selected {
-                border-color: #f57c00;
-                background: #fff0e0;
-                box-shadow: 0 4px 10px rgba(245,124,0,0.1);
-            }
-
-            .choice-item input[type="radio"] {
-                width: 18px;
-                height: 18px;
-                accent-color: #f57c00;
-                cursor: pointer;
-            }
-
-        /* ===== Модальные окна ===== */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            backdrop-filter: blur(5px);
-            padding: 15px;
-        }
-
-        .modal-content {
-            background: white;
-            border-radius: 30px;
-            padding: 30px;
-            max-width: 400px;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
-            border: 3px solid #f57c00;
-        }
-
-        .modal-icon {
-            font-size: 56px;
-            margin-bottom: 20px;
-        }
-
-        .modal-title {
-            font-size: 26px;
-            font-weight: 700;
-            color: #1e2a3a;
-            margin-bottom: 15px;
-        }
-
-        .modal-text {
-            color: #64748b;
-            margin-bottom: 25px;
-            line-height: 1.6;
-        }
-
-        .modal-btn {
-            background: #f57c00;
-            color: white;
-            border: none;
-            padding: 14px 30px;
-            font-size: 16px;
-            font-weight: 600;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-            .modal-btn:hover {
-                background: #e06d00;
-            }
-
-        .empty-variant {
-            text-align: center;
-            padding: 40px;
-            color: #94a3b8;
-            font-size: 16px;
-            background: #f8fafc;
-            border-radius: 20px;
-            border: 1px dashed #cbd5e1;
-        }
-
-        /* ===== Стили для старого меню ===== */
-        .stats-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            backdrop-filter: blur(5px);
-            padding: 15px;
-        }
-
-        .stats-content {
-            background: white;
-            border-radius: 30px;
-            padding: 40px;
-            max-width: 550px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
-            border: 3px solid #f57c00;
-        }
-
-        .stats-title {
-            font-size: 28px;
-            font-weight: 700;
-            color: #1e2a3a;
             margin-bottom: 10px;
-        }
-
-        .stats-subtitle {
-            color: #64748b;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .stats-score {
-            background: linear-gradient(135deg, #f57c00, #f59e0b);
-            color: white;
-            padding: 25px;
-            border-radius: 20px;
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        .stats-score-number {
-            font-size: 48px;
-            font-weight: 800;
-            line-height: 1;
-        }
-
-        .stats-score-label {
-            font-size: 16px;
-            opacity: 0.9;
-            margin-top: 5px;
-        }
-
-        .stats-score-note {
-            font-size: 14px;
-            opacity: 0.8;
-            margin-top: 10px;
-            background: rgba(255,255,255,0.2);
-            padding: 8px;
-            border-radius: 30px;
-        }
-
-        .stats-detail {
-            margin-bottom: 20px;
-        }
-
-        .stats-detail-title {
-            font-weight: 600;
-            color: #1e2a3a;
-            margin-bottom: 10px;
-        }
-
-        .stats-task-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .stats-task-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid #f1f5f9;
-        }
-
-        .stats-task-number {
-            font-weight: 600;
-        }
-
-            .stats-task-number small {
-                font-weight: normal;
-                color: #94a3b8;
-                font-size: 12px;
-                margin-left: 5px;
-            }
-
-        .stats-task-result {
-            font-weight: 600;
-        }
-
-            .stats-task-result.correct {
-                color: #10b981;
-            }
-
-            .stats-task-result.incorrect {
-                color: #ef4444;
-            }
-
-            .stats-task-result.pending {
-                color: #94a3b8;
-            }
-
-        .stats-extended-section {
-            background: #fffbeb;
-            border-radius: 16px;
-            padding: 20px;
-            margin: 20px 0;
-        }
-
-        .stats-extended-title {
-            font-weight: 700;
-            color: #f59e0b;
-            margin-bottom: 15px;
-            font-size: 16px;
-        }
-
-        .stats-extended-item {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            padding: 12px;
-            background: white;
-            border-radius: 12px;
-            margin-bottom: 10px;
-        }
-
-        .stats-extended-header {
-            display: flex;
-            justify-content: space-between;
-            font-weight: 600;
-        }
-
-        .stats-extended-answer {
-            background: #f1f5f9;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 14px;
-            color: #334155;
-            word-break: break-word;
-        }
-
-        .stats-extended-note {
-            background: #f1f5f9;
-            padding: 12px;
-            border-radius: 12px;
-            font-size: 14px;
-            color: #64748b;
-            text-align: center;
-            margin-top: 15px;
-        }
-
-        .stats-buttons {
-            display: flex;
-            gap: 15px;
-            margin-top: 25px;
-        }
-
-        .stats-btn {
-            flex: 1;
-            padding: 15px;
-            border: none;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-            .stats-btn.primary {
-                background: #f57c00;
-                color: white;
-            }
-
-                .stats-btn.primary:hover {
-                    background: #e06d00;
-                }
-
-            .stats-btn.secondary {
-                background: white;
-                border: 2px solid #f57c00;
-                color: #f57c00;
-            }
-
-                .stats-btn.secondary:hover {
-                    background: #fff0e0;
-                }
-
-        /* ===== Стили для tusk_number ===== */
-        .variant-task-subnumber {
-            color: #3b82f6;
-            font-weight: 600;
-            margin-left: 10px;
-            font-size: 14px;
-            background: #eff6ff;
-            padding: 2px 8px;
-            border-radius: 20px;
-            display: inline-block;
+            font-weight: 500;
+            color: #166534;
         }
 
         /* ===== Уведомление о cookies ===== */
@@ -1199,150 +811,269 @@
             }
         }
 
-        /* ===== Адаптация для мобилок ===== */
-        @media (max-width: 600px) {
-            .timer-container {
-                flex-direction: column;
-                text-align: center;
-                padding: 15px;
+        /* ===== стили для решенных заданий ===== */
+        .solved-badge {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background: #10b981;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 600;
+            box-shadow: 0 4px 8px rgba(16,185,129,0.2);
+            z-index: 10;
+        }
+
+        /* ===== стили для заданий с выбором ответа ===== */
+        .choice-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        .choice-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 14px;
+        }
+
+            .choice-item:hover {
+                border-color: #f57c00;
+                background: #fff5eb;
             }
 
-            .timer-label {
-                justify-content: center;
+            .choice-item.selected {
+                border-color: #f57c00;
+                background: #fff0e0;
+                box-shadow: 0 4px 10px rgba(245,124,0,0.1);
             }
 
-            .timer-display {
-                font-size: 24px;
-                letter-spacing: 2px;
+            .choice-item input[type="radio"] {
+                width: 18px;
+                height: 18px;
+                accent-color: #f57c00;
+                cursor: pointer;
             }
 
-            .variant-answer-block {
-                flex-direction: column;
+        /* ===== стили для пагинации ===== */
+        .pagination-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .load-more-btn {
+            background: white;
+            border: 2px solid #f57c00;
+            color: #f57c00;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 4px 10px rgba(245,124,0,0.1);
+        }
+
+            .load-more-btn:hover {
+                background: #f57c00;
+                color: white;
+                transform: translateY(-2px);
+                box-shadow: 0 8px 20px rgba(245,124,0,0.2);
             }
 
-            .variant-answer-input,
-            .variant-check-btn {
-                width: 100%;
+        .pagination-info {
+            text-align: center;
+            margin: 10px 0;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        /* ===== загрузчик ===== */
+        .loader {
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            border-radius: 20px;
+            border: 1px solid #edf2f7;
+        }
+
+        .loader-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #f57c00;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
             }
 
-            .tasks-grid-select {
-                grid-template-columns: 1fr;
-            }
-
-            .task-counter-item {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .task-counter-controls {
-                width: 100%;
-                justify-content: center;
-            }
-
-            .selection-actions {
-                justify-content: center;
-            }
-
-            .action-btn {
-                width: 100%;
-                text-align: center;
-            }
-
-            .stats-buttons {
-                flex-direction: column;
+            100% {
+                transform: rotate(360deg);
             }
         }
 
-        @media (max-width: 400px) {
-            .timer-display {
-                font-size: 20px;
-                letter-spacing: 1px;
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            border-radius: 20px;
+            color: #94a3b8;
+            font-size: 16px;
+            border: 1px dashed #cbd5e1;
+        }
+
+        /* ===== адаптация ===== */
+        @media (max-width: 600px) {
+            .search-form {
+                flex-direction: column;
             }
 
-            .variant-title {
-                font-size: 18px;
-            }
-
-            .finish-btn {
+            .search-btn {
                 width: 100%;
-                justify-content: center;
+            }
+
+            .filters-options {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-radio {
+                width: 100%;
+            }
+
+            .apply-filter-btn {
+                width: 100%;
+                margin-left: 0;
+                margin-top: 10px;
+            }
+
+            .answer-input-group {
+                flex-direction: column;
+            }
+
+            .check-btn {
+                width: 100%;
+            }
+
+            .load-more-btn {
+                width: 100%;
+            }
+
+            .task-table th,
+            .task-table td {
+                padding: 6px 8px;
+                font-size: 12px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- ===== Шапка ===== -->
+    <!-- ===== шапка ===== -->
     <header class="header">
         <div class="container">
             <div class="logo" onclick="window.location.href='index.html'">ОГЭ365</div>
             <div class="nav">
                 <button class="nav-btn" onclick="window.location.href='index.html'">Главная</button>
                 <button class="nav-btn" onclick="window.location.href='theory.html'">Теория</button>
-                <button class="nav-btn" onclick="window.location.href='tasks.html'">База заданий</button>
-                <button class="nav-btn active" onclick="window.location.href='variants.html'">Варианты</button>
+                <button class="nav-btn active" onclick="window.location.href='tasks.html'">База заданий</button>
+                <button class="nav-btn" onclick="window.location.href='variants.html'">Варианты</button>
             </div>
         </div>
     </header>
 
-    <!-- ===== Основной контент ===== -->
+    <!-- ===== основной контент ===== -->
     <main class="main-content">
         <div class="container">
-            <div class="variants-header">
-                <h1 class="page-title">
-                    Варианты <span>ОГЭ по информатике</span>
-                </h1>
-                <div class="variants-description">
-                    <strong>Составь свой вариант!</strong> Составь свой вариант! Выбери задания, нажми "Составить вариант" и решай как на настоящем экзамене.
-                    ✍️ Задания 13-16 с развернутым ответом - проверь себя по ответам в статистике (задания 13, 15, 16 оцениваются до 2 баллов, задание 14 оценивается до 3 баллов).
+            <h1 class="page-title">
+                База заданий <span>по информатике</span>
+            </h1>
+
+            <!-- панель поиска -->
+            <div class="search-card">
+                <div class="search-form">
+                    <div class="form-group">
+                        <label>Номер задания</label>
+                        <select id="taskNumberSelect">
+                            <option value="">Выберите номер</option>
+                            <option value="1">Задание 1</option>
+                            <option value="2">Задание 2</option>
+                            <option value="3">Задание 3</option>
+                            <option value="4">Задание 4</option>
+                            <option value="5">Задание 5</option>
+                            <option value="6">Задание 6</option>
+                            <option value="7">Задание 7</option>
+                            <option value="8">Задание 8</option>
+                            <option value="9">Задание 9</option>
+                            <option value="10">Задание 10</option>
+                            <option value="11">Задание 11</option>
+                            <option value="12">Задание 12</option>
+                            <option value="13">Задание 13</option>
+                            <option value="14">Задание 14</option>
+                            <option value="15">Задание 15</option>
+                            <option value="16">Задание 16</option>
+                        </select>
+                    </div>
+                    <button class="search-btn" id="searchBtn">НАЙТИ</button>
                 </div>
             </div>
 
-            <!-- Таймер -->
-            <div class="timer-container" id="timerContainer">
-                <div class="timer-label">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-.5-13v6l5.25 3.15.75-1.23-4.5-2.67V7z" />
-                    </svg>
-                    <span>Время выполнения:</span>
+            <!-- Панель фильтров -->
+            <div class="filters-panel">
+                <div class="filters-title">
+                    <span>Сортировка заданий:</span>
                 </div>
-                <div class="timer-display" id="timerDisplay">02:30:00</div>
-            </div>
-
-            <!-- панель выбора количества заданий -->
-            <div class="selection-panel">
-                <div class="selection-title">
-                    <span>📋 Шаг 1.</span> Укажи, сколько заданий каждого номера добавить
-                </div>
-
-                <div class="tasks-grid-select" id="tasksGrid">
-                </div>
-
-                <div class="selection-actions">
-                    <div class="selected-count" id="selectedCount">
-                        <span>0</span> заданий выбрано
-                    </div>
-                    <button class="action-btn" id="selectAllBtn">Выбрать все (по 1)</button>
-                    <button class="action-btn secondary" id="clearAllBtn">Очистить все</button>
-                    <button class="action-btn" id="composeVariantBtn" disabled>Составить вариант</button>
+                <div class="filters-options">
+                    <label class="filter-radio">
+                        <input type="radio" name="sortOrder" value="random" checked>
+                        <span>🎲 Случайный порядок</span>
+                    </label>
+                    <label class="filter-radio">
+                        <input type="radio" name="sortOrder" value="asc">
+                        <span>↑ По возрастанию</span>
+                    </label>
+                    <label class="filter-radio">
+                        <input type="radio" name="sortOrder" value="desc">
+                        <span>↓ По убыванию</span>
+                    </label>
+                    <button class="apply-filter-btn" id="applySortBtn">Применить</button>
                 </div>
             </div>
 
-            <!-- результат - составленный вариант -->
-            <div class="variant-result" id="variantResult" style="display: none;">
-                <div class="variant-header">
-                    <div class="variant-title">
-                        Твой вариант <span id="variantTasksCount">0 заданий</span>
-                    </div>
-                    <div class="variant-actions">
-                        <button class="finish-btn" id="finishExamBtn">
-                            🏁 Завершить экзамен
-                        </button>
-                        <button class="icon-btn" id="refreshVariantBtn" title="Новые случайные задания">🔄</button>
-                        <button class="icon-btn" id="clearVariantBtn" title="Очистить вариант">✕</button>
-                    </div>
+            <!-- Переключатель режимов -->
+            <div class="mode-switcher">
+                <span class="mode-switcher-label">Режим:</span>
+                <div class="mode-toggle" id="modeToggle">
+                    <button class="mode-btn active" data-mode="pro">Про</button>
+                    <button class="mode-btn" data-mode="novice">Новичок</button>
                 </div>
+            </div>
 
-                <div id="variantTasksContainer">
+            <!-- Результаты -->
+            <div class="results-section">
+                <div class="results-header" id="resultsHeader" style="display: none;">
+                    <div class="results-count" id="resultsCount"></div>
+                    <button class="reset-btn" id="resetBtn">Сбросить</button>
+                </div>
+                <div id="tasksContainer">
+                    <div class="no-results">
+                        🔍 Выберите номер задания и нажмите "НАЙТИ"
+                    </div>
                 </div>
             </div>
         </div>
@@ -1357,72 +1088,43 @@
         </div>
     </footer>
 
-    <!-- модальное окно для таймера -->
-    <div id="timeoutModal" style="display: none;">
-        <div class="modal-overlay">
-            <div class="modal-content">
-                <div class="modal-icon">⏰</div>
-                <div class="modal-title">Время вышло!</div>
-                <div class="modal-text">
-                    Экзаменационное время завершено.<br>
-                    Ты можешь продолжить решать, но это уже сверх норматива.
-                </div>
-                <button class="modal-btn" onclick="closeTimeoutModal()">Понятно</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- модальное окно статистики -->
-    <div id="statsModal" style="display: none;"></div>
-
     <script>
         const API_URL = 'https://script.google.com/macros/s/AKfycbwZT2VsEsQFv7PophKATDA78ITSS37_s3FCcTMSRqSNWOCsGOMCOVAI5ZUp6VTQTG8S-A/exec';
 
-        // ===== переменные =====
         let allTasks = [];
-        let currentVariant = [];
         let attemptCounts = {};
-        let userAnswers = {};
-        let taskCounts = {};
         let isLoading = true;
+        let currentSortOrder = 'random';
+        let currentUserMode = 'pro';
 
-        // Таймер
-        let timerInterval = null;
-        let timeLeft = 150 * 60;
-        let timerRunning = false;
+        // ===== переменные для пагинации =====
+        let currentPage = 1;
+        let tasksPerPage = 6;
+        let currentFilteredTasks = [];
 
-        // Номера с развернутым ответом
-        const extendedTasks = [13, 14, 15, 16];
+        // ===== переменные для прогресса =====
+        let solvedTasks = {};
+        const STORAGE_KEY = 'oge365_solved_tasks';
+        const MODE_KEY = 'oge365_user_mode';
 
-        // Названия заданий
-        const taskNames = {
-            1: 'Количественные параметры',
-            2: 'Кодирование и декодирование',
-            3: 'Значение логического выражения',
-            4: 'Формальные описания объектов',
-            5: 'Линейный алгоритм',
-            6: 'Программа с условным оператором',
-            7: 'ИКТ технологии',
-            8: 'Поисковые запросы',
-            9: 'Анализ схем',
-            10: 'Системы счисления',
-            11: 'Поиск в ОС и текстовом редакторе',
-            12: 'Поисковые средства ОС',
-            13: '',
-            14: '',
-            15: '',
-            16: ''
-        };
-
-        // ===== ФУНКЦИЯ ДЛЯ ФОРМАТИРОВАНИЯ ТЕКСТА =====
+        // ===== функция для форматирования текста с поддержкой маркеров жирного текста =====
         function formatText(text) {
             if (!text) return '';
-            let formatted = String(text).replace(/\n/g, '<br>').replace(/\r\n/g, '<br>');
+
+            let formatted = String(text);
+
+            formatted = formatted.replace(/\n/g, '<br>').replace(/\r\n/g, '<br>');
+
             formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+            formatted = formatted.replace(/(?<![\/:])\*(?!\*)(.*?)(?<![\/:])\*(?!\*)/g, '<strong>$1</strong>');
+
             formatted = formatted.replace(/__(.*?)__/g, '<strong>$1</strong>');
+
             return formatted;
         }
 
+        // ===== функция для форматирования ячейки таблицы =====
         function formatTableCell(cellContent) {
             if (!cellContent) return '';
 
@@ -1431,8 +1133,8 @@
             formatted = formatted.replace(/\\n/g, '<br>');
 
             formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-            formatted = formatted.replace(/__(.*?)__/g, '<strong>$1</strong>');
             formatted = formatted.replace(/(?<![\/:])\*(?!\*)(.*?)(?<![\/:])\*(?!\*)/g, '<strong>$1</strong>');
+            formatted = formatted.replace(/__(.*?)__/g, '<strong>$1</strong>');
 
             return formatted;
         }
@@ -1446,17 +1148,18 @@
                 if (match) {
                     const fileId = match[1] || match[2];
                     if (fileId) {
-                        return `https://drive.google.com/uc?export=view&id=${fileId}`;
+                        
+                        return `https://lh3.googleusercontent.com/d/${fileId}=w800?authuser=0`;
                     }
                 }
             }
             return url;
         }
-
         // ===== функция для преобразования ссылок google drive =====
         function getGoogleDriveDirectLink(url) {
             if (!url) return url;
 
+            
             if (url.includes('drive.google.com')) {
                 // Формат: https://drive.google.com/file/d/FILE_ID/view
                 const match = url.match(/\/d\/(.+?)\/|id=(.+?)(&|$)/);
@@ -1475,7 +1178,30 @@
             return url;
         }
 
-        // ===== УНИВЕРСАЛЬНАЯ ФУНКЦИЯ ДЛЯ ОТОБРАЖЕНИЯ ТАБЛИЦ =====
+        // ===== вспомогательная функция для форматирования ячейки с поддержкой жирного текста =====
+        function formatTableCell(cellContent) {
+            if (!cellContent) return '';
+
+            let formatted = String(cellContent);
+
+           
+            formatted = formatted.replace(/\\n/g, '<br>');
+
+            formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+            formatted = formatted.replace(/\*(.*?)\*/g, '<strong>$1</strong>');
+
+            formatted = formatted.replace(/__(.*?)__/g, '<strong>$1</strong>');
+
+            formatted = formatted.replace(/<b>(.*?)<\/b>/gi, '<strong>$1</strong>');
+
+            formatted = formatted.replace(/\[bold\](.*?)\[\/bold\]/gi, '<strong>$1</strong>');
+
+
+            return formatted;
+        }
+
+        // ===== обновленная функция для отображения таблиц с поддержкой жирного текста =====
         function renderTable(tableData) {
             if (!tableData) return '';
 
@@ -1499,13 +1225,11 @@
                     tableHtml += '<tr>';
                     rows[i].forEach(cell => {
                         const cellContent = cell.trim();
-                       
-                        const formattedContent = cellContent.replace(/\\n/g, '<br>');
+                        const formattedContent = formatTableCell(cellContent);
 
                         if (i === 0) {
                             tableHtml += `<th>${formattedContent}</th>`;
                         } else {
-                            
                             tableHtml += `<td>${formattedContent}</td>`;
                         }
                     });
@@ -1520,7 +1244,7 @@
             }
         }
 
-        // ===== СПЕЦИАЛЬНАЯ ФУНКЦИЯ ДЛЯ ЗАДАНИЯ 6 =====
+        // ===== обновленная функция для задания 6 с поддержкой жирного текста =====
         function renderTask6Table(tableData) {
             if (!tableData) return '';
 
@@ -1532,19 +1256,17 @@
 
                 let tableHtml = '<div class="task-table-container"><table class="task-table" data-type="code">';
 
-                
                 tableHtml += '<thead><tr><th>Язык программирования</th><th>Код программы</th></tr></thead>';
 
-                
                 tableHtml += '<tbody>';
                 for (let i = 0; i < rows.length; i++) {
                     if (rows[i].length >= 2) {
                         const language = rows[i][0].trim();
-                        
-                        const code = rows[i][1].trim().replace(/\\n/g, '<br>');
+                        let code = rows[i][1].trim().replace(/\\n/g, '<br>');
+                        code = formatTableCell(code);
 
                         tableHtml += '<tr>';
-                        tableHtml += `<td style="font-weight: 600; white-space: nowrap;">${language}</td>`;
+                        tableHtml += `<td style="font-weight: 600; white-space: nowrap;">${formatTableCell(language)}</td>`;
                         tableHtml += `<td style="text-align: left; font-family: monospace; white-space: pre-wrap;">${code}</td>`;
                         tableHtml += '</tr>';
                     }
@@ -1559,325 +1281,281 @@
             }
         }
 
+
+        
+
         // ===== загрузка при старте =====
         document.addEventListener('DOMContentLoaded', function () {
-            showMainLoader();
+            const container = document.getElementById('tasksContainer');
+            container.innerHTML = `
+                                <div class="loader">
+                                    <div class="loader-spinner"></div>
+                                    <p>⏳ Загрузка заданий...</p>
+                                    <p style="font-size: 14px; color: #94a3b8; margin-top: 5px;">Подождите немного</p>
+                                </div>
+                            `;
+
+            const savedSort = localStorage.getItem('oge365_sort_order');
+            if (savedSort) {
+                currentSortOrder = savedSort;
+                const radio = document.querySelector(`input[name="sortOrder"][value="${savedSort}"]`);
+                if (radio) radio.checked = true;
+            }
+
+            const savedMode = localStorage.getItem(MODE_KEY);
+            if (savedMode) {
+                currentUserMode = savedMode;
+                updateModeButtons(savedMode);
+            }
+
+            loadProgress();
             loadTasks();
         });
 
-        // ===== функции показа загрузки =====
-        function showMainLoader() {
-            const grid = document.getElementById('tasksGrid');
-            grid.innerHTML = `
-                                        <div style="grid-column: 1/-1; text-align: center; padding: 40px;">
-                                            <div class="loader-spinner" style="width: 50px; height: 50px;"></div>
-                                            <p style="margin-top: 20px; color: #64748b;">⏳ Загрузка заданий...</p>
-                                            <p style="font-size: 14px; color: #94a3b8;">Пожалуйста, подождите</p>
-                                        </div>
-                                    `;
+        // ===== функция обновления кнопок режима =====
+        function updateModeButtons(mode) {
+            const buttons = document.querySelectorAll('.mode-btn');
+            buttons.forEach(btn => {
+                if (btn.dataset.mode === mode) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
         }
 
-        function showVariantLoader() {
-            const container = document.getElementById('variantTasksContainer');
-            container.innerHTML = `
-                                        <div style="text-align: center; padding: 40px;">
-                                            <div class="loader-spinner" style="width: 50px; height: 50px;"></div>
-                                            <p style="margin-top: 20px; color: #64748b;">⏳ Составляем вариант...</p>
-                                            <p style="font-size: 14px; color: #94a3b8;">Выбираем случайные задания</p>
-                                        </div>
-                                    `;
+        // ===== функции для работы с прогрессом =====
+        function loadProgress() {
+            try {
+                const saved = localStorage.getItem(STORAGE_KEY);
+                if (saved) {
+                    solvedTasks = JSON.parse(saved);
+                    console.log('📊 Загружен прогресс:', Object.keys(solvedTasks).length, 'решенных заданий');
+                }
+            } catch (e) {
+                console.error('Ошибка загрузки прогресса:', e);
+                solvedTasks = {};
+            }
+        }
+
+        function saveProgress() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(solvedTasks));
+            } catch (e) {
+                console.error('Ошибка сохранения прогресса:', e);
+            }
+        }
+
+        function markTaskAsSolved(taskId, taskNumber) {
+            if (!solvedTasks[taskNumber]) {
+                solvedTasks[taskNumber] = {};
+            }
+            solvedTasks[taskNumber][taskId] = {
+                solved: true,
+                date: new Date().toISOString()
+            };
+            saveProgress();
+            addSolvedBadge(taskId);
+        }
+
+        function isTaskSolved(taskId, taskNumber) {
+            return solvedTasks[taskNumber] && solvedTasks[taskNumber][taskId];
+        }
+
+        function addSolvedBadge(taskId) {
+            const taskCard = document.getElementById(taskId);
+            if (!taskCard) return;
+
+            const oldBadge = taskCard.querySelector('.solved-badge');
+            if (oldBadge) oldBadge.remove();
+
+            const badge = document.createElement('div');
+            badge.className = 'solved-badge';
+            badge.innerHTML = '✅ Выполнено';
+            taskCard.appendChild(badge);
         }
 
         // ===== функция загрузки данных =====
         async function loadTasks() {
             try {
                 const response = await fetch(API_URL);
-
-                if (!response.ok) {
-                    throw new Error(`Ошибка HTTP: ${response.status}`);
-                }
+                if (!response.ok) throw new Error(`Ошибка HTTP: ${response.status}`);
 
                 allTasks = await response.json();
-
-                if (!allTasks || allTasks.length === 0) {
-                    throw new Error('Нет данных');
-                }
+                if (!allTasks || allTasks.length === 0) throw new Error('Нет данных');
 
                 console.log('✅ Загружено заданий:', allTasks.length);
-                for (let i = 1; i <= 16; i++) {
-                    taskCounts[i] = 0;
-                }
-
                 isLoading = false;
-                renderTaskCounters();
+
+                const container = document.getElementById('tasksContainer');
+                container.innerHTML = `
+                                    <div class="no-results">
+                                        🔍 Выберите номер задания и нажмите "НАЙТИ"
+                                    </div>
+                                `;
 
             } catch (error) {
-                console.error('❌ Ошибка:', error);
-                const grid = document.getElementById('tasksGrid');
-                grid.innerHTML = `
-                                            <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #ef4444;">
-                                                ❌ Не удалось загрузить задания<br>
-                                                <small>${error.message}</small><br>
-                                                <button onclick="location.reload()"
-                                                        style="margin-top: 15px; padding: 8px 20px; background: #f57c00;
-                                                               color: white; border: none; border-radius: 30px; cursor: pointer;">
-                                                    🔄 Попробовать снова
-                                                </button>
-                                            </div>
-                                        `;
+                console.error('❌ Ошибка загрузки:', error);
+                const container = document.getElementById('tasksContainer');
+                container.innerHTML = `
+                                    <div class="no-results">
+                                        ❌ Не удалось загрузить задания<br>
+                                        <small style="color: #ef4444;">${error.message}</small><br>
+                                        <button onclick="location.reload()"
+                                                style="margin-top: 15px; padding: 8px 20px; background: #f57c00;
+                                                       color: white; border: none; border-radius: 30px; cursor: pointer;">
+                                            🔄 Попробовать снова
+                                        </button>
+                                    </div>
+                                `;
                 isLoading = false;
             }
         }
 
-        // ===== функции для счетчиков =====
-        function renderTaskCounters() {
-            if (isLoading) return;
+        // ===== функция сортировки =====
+        function sortTasksByNumber(tasks, order) {
+            if (!tasks || tasks.length === 0) return tasks;
 
-            const grid = document.getElementById('tasksGrid');
-            let html = '';
+            return [...tasks].sort((a, b) => {
+                function getNumberValue(task) {
+                    if (task.task_number) {
+                        return parseFloat(String(task.task_number).replace('_', '.'));
+                    }
+                    const index = tasks.indexOf(task);
+                    return task.number + (index / 1000);
+                }
 
-            for (let i = 1; i <= 16; i++) {
-                const isExtended = extendedTasks.includes(i);
+                const aVal = getNumberValue(a);
+                const bVal = getNumberValue(b);
 
-                html += `
-                                            <div class="task-counter-item" id="task-counter-${i}">
-                                                <div class="task-counter-info">
-                                                    <div class="task-counter-number">${i}</div>
-                                                    <div class="task-counter-label">
-                                                        <strong>Задание ${i}${isExtended ? ' ✍️' : ''}</strong>
-                                                        <small>${taskNames[i]}</small>
-                                                    </div>
-                                                </div>
-
-                                                <div class="task-counter-controls">
-                                                    <button class="counter-btn" onclick="decrementCount(${i})" ${taskCounts[i] === 0 ? 'disabled' : ''}>−</button>
-                                                    <div class="counter-value" id="count-${i}">
-                                                        ${taskCounts[i]} <span>шт.</span>
-                                                    </div>
-                                                    <button class="counter-btn" onclick="incrementCount(${i})" ${taskCounts[i] === 5 ? 'disabled' : ''}>+</button>
-                                                </div>
-                                            </div>
-                                        `;
-            }
-
-            grid.innerHTML = html;
-            updateTotalCount();
+                return order === 'asc' ? aVal - bVal : bVal - aVal;
+            });
         }
 
-        window.incrementCount = function (number) {
-            if (taskCounts[number] < 5) {
-                taskCounts[number]++;
-                updateCountDisplay(number);
-                updateComposeButton();
-            }
-        };
-
-        window.decrementCount = function (number) {
-            if (taskCounts[number] > 0) {
-                taskCounts[number]--;
-                updateCountDisplay(number);
-                updateComposeButton();
-            }
-        };
-
-        function updateCountDisplay(number) {
-            const countEl = document.getElementById(`count-${number}`);
-            if (countEl) {
-                countEl.innerHTML = `${taskCounts[number]} <span>шт.</span>`;
-            }
-
-            const decrementBtn = document.querySelector(`#task-counter-${number} .counter-btn:first-child`);
-            const incrementBtn = document.querySelector(`#task-counter-${number} .counter-btn:last-child`);
-
-            if (decrementBtn) decrementBtn.disabled = taskCounts[number] === 0;
-            if (incrementBtn) incrementBtn.disabled = taskCounts[number] === 5;
-        }
-
-        function updateTotalCount() {
-            const total = Object.values(taskCounts).reduce((sum, count) => sum + count, 0);
-            const countEl = document.getElementById('selectedCount');
-            if (countEl) {
-                countEl.innerHTML = `<span>${total}</span> заданий выбрано`;
+        // ===== функция для получения заданий по режиму =====
+        function getTasksByMode(tasks, mode) {
+            if (mode === 'pro') {
+                return tasks;
+            } else {
+                return tasks.filter(task => task.options && String(task.options).trim() !== '');
             }
         }
 
-        function updateComposeButton() {
-            const total = Object.values(taskCounts).reduce((sum, count) => sum + count, 0);
-            const btn = document.getElementById('composeVariantBtn');
-            if (btn) btn.disabled = total === 0 || isLoading;
-        }
-
-        // ===== функции таймера =====
-        function startTimer() {
-            if (timerRunning) return;
-            timerRunning = true;
-            timerInterval = setInterval(updateTimer, 1000);
-        }
-
-        function stopTimer() {
-            if (timerInterval) {
-                clearInterval(timerInterval);
-                timerInterval = null;
-                timerRunning = false;
-            }
-        }
-
-        function resetTimer() {
-            stopTimer();
-            timeLeft = 150 * 60;
-            updateTimerDisplay();
-
-            const timerContainer = document.getElementById('timerContainer');
-            if (timerContainer) {
-                timerContainer.classList.remove('timer-warning', 'timer-expired');
-            }
-        }
-
-        function updateTimer() {
-            if (timeLeft <= 0) {
-                stopTimer();
-                showTimeoutModal();
-
-                const timerContainer = document.getElementById('timerContainer');
-                if (timerContainer) timerContainer.classList.add('timer-expired');
-                return;
-            }
-
-            timeLeft--;
-            updateTimerDisplay();
-
-            if (timeLeft === 300) {
-                const timerContainer = document.getElementById('timerContainer');
-                if (timerContainer) timerContainer.classList.add('timer-warning');
-            }
-        }
-
-        function updateTimerDisplay() {
-            const hours = Math.floor(timeLeft / 3600);
-            const minutes = Math.floor((timeLeft % 3600) / 60);
-            const seconds = timeLeft % 60;
-
-            const display = document.getElementById('timerDisplay');
-            if (display) {
-                display.textContent = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-            }
-        }
-
-        function showTimeoutModal() {
-            const modal = document.getElementById('timeoutModal');
-            if (modal) modal.style.display = 'block';
-        }
-
-        window.closeTimeoutModal = function () {
-            const modal = document.getElementById('timeoutModal');
-            if (modal) modal.style.display = 'none';
-        };
-
-        // ===== функции для варианта =====
-        function composeVariant() {
-            const totalTasks = Object.values(taskCounts).reduce((sum, count) => sum + count, 0);
-
-            if (totalTasks === 0) {
-                alert('Выберите хотя бы одно задание');
-                return;
-            }
+        // ===== отобразить задания с пагинацией =====
+        function displayPaginatedTasks() {
+            const container = document.getElementById('tasksContainer');
+            const resultsHeader = document.getElementById('resultsHeader');
+            const countEl = document.getElementById('resultsCount');
+            const resetBtn = document.getElementById('resetBtn');
+            const selectedNumber = document.getElementById('taskNumberSelect').value;
 
             if (isLoading) {
-                alert('База заданий ещё загружается, подождите');
+                container.innerHTML = `
+                                    <div class="loader">
+                                        <div class="loader-spinner"></div>
+                                        <p>⏳ Загрузка заданий...</p>
+                                    </div>
+                                `;
+                resultsHeader.style.display = 'none';
                 return;
             }
 
-            showVariantLoader();
-            document.getElementById('variantResult').style.display = 'block';
+            if (!selectedNumber) {
+                container.innerHTML = '<div class="no-results">⚠️ Выберите номер задания</div>';
+                resultsHeader.style.display = 'none';
+                return;
+            }
 
-            setTimeout(() => {
-                let newVariant = [];
-                for (let number = 1; number <= 16; number++) {
-                    const count = taskCounts[number] || 0;
-                    if (count === 0) continue;
+            const tasksWithNumber = allTasks.filter(task => task.number == selectedNumber);
+            currentFilteredTasks = getTasksByMode(tasksWithNumber, currentUserMode);
 
-                    const tasksWithNumber = allTasks.filter(task => task.number == number);
+            if (currentFilteredTasks.length === 0) {
+                container.innerHTML = `
+                                    <div class="no-results">
+                                        😕 В этом режиме заданий с номером ${selectedNumber} не найдено
+                                    </div>
+                                `;
+                resultsHeader.style.display = 'none';
+                return;
+            }
 
-                    if (tasksWithNumber.length === 0) {
-                        for (let i = 0; i < count; i++) {
-                            newVariant.push({
-                                number: number,
-                                question: `Нет заданий с номером ${number} в базе`,
-                                answer: '',
-                                hint1: '',
-                                hint2: '',
-                                image_url: '',
-                                isPlaceholder: true
-                            });
-                        }
-                        continue;
-                    }
+            resultsHeader.style.display = 'flex';
+            countEl.textContent = `Найдено: ${currentFilteredTasks.length}`;
 
-                    const shuffled = [...tasksWithNumber].sort(() => Math.random() - 0.5);
+            const endIndex = currentPage * tasksPerPage;
+            const visibleTasks = currentFilteredTasks.slice(0, endIndex);
+            const hasMore = currentFilteredTasks.length > endIndex;
 
-                    for (let i = 0; i < count; i++) {
-                        newVariant.push({ ...shuffled[i % shuffled.length] });
-                    }
-                }
-                currentVariant = newVariant;
-
-                attemptCounts = {};
-                userAnswers = {};
-
-                displayVariant();
-                resetTimer();
-                startTimer();
-            }, 500);
+            displayTasksList(visibleTasks, hasMore, currentFilteredTasks.length);
         }
 
-        function displayVariant() {
-            const container = document.getElementById('variantTasksContainer');
-            const variantResult = document.getElementById('variantResult');
-            const countSpan = document.getElementById('variantTasksCount');
+        // ===== отрисовать список заданий =====
+        function displayTasksList(tasks, hasMore, totalCount) {
+            const container = document.getElementById('tasksContainer');
 
-            if (currentVariant.length === 0) {
-                variantResult.style.display = 'none';
-                return;
-            }
+            let html = '<div class="tasks-list">';
 
-            variantResult.style.display = 'block';
-            countSpan.textContent = `${currentVariant.length} заданий`;
-
-            let html = '<div class="variant-tasks-list">';
-            const numberCounters = {};
-
-            currentVariant.forEach((task, index) => {
-                const taskNumber = task.number;
-                if (!numberCounters[taskNumber]) {
-                    numberCounters[taskNumber] = 1;
-                } else {
-                    numberCounters[taskNumber]++;
-                }
-
-                const displayNumber = task.task_number || `${taskNumber}.${numberCounters[taskNumber]}`;
-
-                const hasImage = task.image_url && task.image_url.trim() !== '' && !task.isPlaceholder;
+            tasks.forEach((task, index) => {
+                const hasImage = task.image_url && String(task.image_url).trim() !== '';
                 const hasFile = task.file_url && String(task.file_url).trim() !== '';
-                const taskId = `variant-${index}`;
-                const isExtended = extendedTasks.includes(taskNumber);
+                const taskId = `task-${task.id || index}`.replace(/[^a-zA-Z0-9]/g, '-');
+                const displayNumber = task.task_number || `${task.number}.${index + 1}`;
 
-                if (!attemptCounts[taskId]) {
-                    attemptCounts[taskId] = 0;
+                const isExtended = task.number >= 13 && task.number <= 16;
+
+                let answerHtml = '';
+
+                if (isExtended) {
+                    
+                    answerHtml = `
+                <div class="extended-answer-block">
+                    <div class="extended-note">
+                        <span>✍️ Задание с развернутым ответом</span>
+                    </div>
+                    <div class="extended-spoiler">
+                        <div class="extended-spoiler-header" onclick="toggleExtendedAnswer('${taskId}')">
+                            <span class="spoiler-icon">▶</span>
+                            <span class="spoiler-title">Показать правильный ответ для самопроверки</span>
+                        </div>
+                        <div class="extended-spoiler-content" id="extended-answer-${taskId}">
+                            <div class="extended-answer-text">
+                                <strong>📝 Правильный ответ:</strong><br>
+                                ${formatText(task.answer) || 'Ответ не указан'}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+                } else if (currentUserMode === 'novice') {
+                    const options = String(task.options).split(';').map(opt => opt.trim());
+                    answerHtml = `
+                <div class="choice-group" id="choice-group-${taskId}">
+                    ${options.map((option, optIdx) => `
+                        <label class="choice-item" for="choice-${taskId}-${optIdx}">
+                            <input type="radio"
+                                   name="answer-${taskId}"
+                                   id="choice-${taskId}-${optIdx}"
+                                   value="${option}">
+                            ${option}
+                        </label>
+                    `).join('')}
+                </div>
+                <button class="check-btn" onclick="checkChoiceAnswer('${taskId}')">Проверить</button>
+            `;
+                } else {
+                    answerHtml = `
+                <input type="text"
+                       class="answer-input"
+                       id="input-${taskId}"
+                       placeholder="Введите ответ..."
+                       autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       spellcheck="false">
+                <button class="check-btn" onclick="checkTaskAnswer('${taskId}')">Проверить</button>
+            `;
                 }
 
-               
-                function safeReplace(text) {
-                    if (text === null || text === undefined) return '';
-                    if (typeof text !== 'string') return String(text);
-                    let formatted = text.replace(/\n/g, '<br>').replace(/\r\n/g, '<br>');
-                    
-                    formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-                    
-                    formatted = formatted.replace(/__(.*?)__/g, '<strong>$1</strong>');
-                    return formatted;
-                }
-
-                // Определяем какую таблицу рендерить
                 let tableHtml = '';
                 if (task.number == 6) {
                     tableHtml = renderTask6Table(task.table_data);
@@ -1886,165 +1564,233 @@
                 }
 
                 html += `
-                <div class="variant-task-card ${isExtended ? 'extended' : ''}" id="${taskId}">
-                    <div class="variant-task-number ${isExtended ? 'extended' : ''}">
-                        Задание ${taskNumber}
-                        <span class="variant-task-subnumber">${displayNumber}</span>
+            <div class="task-item" id="${taskId}">
+                <div class="task-header">
+                    <span class="task-number-badge">Задание ${task.number}</span>
+                    <span class="task-subnumber">${displayNumber}</span>
+                </div>
+                <div class="task-question">${formatText(task.question)}</div>
+
+                ${tableHtml}
+
+                ${hasImage ? `
+                    <div class="task-image">
+                        <img src="${getGoogleDriveImageUrl(task.image_url)}" 
+                             alt="Задание ${task.number}"
+                             style="max-width: 100%; max-height: 180px; object-fit: contain;"
+                             onerror="this.onerror=null; this.style.display='none'; this.parentElement.innerHTML='<div style=\'padding: 20px; text-align: center; color: #ef4444;\'>⚠️ Картинка не загрузилась (проблемы с сертификатом)</div>'">
                     </div>
-                    ${isExtended ? '<div class="extended-badge">✍️ Развернутый ответ</div>' : ''}
-
-                    <div class="variant-task-question">${safeReplace(task.question)}</div>
-
-                    ${tableHtml}
-
-                   ${hasImage ? `
-                        <div class="variant-task-image">
-                            <img src="${task.image_url}" alt="Task image">
-                        </div>
-                    ` : ''}
-
-                    ${hasFile ? `
-                        <div class="task-file">
-                            <a href="${getGoogleDriveDirectLink(task.file_url)}" target="_blank" class="file-link" download>
-                                <span class="file-icon">📎</span>
-                                <span class="file-text">Скачать файл для задания</span>
-                            </a>
-                        </div>
-                    ` : ''}
-
-                    ${renderVariantAnswerBlock(task, taskId)}
-
-                    <div class="variant-hints-container" id="hints-${taskId}">
+                ` : ''}
+                
+                ${hasFile ? `
+                    <div class="task-file">
+                        <a href="${getGoogleDriveDirectLink(task.file_url)}" target="_blank" class="file-link" download>
+                            <span class="file-icon">📎</span>
+                            <span class="file-text">Скачать файл для задания</span>
+                        </a>
+                    </div>
+                ` : ''}
+                
+                <div class="answer-block">
+                    <div class="answer-input-group">
+                        ${answerHtml}
+                        ${!isExtended ? `<span class="result-badge" id="result-${taskId}"></span>` : ''}
+                    </div>
+                    <div class="hints-container" id="hints-${taskId}">
                         ${task.hint1 ? `
-                            <div class="variant-spoiler-item" id="spoiler-item-hint1-${taskId}">
-                                <div class="variant-spoiler-header" id="v-spoiler-header-hint1-${taskId}" onclick="toggleVariantSpoiler('hint1-${taskId}')">
+                            <div class="spoiler-item" id="spoiler-item-hint1-${taskId}">
+                                <div class="spoiler-header" id="spoiler-header-hint1-${taskId}" onclick="toggleSpoiler('hint1-${taskId}')">
                                     <span class="spoiler-icon">▶</span>
                                     <span class="spoiler-title">Подсказка 1</span>
                                 </div>
-                                <div class="variant-spoiler-content" id="v-spoiler-content-hint1-${taskId}">
-                                    <div class="variant-spoiler-inner">
-                                        ${safeReplace(task.hint1)}
+                                <div class="spoiler-content" id="spoiler-content-hint1-${taskId}">
+                                    <div class="spoiler-inner">
+                                        ${formatText(task.hint1)}
                                     </div>
                                 </div>
                             </div>
                         ` : ''}
-
                         ${task.hint2 ? `
-                            <div class="variant-spoiler-item" id="spoiler-item-hint2-${taskId}">
-                                <div class="variant-spoiler-header" id="v-spoiler-header-hint2-${taskId}" onclick="toggleVariantSpoiler('hint2-${taskId}')">
+                            <div class="spoiler-item" id="spoiler-item-hint2-${taskId}">
+                                <div class="spoiler-header" id="spoiler-header-hint2-${taskId}" onclick="toggleSpoiler('hint2-${taskId}')">
                                     <span class="spoiler-icon">▶</span>
                                     <span class="spoiler-title">Подсказка 2</span>
                                 </div>
-                                <div class="variant-spoiler-content" id="v-spoiler-content-hint2-${taskId}">
-                                    <div class="variant-spoiler-inner">
-                                        ${safeReplace(task.hint2)}
+                                <div class="spoiler-content" id="spoiler-content-hint2-${taskId}">
+                                    <div class="spoiler-inner">
+                                        ${formatText(task.hint2)}
                                     </div>
                                 </div>
                             </div>
                         ` : ''}
                     </div>
                 </div>
-            `;
+            </div>
+        `;
             });
 
             html += '</div>';
+
+            if (hasMore) {
+                const remaining = totalCount - tasks.length;
+                const nextCount = Math.min(tasksPerPage, remaining);
+                html += `
+            <div class="pagination-container">
+                <button class="load-more-btn" onclick="loadMoreTasks()">
+                    📚 Показать ещё ${nextCount} из ${remaining}
+                </button>
+            </div>
+        `;
+            }
+
+            html += `
+        <div class="pagination-info">
+            Показано ${tasks.length} из ${totalCount} заданий
+        </div>
+    `;
+
             container.innerHTML = html;
-        }
 
-        function renderVariantAnswerBlock(task, taskId) {
-            const taskType = task.type || 'text';
-            const isExtended = extendedTasks.includes(task.number);
-
-            
-            if (isExtended) {
-                return `
-                    <div class="extended-answer-block">
-                        <div class="extended-note">
-                            <span>✍️ Задание с развернутым ответом</span>
-                        </div>
-                        <div class="extended-self-check">
-                            <strong>📝 Самопроверка</strong>
-                            <p>Проверь своё решение самостоятельно.<br>Правильный ответ можно посмотреть в статистике после завершения экзамена.</p>
-                        </div>
-                    </div>
-                `;
-            }
-
-            
-            if (taskType === 'choice' && task.options) {
-                const options = task.options.split(';').map(opt => opt.trim());
-
-                let choicesHtml = `
-                    <div class="choice-group" id="variant-choice-group-${taskId}">
-                `;
-
-                options.forEach((option, idx) => {
-                    const optionId = `variant-choice-${taskId}-${idx}`;
-                    choicesHtml += `
-                        <label class="choice-item" for="${optionId}">
-                            <input type="radio"
-                                   name="variant-answer-${taskId}"
-                                   id="${optionId}"
-                                   value="${option}">
-                            ${option}
-                        </label>
-                    `;
+            setTimeout(() => {
+                tasks.forEach(task => {
+                    const taskId = `task-${task.id || tasks.indexOf(task)}`.replace(/[^a-zA-Z0-9]/g, '-');
+                    if (isTaskSolved(taskId, task.number)) {
+                        addSolvedBadge(taskId);
+                    }
+                    attemptCounts[taskId] = 0;
                 });
-
-                choicesHtml += `</div>`;
-
-                return `
-                    <div class="variant-answer-block">
-                        ${choicesHtml}
-                        <button class="variant-check-btn" onclick="checkVariantChoiceAnswer('${taskId}')">Проверить</button>
-                        <span class="variant-result-badge" id="variant-result-${taskId}"></span>
-                    </div>
-                `;
-            } else {
-                return `
-                    <div class="variant-answer-block">
-                        <input type="text"
-                               class="variant-answer-input"
-                               id="variant-input-${taskId}"
-                               placeholder="Введите ответ...">
-                        <button class="variant-check-btn" onclick="checkVariantRegularAnswer('${taskId}')">Проверить</button>
-                        <span class="variant-result-badge" id="variant-result-${taskId}"></span>
-                    </div>
-                `;
-            }
+            }, 100);
         }
 
-        // ===== функции проверки =====
-        window.checkVariantRegularAnswer = function (taskId) {
-            const input = document.getElementById(`variant-input-${taskId}`);
-            const resultSpan = document.getElementById(`variant-result-${taskId}`);
+        // ===== загрузить ещё =====
+        function loadMoreTasks() {
+            currentPage++;
+            const selectedNumber = document.getElementById('taskNumberSelect').value;
+            const tasksWithNumber = allTasks.filter(task => task.number == selectedNumber);
+            currentFilteredTasks = getTasksByMode(tasksWithNumber, currentUserMode);
+            const endIndex = currentPage * tasksPerPage;
+            const visibleTasks = currentFilteredTasks.slice(0, endIndex);
+            const hasMore = currentFilteredTasks.length > endIndex;
+            displayTasksList(visibleTasks, hasMore, currentFilteredTasks.length);
+        }
 
+        // ===== применить сортировку =====
+        function applySorting() {
+            if (isLoading) {
+                alert('Данные ещё загружаются, подождите');
+                return;
+            }
+
+            const selectedNumber = document.getElementById('taskNumberSelect').value;
+            if (!selectedNumber) {
+                alert('Сначала выберите номер задания');
+                return;
+            }
+
+            const radios = document.getElementsByName('sortOrder');
+            for (let radio of radios) {
+                if (radio.checked) {
+                    currentSortOrder = radio.value;
+                    localStorage.setItem('oge365_sort_order', currentSortOrder);
+                    break;
+                }
+            }
+
+            if (currentSortOrder === 'random') {
+                allTasks = [...allTasks].sort(() => Math.random() - 0.5);
+            } else {
+                const sortedTasks = sortTasksByNumber(allTasks, currentSortOrder);
+                const currentTasks = sortedTasks.filter(t => t.number == selectedNumber);
+                const otherTasks = sortedTasks.filter(t => t.number != selectedNumber);
+                allTasks = [...currentTasks, ...otherTasks];
+            }
+
+            currentPage = 1;
+            displayPaginatedTasks();
+            console.log(`✅ Сортировка "${currentSortOrder}" применена`);
+        }
+
+        // ===== функция поиска заданий =====
+        function displayFilteredTasks() {
+            currentPage = 1;
+            displayPaginatedTasks();
+        }
+
+        // ===== функция проверки ответа =====
+        window.checkTaskAnswer = function (taskId) {
+            const input = document.getElementById(`input-${taskId}`);
+            const resultSpan = document.getElementById(`result-${taskId}`);
             if (!input || !resultSpan) return;
 
-            const taskIndex = parseInt(taskId.split('-')[1]);
-            const task = currentVariant[taskIndex];
+            const task = allTasks.find(t => {
+                const id = `task-${t.id || allTasks.indexOf(t)}`.replace(/[^a-zA-Z0-9]/g, '-');
+                return id === taskId;
+            });
 
-            if (!task) return;
+            if (!task) {
+                console.error('Задание не найдено');
+                return;
+            }
 
             const userAnswer = input.value;
-            const isCorrect = userAnswer.trim().toLowerCase() === (task.answer || '').trim().toLowerCase();
+            const isCorrect = String(userAnswer).trim().toLowerCase() === String(task.answer || '').trim().toLowerCase();
 
-            userAnswers[taskId] = {
-                answer: userAnswer,
-                isCorrect: isCorrect
-            };
+            attemptCounts[taskId] = (attemptCounts[taskId] || 0) + 1;
+
+            const hint1Item = document.getElementById(`spoiler-item-hint1-${taskId}`);
+            const hint2Item = document.getElementById(`spoiler-item-hint2-${taskId}`);
 
             if (isCorrect) {
                 resultSpan.innerHTML = '✅';
-                resultSpan.style.color = '#10b981';
+                resultSpan.className = 'result-badge result-correct';
+
+                if (hint1Item) {
+                    hint1Item.classList.remove('visible');
+                    const header1 = document.getElementById(`spoiler-header-hint1-${taskId}`);
+                    const content1 = document.getElementById(`spoiler-content-hint1-${taskId}`);
+                    if (header1 && content1) {
+                        header1.classList.remove('open');
+                        content1.classList.remove('open');
+                    }
+                }
+                if (hint2Item) {
+                    hint2Item.classList.remove('visible');
+                    const header2 = document.getElementById(`spoiler-header-hint2-${taskId}`);
+                    const content2 = document.getElementById(`spoiler-content-hint2-${taskId}`);
+                    if (header2 && content2) {
+                        header2.classList.remove('open');
+                        content2.classList.remove('open');
+                    }
+                }
+
+                const hintsContainer = document.getElementById(`hints-${taskId}`);
+                const oldCorrect = hintsContainer?.querySelector('.correct-message');
+                if (oldCorrect) oldCorrect.remove();
+
+                const correctMsg = document.createElement('div');
+                correctMsg.className = 'correct-message';
+                correctMsg.innerHTML = '✅ Правильно! Так держать!';
+                if (hintsContainer) {
+                    hintsContainer.insertBefore(correctMsg, hintsContainer.firstChild);
+                }
+
+                markTaskAsSolved(taskId, task.number);
             } else {
                 resultSpan.innerHTML = '❌';
-                resultSpan.style.color = '#ef4444';
+                resultSpan.className = 'result-badge result-wrong';
+
+                if (attemptCounts[taskId] === 1 && hint1Item) {
+                    hint1Item.classList.add('visible');
+                }
+                if (attemptCounts[taskId] === 2 && hint2Item) {
+                    hint2Item.classList.add('visible');
+                }
             }
         };
 
-        window.checkVariantChoiceAnswer = function (taskId) {
-            const radios = document.getElementsByName(`variant-answer-${taskId}`);
+        // ===== функция проверки ответа =====
+        window.checkChoiceAnswer = function (taskId) {
+            const radios = document.getElementsByName(`answer-${taskId}`);
             let selectedValue = null;
 
             for (let radio of radios) {
@@ -2055,219 +1801,117 @@
             }
 
             if (!selectedValue) {
-                alert('Выберите вариант ответа');
+                alert('Пожалуйста, выберите вариант ответа');
                 return;
             }
 
-            const resultSpan = document.getElementById(`variant-result-${taskId}`);
+            const resultSpan = document.getElementById(`result-${taskId}`);
             if (!resultSpan) return;
 
-            const taskIndex = parseInt(taskId.split('-')[1]);
-            const task = currentVariant[taskIndex];
+            const task = allTasks.find(t => {
+                const id = `task-${t.id || allTasks.indexOf(t)}`.replace(/[^a-zA-Z0-9]/g, '-');
+                return id === taskId;
+            });
 
-            if (!task) return;
+            if (!task) {
+                console.error('Задание не найдено');
+                return;
+            }
 
-            const isCorrect = selectedValue.trim().toLowerCase() === (task.answer || '').trim().toLowerCase();
+            const isCorrect = String(selectedValue).trim().toLowerCase() === String(task.answer || '').trim().toLowerCase();
 
-            userAnswers[taskId] = {
-                answer: selectedValue,
-                isCorrect: isCorrect
-            };
+            attemptCounts[taskId] = (attemptCounts[taskId] || 0) + 1;
+
+            const hint1Item = document.getElementById(`spoiler-item-hint1-${taskId}`);
+            const hint2Item = document.getElementById(`spoiler-item-hint2-${taskId}`);
+
+            const choiceItems = document.querySelectorAll(`#choice-group-${taskId} .choice-item`);
+            choiceItems.forEach(item => item.classList.remove('selected'));
+            const selectedLabel = Array.from(radios).find(r => r.checked)?.closest('.choice-item');
+            if (selectedLabel) selectedLabel.classList.add('selected');
 
             if (isCorrect) {
                 resultSpan.innerHTML = '✅';
-                resultSpan.style.color = '#10b981';
+                resultSpan.className = 'result-badge result-correct';
+
+                if (hint1Item) {
+                    hint1Item.classList.remove('visible');
+                    const header1 = document.getElementById(`spoiler-header-hint1-${taskId}`);
+                    const content1 = document.getElementById(`spoiler-content-hint1-${taskId}`);
+                    if (header1 && content1) {
+                        header1.classList.remove('open');
+                        content1.classList.remove('open');
+                    }
+                }
+                if (hint2Item) {
+                    hint2Item.classList.remove('visible');
+                    const header2 = document.getElementById(`spoiler-header-hint2-${taskId}`);
+                    const content2 = document.getElementById(`spoiler-content-hint2-${taskId}`);
+                    if (header2 && content2) {
+                        header2.classList.remove('open');
+                        content2.classList.remove('open');
+                    }
+                }
+
+                const hintsContainer = document.getElementById(`hints-${taskId}`);
+                const oldCorrect = hintsContainer?.querySelector('.correct-message');
+                if (oldCorrect) oldCorrect.remove();
+
+                const correctMsg = document.createElement('div');
+                correctMsg.className = 'correct-message';
+                correctMsg.innerHTML = '✅ Правильно! Так держать!';
+                if (hintsContainer) {
+                    hintsContainer.insertBefore(correctMsg, hintsContainer.firstChild);
+                }
+
+                markTaskAsSolved(taskId, task.number);
             } else {
                 resultSpan.innerHTML = '❌';
-                resultSpan.style.color = '#ef4444';
+                resultSpan.className = 'result-badge result-wrong';
+
+                if (attemptCounts[taskId] === 1 && hint1Item) {
+                    hint1Item.classList.add('visible');
+                }
+                if (attemptCounts[taskId] === 2 && hint2Item) {
+                    hint2Item.classList.add('visible');
+                }
             }
         };
 
-        // ===== функции для подсказок =====
-        window.toggleVariantSpoiler = function (spoilerId) {
-            const content = document.getElementById(`v-spoiler-content-${spoilerId}`);
-            const header = document.getElementById(`v-spoiler-header-${spoilerId}`);
-
+        // ===== функция для спойлеров =====
+        window.toggleSpoiler = function (spoilerId) {
+            const content = document.getElementById(`spoiler-content-${spoilerId}`);
+            const header = document.getElementById(`spoiler-header-${spoilerId}`);
             if (content && header) {
                 content.classList.toggle('open');
                 header.classList.toggle('open');
             }
         };
 
-        // ===== старое меню подведения итогов =====
-        function showExamStats() {
-            if (currentVariant.length === 0) return;
+        // ===== обработчики кнопок =====
+        document.getElementById('searchBtn').addEventListener('click', displayFilteredTasks);
+        document.getElementById('applySortBtn').addEventListener('click', applySorting);
 
-            let correctCount = 0;
-            let totalNormalCount = 0;
-            let extendedList = [];
+        const modeButtons = document.querySelectorAll('.mode-btn');
+        modeButtons.forEach(btn => {
+            btn.addEventListener('click', function () {
+                const mode = this.dataset.mode;
+                if (mode === currentUserMode) return;
 
-            currentVariant.forEach((task, index) => {
-                const taskId = `variant-${index}`;
-                const isExtended = extendedTasks.includes(task.number);
-
-                if (isExtended) {
-                    extendedList.push({
-                        number: task.number,
-                        name: taskNames[task.number],
-                        answer: task.answer || 'Ответ не указан'
-                    });
-                } else {
-                    totalNormalCount++;
-                    const answer = userAnswers[taskId];
-                    if (answer?.isCorrect) {
-                        correctCount++;
-                    }
-                }
+                currentUserMode = mode;
+                localStorage.setItem(MODE_KEY, currentUserMode);
+                updateModeButtons(mode);
+                currentPage = 1;
+                displayPaginatedTasks();
             });
-
-            extendedList.sort((a, b) => a.number - b.number);
-
-            const modal = document.getElementById('statsModal');
-
-            let extendedHTML = '';
-            if (extendedList.length > 0) {
-                extendedHTML = `
-                                            <div class="stats-extended-section">
-                                                <div class="stats-extended-title">✍️ Задания с развернутым ответом (13-16)</div>
-                                        `;
-
-                extendedList.forEach(item => {
-                    extendedHTML += `
-                                                <div class="stats-extended-item">
-                                                    <div class="stats-extended-header">
-                                                        <span>Задание ${item.number}</span>
-                                                        <span>${item.name}</span>
-                                                    </div>
-                                                    <div class="stats-extended-answer">
-                                                        <strong>Правильный ответ:</strong> ${item.answer}
-                                                    </div>
-                                                </div>
-                                            `;
-                });
-
-                extendedHTML += `
-                                                <div class="stats-extended-note">
-                                                    ⚡ Оцени себя сам! Сравни свой ответ с правильным и посчитай баллы.
-                                                </div>
-                                            </div>
-                                        `;
-            }
-
-            let statsHTML = `
-                                        <div class="stats-modal">
-                                            <div class="stats-content">
-                                                <div class="stats-title">📊 Результат экзамена</div>
-                                                <div class="stats-subtitle">ОГЭ по информатике</div>
-
-                                                <div class="stats-score">
-                                                    <div class="stats-score-number">${correctCount}/${totalNormalCount}</div>
-                                                    <div class="stats-score-label">правильных ответов (задания 1-12)</div>
-                                                    <div class="stats-score-note">✍️ Задания 13-16 оцениваются отдельно</div>
-                                                </div>
-
-                                                <div class="stats-detail">
-                                                    <div class="stats-detail-title">Детали по заданиям 1-12:</div>
-                                                    <ul class="stats-task-list">
-                                    `;
-
-            currentVariant.forEach((task, index) => {
-                const taskId = `variant-${index}`;
-                const isExtended = extendedTasks.includes(task.number);
-
-                if (!isExtended) {
-                    const answer = userAnswers[taskId];
-                    let resultText = '⏳ Не проверено';
-                    let resultClass = 'pending';
-
-                    if (answer) {
-                        resultText = answer.isCorrect ? '✅ Верно' : '❌ Неверно';
-                        resultClass = answer.isCorrect ? 'correct' : 'incorrect';
-                    }
-
-                    statsHTML += `
-                                                <li class="stats-task-item">
-                                                    <span class="stats-task-number">Задание ${task.number}</span>
-                                                    <span class="stats-task-result ${resultClass}">${resultText}</span>
-                                                </li>
-                                            `;
-                }
-            });
-
-            statsHTML += `
-                                                    </ul>
-                                                </div>
-
-                                                ${extendedHTML}
-
-                                                <div class="stats-buttons">
-                                                    <button class="stats-btn primary" onclick="closeStatsModal()">Продолжить</button>
-                                                    <button class="stats-btn secondary" onclick="closeStatsModal(); clearVariantAndRestart()">Новый вариант</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    `;
-
-            modal.innerHTML = statsHTML;
-            modal.style.display = 'block';
-        }
-
-        window.closeStatsModal = function () {
-            document.getElementById('statsModal').style.display = 'none';
-        };
-
-        window.clearVariantAndRestart = function () {
-            closeStatsModal();
-            document.getElementById('clearVariantBtn').click();
-        };
-
-        // ===== обработчики =====
-        document.getElementById('composeVariantBtn').addEventListener('click', composeVariant);
-
-        document.getElementById('refreshVariantBtn').addEventListener('click', function () {
-            const total = Object.values(taskCounts).reduce((sum, count) => sum + count, 0);
-            if (total > 0) {
-                composeVariant();
-            } else {
-                alert('Сначала выберите задания');
-            }
         });
 
-        document.getElementById('clearVariantBtn').addEventListener('click', function () {
-            document.getElementById('variantResult').style.display = 'none';
-            currentVariant = [];
-            userAnswers = {};
-            stopTimer();
-            resetTimer();
-
-            for (let i = 1; i <= 16; i++) {
-                taskCounts[i] = 0;
-                updateCountDisplay(i);
-            }
-            updateTotalCount();
-            updateComposeButton();
+        document.getElementById('resetBtn').addEventListener('click', function () {
+            document.getElementById('taskNumberSelect').value = '';
+            document.getElementById('tasksContainer').innerHTML = '<div class="no-results">🔍 Выберите номер задания</div>';
+            document.getElementById('resultsHeader').style.display = 'none';
+            attemptCounts = {};
         });
-
-        document.getElementById('selectAllBtn').addEventListener('click', function () {
-            for (let i = 1; i <= 16; i++) {
-                taskCounts[i] = 1;
-                updateCountDisplay(i);
-            }
-            updateTotalCount();
-            updateComposeButton();
-        });
-
-        document.getElementById('clearAllBtn').addEventListener('click', function () {
-            for (let i = 1; i <= 16; i++) {
-                taskCounts[i] = 0;
-                updateCountDisplay(i);
-            }
-            updateTotalCount();
-            updateComposeButton();
-        });
-
-        document.getElementById('finishExamBtn').addEventListener('click', showExamStats);
-
         // ===== Управление согласием на cookies =====
         document.addEventListener('DOMContentLoaded', function () {
             const cookieConsent = document.getElementById('cookieConsent');
@@ -2280,7 +1924,6 @@
                 cookieConsent.style.display = 'block';
             }
 
-            
             if (acceptBtn) {
                 acceptBtn.addEventListener('click', function () {
                     
@@ -2290,6 +1933,16 @@
                 });
             }
         });
+        // ===== Функция для переключения спойлера с ответом =====
+        window.toggleExtendedAnswer = function (taskId) {
+            const content = document.getElementById(`extended-answer-${taskId}`);
+            const header = content?.previousElementSibling;
+
+            if (content && header) {
+                content.classList.toggle('open');
+                header.classList.toggle('open');
+            }
+        };
     </script>
     <!-- ===== Уведомление о cookies ===== -->
     <div id="cookieConsent" class="cookie-consent" style="display: none;">
