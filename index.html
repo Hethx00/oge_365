@@ -170,6 +170,15 @@
             line-height: 1.5;
         }
 
+        .feature-card {
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+            .feature-card:active {
+                transform: scale(0.98);
+            }
+
         /* ===== Уведомление о cookies ===== */
         .cookie-consent {
             position: fixed;
@@ -317,19 +326,19 @@
             <div class="container">
                 <div class="features-grid">
                     <!-- Плюс 1: Лучшая теория -->
-                    <div class="feature-card">
+                    <div class="feature-card" onclick="window.location.href='theory.html'">
                         <div class="plus-icon">📖</div>
                         <h3>Видео от гуру</h3>
                         <p>Мы не пишем длинных параграфов. Мы нашли для тебя лучшие объяснения на Rutube. Только понятные разборы от топовых преподавателей</p>
                     </div>
                     <!-- Плюс 2: Решай задания + подсказки -->
-                    <div class="feature-card">
+                    <div class="feature-card" onclick="window.location.href='tasks.html'">
                         <div class="plus-icon">❓</div>
                         <h3>Умные подсказки</h3>
                         <p>Завис над задачей? Наш тренажер не просто ставит "2" в углу. Он проанализирует твой неверный ответ и выдаст точную подсказку</p>
                     </div>
                     <!-- Плюс 3: Шпаргалки -->
-                    <div class="feature-card">
+                    <div class="feature-card" onclick="window.location.href='theory.html'">
                         <div class="plus-icon">📒</div>
                         <h3>Шпаргалки</h3>
                         <p>Мы собрали самое главное в короткие и красивые шпаргалки. Их можно распечатать, сохранить в телефон или просто пробежаться глазами</p>
