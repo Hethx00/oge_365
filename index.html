@@ -4,12 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ОГЭ365 - Главная</title>
-    <!-- Общий CSS -->
     <link rel="stylesheet" href="css/style.css">
     <style>
-        /* Стили */
 
-        /* Герой блок первый экран */
         .hero {
             padding: 40px 0 30px;
         }
@@ -62,7 +59,6 @@
                 transform: scale(1.02);
             }
 
-        /* Иллю с книгами */
         .hero-image {
             flex: 1 1 300px;
             display: flex;
@@ -111,7 +107,6 @@
                 box-shadow: 6px 6px 0 #ffd1a4;
             }
 
-        /* Блок с плюсами */
         .features {
             padding: 50px 0 40px;
             background: #ffffff;
@@ -179,7 +174,6 @@
                 transform: scale(0.98);
             }
 
-        /* ===== Уведомление о cookies ===== */
         .cookie-consent {
             position: fixed;
             bottom: 0;
@@ -263,7 +257,6 @@
             }
         }
 
-        /* Адаптация для мобильных */
         @media (max-width: 700px) {
             .hero-title {
                 font-size: 32px;
@@ -285,7 +278,6 @@
     </style>
 </head>
 <body>
-    <!-- Шапка -->
     <header class="header">
         <div class="container">
             <div class="logo" onclick="window.location.href='index.html'">ОГЭ365</div>
@@ -298,9 +290,7 @@
         </div>
     </header>
 
-    <!-- Осн контент -->
     <main class="main-content">
-        <!-- Перв блок с книгами -->
         <section class="hero">
             <div class="container">
                 <div class="hero-content">
@@ -321,23 +311,19 @@
             </div>
         </section>
 
-        <!-- ВТорой блок с плюсами -->
         <section class="features">
             <div class="container">
                 <div class="features-grid">
-                    <!-- Плюс 1: Лучшая теория -->
                     <div class="feature-card" onclick="window.location.href='theory.html'">
                         <div class="plus-icon">📖</div>
                         <h3>Видео от гуру</h3>
                         <p>Мы не пишем длинных параграфов. Мы нашли для тебя лучшие объяснения на Rutube. Только понятные разборы от топовых преподавателей</p>
                     </div>
-                    <!-- Плюс 2: Решай задания + подсказки -->
                     <div class="feature-card" onclick="window.location.href='tasks.html'">
                         <div class="plus-icon">❓</div>
                         <h3>Умные подсказки</h3>
                         <p>Завис над задачей? Наш тренажер не просто ставит "2" в углу. Он проанализирует твой неверный ответ и выдаст точную подсказку</p>
                     </div>
-                    <!-- Плюс 3: Шпаргалки -->
                     <div class="feature-card" onclick="window.location.href='theory.html'">
                         <div class="plus-icon">📒</div>
                         <h3>Шпаргалки</h3>
@@ -348,16 +334,14 @@
         </section>
     </main>
 
-    <!-- ===== Подвал ===== -->
     <footer class="footer">
         <div class="container">
             <div class="footer-logo">ОГЭ365</div>
-            <div class="footer-email">Для обратной связи: leib.agency@gmail.com</div>
+            <div class="footer-email">leib.agency@gmail.com</div>
             <div class="footer-year">2026</div>
         </div>
     </footer>
     <script>
-        // ===== Управление согласием на cookies =====
         document.addEventListener('DOMContentLoaded', function () {
             const cookieConsent = document.getElementById('cookieConsent');
             const acceptBtn = document.getElementById('acceptCookies');
@@ -381,7 +365,6 @@
             }
         });
     </script>
-    <!-- ===== Уведомление о cookies ===== -->
     <div id="cookieConsent" class="cookie-consent" style="display: none;">
         <div class="cookie-content">
             <div class="cookie-text">
