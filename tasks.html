@@ -1731,7 +1731,7 @@
 
             const userAnswer = input.value;
             const correctAnswer = task.answer !== undefined && task.answer !== null ? String(task.answer).trim() : '';
-            const isCorrect = String(userAnswer).trim() === correctAnswer;
+            const isCorrect = String(userAnswer).trim().toLowerCase() === correctAnswer.toLowerCase();
 
             attemptCounts[taskId] = (attemptCounts[taskId] || 0) + 1;
 
@@ -1816,7 +1816,7 @@
             }
 
             const correctAnswer = task.answer !== undefined && task.answer !== null ? String(task.answer).trim() : '';
-            const isCorrect = String(selectedValue).trim() === correctAnswer;
+            const isCorrect = String(selectedValue).trim().toLowerCase() === correctAnswer.toLowerCase();
 
             attemptCounts[taskId] = (attemptCounts[taskId] || 0) + 1;
 
