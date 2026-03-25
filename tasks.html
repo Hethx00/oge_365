@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ОГЭ365 - База заданий</title>
-    <!-- Общий CSS -->
     <link rel="stylesheet" href="css/style.css">
     <style>
-        /* ===== основные стили ===== */
         .search-card {
             background: white;
             border-radius: 16px;
@@ -87,7 +85,6 @@
             white-space: nowrap;
             text-align: center;
         }
-        /* ===== стили для фильтров ===== */
         .filters-panel {
             background: white;
             border-radius: 16px;
@@ -172,7 +169,6 @@
             }
 
 
-        /* ===== Модальное окно для увеличения картинки ===== */
         .image-modal {
             position: fixed;
             top: 0;
@@ -212,7 +208,6 @@
                 color: #f57c00;
                 transform: scale(1.1);
             }
-        /* ===== переключатель режимов ===== */
         .mode-switcher {
             background: white;
             border-radius: 16px;
@@ -299,7 +294,6 @@
             }
         }
 
-        /* ===== результаты ===== */
         .results-header {
             display: flex;
             justify-content: space-between;
@@ -333,7 +327,6 @@
 
 
 
-        /* ===== Стили для файлов ===== */
         .task-file {
             margin: 10px 0;
         }
@@ -361,7 +354,6 @@
         .file-icon {
             font-size: 16px;
         }
-        /* ===== список заданий ===== */
         .tasks-list {
             display: flex;
             flex-direction: column;
@@ -435,7 +427,6 @@
 
 
 
-            /* Защита от переопределения стилей для картинок */
             .task-item img,
             .task-image img,
             .variant-task-card img {
@@ -446,14 +437,12 @@
                 margin: 0 auto;
             }
 
-        /* Сброс стилей для картинок от таблиц */
         .task-table img {
             max-width: none;
             display: inline;
         }
 
 
-        /* ===== Стили для развернутых ответов ===== */
         .extended-answer-block {
             background: #fffbeb;
             border-radius: 12px;
@@ -532,7 +521,6 @@
                 display: block;
                 margin-bottom: 8px;
             }
-        /* ===== стили для таблиц ===== */
         .task-table-container {
             margin: 15px 0;
             overflow-x: auto;
@@ -572,7 +560,6 @@
                 color: #1e2a3a;
             }
 
-            /* Специально для таблиц с алфавитом */
             .task-table[data-type="alphabet"] th,
             .task-table[data-type="alphabet"] td {
                 min-width: 35px; 
@@ -580,7 +567,6 @@
                 padding: 8px 2px;
             }
 
-            /* Стили для таблиц с кодо */
             .task-table[data-type="code"] td:first-child {
                 background: #f8fafc;
                 font-weight: 600;
@@ -604,7 +590,6 @@
                 min-width: 400px;
             }
 
-        /* Для мобильной версии */
         @media (max-width: 600px) {
             .task-table th,
             .task-table td {
@@ -633,7 +618,6 @@
             }
         }
 
-        /* ===== блок ответа ===== */
         .answer-block {
             background: #f8fafc;
             border-radius: 10px;
@@ -694,7 +678,6 @@
             color: #ef4444;
         }
 
-        /* ===== подсказки ===== */
         .hints-container {
             margin-top: 10px;
         }
@@ -769,7 +752,6 @@
             color: #166534;
         }
 
-        /* ===== Уведомление о cookies ===== */
         .cookie-consent {
             position: fixed;
             bottom: 0;
@@ -853,7 +835,6 @@
             }
         }
 
-        /* ===== стили для решенных заданий ===== */
         .solved-badge {
             position: absolute;
             top: -10px;
@@ -868,7 +849,6 @@
             z-index: 10;
         }
 
-        /* ===== стили для заданий с выбором ответа ===== */
         .choice-group {
             display: flex;
             flex-direction: column;
@@ -908,7 +888,6 @@
                 cursor: pointer;
             }
 
-        /* ===== стили для пагинации ===== */
         .pagination-container {
             text-align: center;
             margin: 20px 0;
@@ -941,7 +920,6 @@
             font-size: 14px;
         }
 
-        /* ===== загрузчик ===== */
         .loader {
             text-align: center;
             padding: 60px 20px;
@@ -980,7 +958,6 @@
             border: 1px dashed #cbd5e1;
         }
 
-        /* ===== адаптация ===== */
         @media (max-width: 600px) {
             .search-form {
                 flex-direction: column;
@@ -1026,7 +1003,6 @@
     </style>
 </head>
 <body>
-    <!-- ===== шапка ===== -->
     <header class="header">
         <div class="container">
             <div class="logo" onclick="window.location.href='index.html'">ОГЭ365</div>
@@ -1039,14 +1015,12 @@
         </div>
     </header>
 
-    <!-- ===== основной контент ===== -->
     <main class="main-content">
         <div class="container">
             <h1 class="page-title">
                 База заданий <span>по информатике</span>
             </h1>
 
-            <!-- панель поиска -->
             <div class="search-card">
                 <div class="search-form">
                     <div class="form-group">
@@ -1075,7 +1049,6 @@
                 </div>
             </div>
 
-            <!-- Панель фильтров -->
             <div class="filters-panel">
                 <div class="filters-title">
                     <span>Сортировка заданий:</span>
@@ -1097,7 +1070,6 @@
                 </div>
             </div>
 
-            <!-- Переключатель режимов -->
             <div class="mode-switcher">
                 <span class="mode-switcher-label">Режим:</span>
                 <div class="mode-toggle" id="modeToggle">
@@ -1106,7 +1078,6 @@
                 </div>
             </div>
 
-            <!-- Результаты -->
             <div class="results-section">
                 <div class="results-header" id="resultsHeader" style="display: none;">
                     <div class="results-count" id="resultsCount"></div>
@@ -1121,11 +1092,10 @@
         </div>
     </main>
 
-    <!-- ===== подвал ===== -->
     <footer class="footer">
         <div class="container">
             <div class="footer-logo">ОГЭ365</div>
-            <div class="footer-email">Для обратной связи: leib.agency@gmail.com</div>
+            <div class="footer-email">leib.agency@gmail.com</div>
             <div class="footer-year">2026</div>
         </div>
     </footer>
@@ -1139,17 +1109,14 @@
         let currentSortOrder = 'random';
         let currentUserMode = 'pro';
 
-        // ===== переменные для пагинации =====
         let currentPage = 1;
         let tasksPerPage = 6;
         let currentFilteredTasks = [];
 
-        // ===== переменные для прогресса =====
         let solvedTasks = {};
         const STORAGE_KEY = 'oge365_solved_tasks';
         const MODE_KEY = 'oge365_user_mode';
 
-        // ===== функция для форматирования текста с поддержкой маркеров жирного текста =====
         function formatText(text) {
             if (!text) return '';
 
@@ -1166,7 +1133,6 @@
             return formatted;
         }
 
-        // ===== функция для форматирования ячейки таблицы =====
         function formatTableCell(cellContent) {
             if (!cellContent) return '';
 
@@ -1181,7 +1147,6 @@
             return formatted;
         }
 
-        // ===== функция для преобразования ссылок google drive для картинок =====
         function getGoogleDriveImageUrl(url) {
             if (!url) return url;
 
@@ -1197,7 +1162,6 @@
             }
             return url;
         }
-        // ===== функция для преобразования ссылок google drive =====
         function getGoogleDriveDirectLink(url) {
             if (!url) return url;
 
@@ -1222,7 +1186,6 @@
 
         
 
-        // ===== обновленная функция для отображения таблиц с поддержкой жирного текста =====
         function renderTable(tableData) {
             if (!tableData) return '';
 
@@ -1265,7 +1228,6 @@
             }
         }
 
-        // ===== обновленная функция для задания 6 с поддержкой жирного текста =====
         function renderTask6Table(tableData) {
             if (!tableData) return '';
 
@@ -1305,7 +1267,6 @@
 
         
 
-        // ===== загрузка при старте =====
         document.addEventListener('DOMContentLoaded', function () {
             const container = document.getElementById('tasksContainer');
             container.innerHTML = `
@@ -1333,7 +1294,6 @@
             loadTasks();
         });
 
-        // ===== функция обновления кнопок режима =====
         function updateModeButtons(mode) {
             const buttons = document.querySelectorAll('.mode-btn');
             buttons.forEach(btn => {
@@ -1345,7 +1305,6 @@
             });
         }
 
-        // ===== функции для работы с прогрессом =====
         function loadProgress() {
             try {
                 const saved = localStorage.getItem(STORAGE_KEY);
@@ -1396,7 +1355,6 @@
             taskCard.appendChild(badge);
         }
 
-        // ===== функция загрузки данных =====
         async function loadTasks() {
             try {
                 const response = await fetch(API_URL);
@@ -1433,7 +1391,6 @@
             }
         }
 
-        // ===== функция сортировки =====
         function sortTasksByNumber(tasks, order) {
             if (!tasks || tasks.length === 0) return tasks;
 
@@ -1453,7 +1410,6 @@
             });
         }
 
-        // ===== функция для получения заданий по режиму =====
         function getTasksByMode(tasks, mode) {
             if (mode === 'pro') {
                 return tasks;
@@ -1462,7 +1418,6 @@
             }
         }
 
-        // ===== отобразить задания с пагинацией =====
         function displayPaginatedTasks() {
             const container = document.getElementById('tasksContainer');
             const resultsHeader = document.getElementById('resultsHeader');
@@ -1511,7 +1466,6 @@
         }
 
         
-        // ===== отрисовать список заданий =====
         function displayTasksList(tasks, hasMore, totalCount) {
             const container = document.getElementById('tasksContainer');
 
@@ -1709,7 +1663,6 @@
                 });
             }, 100);
         }
-        // ===== загрузить ещё =====
         function loadMoreTasks() {
             currentPage++;
             const selectedNumber = document.getElementById('taskNumberSelect').value;
@@ -1721,7 +1674,6 @@
             displayTasksList(visibleTasks, hasMore, currentFilteredTasks.length);
         }
 
-        // ===== применить сортировку =====
         function applySorting() {
             if (isLoading) {
                 alert('Данные ещё загружаются, подождите');
@@ -1757,13 +1709,11 @@
             console.log(`✅ Сортировка "${currentSortOrder}" применена`);
         }
 
-        // ===== функция поиска заданий =====
         function displayFilteredTasks() {
             currentPage = 1;
             displayPaginatedTasks();
         }
 
-        // ===== функция проверки ответа =====
         window.checkTaskAnswer = function (taskId) {
             const input = document.getElementById(`input-${taskId}`);
             const resultSpan = document.getElementById(`result-${taskId}`);
@@ -1835,7 +1785,6 @@
             }
         };
 
-        // ===== функция проверки ответа =====
         window.checkChoiceAnswer = function (taskId) {
             const radios = document.getElementsByName(`answer-${taskId}`);
             let selectedValue = null;
@@ -1925,7 +1874,6 @@
             }
         };
 
-        // ===== функция для спойлеров =====
         window.toggleSpoiler = function (spoilerId) {
             const content = document.getElementById(`spoiler-content-${spoilerId}`);
             const header = document.getElementById(`spoiler-header-${spoilerId}`);
@@ -1935,7 +1883,6 @@
             }
         };
 
-        // ===== обработчики кнопок =====
         document.getElementById('searchBtn').addEventListener('click', displayFilteredTasks);
         document.getElementById('applySortBtn').addEventListener('click', applySorting);
 
@@ -1959,7 +1906,6 @@
             document.getElementById('resultsHeader').style.display = 'none';
             attemptCounts = {};
         });
-        // ===== Управление согласием на cookies =====
         document.addEventListener('DOMContentLoaded', function () {
             const cookieConsent = document.getElementById('cookieConsent');
             const acceptBtn = document.getElementById('acceptCookies');
@@ -1980,7 +1926,6 @@
                 });
             }
         });
-        // ===== Функция для переключения спойлера с ответом =====
         window.toggleExtendedAnswer = function (taskId) {
             const content = document.getElementById(`extended-answer-${taskId}`);
             const header = content?.previousElementSibling;
@@ -1991,13 +1936,10 @@
             }
         };
 
-        // ===== функция увеличения картинки при клике =====
         function openImageModal(imageSrc, altText) {
-            // Удаляем старый модал, если есть
             const oldModal = document.querySelector('.image-modal');
             if (oldModal) oldModal.remove();
 
-            // Создаем модальное окно
             const modal = document.createElement('div');
             modal.className = 'image-modal';
             modal.onclick = function (e) {
@@ -2006,7 +1948,6 @@
                 }
             };
 
-            // Создаем кнопку закрытия
             const closeBtn = document.createElement('div');
             closeBtn.className = 'image-modal-close';
             closeBtn.innerHTML = '✕';
@@ -2014,7 +1955,6 @@
                 modal.remove();
             };
 
-            // Создаем изображение
             const img = document.createElement('img');
             img.src = imageSrc;
             img.alt = altText || 'Увеличенное изображение';
@@ -2023,7 +1963,6 @@
             modal.appendChild(img);
             document.body.appendChild(modal);
 
-            // Закрытие по Escape
             document.addEventListener('keydown', function (e) {
                 if (e.key === 'Escape' && document.querySelector('.image-modal')) {
                     document.querySelector('.image-modal').remove();
@@ -2031,12 +1970,9 @@
             });
         }
 
-        // Добавляем обработчики на все картинки после загрузки контента
         function addImageClickHandlers() {
             document.querySelectorAll('.task-image img, .variant-task-image img').forEach(img => {
-                // Убираем старый обработчик, если есть
                 img.removeEventListener('click', img._clickHandler);
-                // Добавляем новый
                 const handler = function (e) {
                     e.stopPropagation();
                     openImageModal(this.src, this.alt);
@@ -2048,14 +1984,12 @@
             });
         }
 
-        // Вызываем функцию после каждого обновления контента
         const originalDisplayTasksList = displayTasksList;
         window.displayTasksList = function (tasks, hasMore, totalCount) {
             originalDisplayTasksList(tasks, hasMore, totalCount);
             setTimeout(addImageClickHandlers, 100);
         };
     </script>
-    <!-- ===== Уведомление о cookies ===== -->
     <div id="cookieConsent" class="cookie-consent" style="display: none;">
         <div class="cookie-content">
             <div class="cookie-text">
