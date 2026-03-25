@@ -1730,7 +1730,8 @@
             }
 
             const userAnswer = input.value;
-            const isCorrect = String(userAnswer).trim().toLowerCase() === String(task.answer || '').trim().toLowerCase();
+            const correctAnswer = task.answer !== undefined && task.answer !== null ? String(task.answer).trim() : '';
+            const isCorrect = String(userAnswer).trim() === correctAnswer;
 
             attemptCounts[taskId] = (attemptCounts[taskId] || 0) + 1;
 
@@ -1814,7 +1815,8 @@
                 return;
             }
 
-            const isCorrect = String(selectedValue).trim().toLowerCase() === String(task.answer || '').trim().toLowerCase();
+            const correctAnswer = task.answer !== undefined && task.answer !== null ? String(task.answer).trim() : '';
+            const isCorrect = String(selectedValue).trim() === correctAnswer;
 
             attemptCounts[taskId] = (attemptCounts[taskId] || 0) + 1;
 
