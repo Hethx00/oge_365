@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ОГЭ365 - Варианты</title>
-    <!-- Общий CSS -->
     <link rel="stylesheet" href="css/style.css">
     <style>
-        /* ===== Стили для вариантов ===== */
 
         .variants-header {
             margin-bottom: 30px;
@@ -28,7 +26,6 @@
                 color: #f57c00;
             }
 
-        /* ===== Таймер ===== */
         .timer-container {
             background: linear-gradient(135deg, #1e2a3a 0%, #2d3e52 100%);
             border-radius: 60px;
@@ -103,7 +100,6 @@
             }
         }
 
-        /* ===== Панель выбора заданий ===== */
         .selection-panel {
             background: white;
             border-radius: 20px;
@@ -124,7 +120,6 @@
                 color: #f57c00;
             }
 
-        /* ===== Счетчики для заданий ===== */
         .tasks-grid-select {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -239,7 +234,6 @@
                 margin-left: 2px;
             }
 
-        /* ===== Спинер ===== */
         .loader-spinner {
             border: 4px solid #f3f3f3;
             border-top: 4px solid #f57c00;
@@ -261,7 +255,6 @@
         }
 
 
-        /* ===== Стили для файлов ===== */
         .task-file {
             margin: 10px 0;
         }
@@ -290,7 +283,6 @@
             font-size: 16px;
         }
 
-        /* ===== Кнопки действий ===== */
         .selection-actions {
             display: flex;
             gap: 15px;
@@ -360,7 +352,6 @@
                 }
 
 
-        /* ===== Стили для самопроверки ===== */
         .extended-self-check {
             background: #f8fafc;
             border-left: 4px solid #f59e0b;
@@ -382,7 +373,6 @@
                 margin: 0;
                 line-height: 1.6;
             }
-        /* ===== Результат ===== */
         .variant-result {
             margin-top: 30px;
             background: white;
@@ -473,7 +463,6 @@
                 transform: translateY(0);
             }
 
-        /* ===== Задания в варианте ===== */
         .variant-tasks-list {
             display: flex;
             flex-direction: column;
@@ -547,7 +536,6 @@
                 object-fit: contain;
             }
 
-        /* ===== стили для таблиц ===== */
         .task-table-container {
             margin: 15px 0;
             overflow-x: auto;
@@ -565,7 +553,6 @@
             overflow: hidden;
         }
 
-            /* Базовые стили для всех ячеек */
             .task-table th,
             .task-table td {
                 padding: 10px 8px;
@@ -582,13 +569,11 @@
                 font-weight: 600;
             }
 
-            /* Все ячейки по умолчанию */
             .task-table td {
                 background: white;
                 color: #1e2a3a;
             }
 
-            /* Специально для таблиц с большим количеством колонок  */
             .task-table[data-type="alphabet"] th,
             .task-table[data-type="alphabet"] td {
                 min-width: 35px; 
@@ -596,7 +581,6 @@
                 padding: 8px 2px;
             }
 
-            /* Стили для таблиц с кодом */
             .task-table[data-type="code"] td:first-child {
                 background: #f8fafc;
                 font-weight: 600;
@@ -618,7 +602,6 @@
                 min-width: 400px;
             }
 
-        /* Для мобильной версии */
         @media (max-width: 600px) {
             .task-table th,
             .task-table td {
@@ -645,7 +628,6 @@
             }
         }
 
-        /* ===== Блок ответа в варианте ===== */
         .variant-answer-block {
             display: flex;
             gap: 10px;
@@ -693,7 +675,6 @@
             text-align: center;
         }
 
-        /* ===== Задания с развернутым ответом ===== */
         .extended-answer-block {
             background: white;
             border-radius: 12px;
@@ -724,7 +705,6 @@
                 color: #f59e0b;
             }
 
-        /* ===== Подсказки ===== */
         .variant-hints-container {
             margin-top: 10px;
         }
@@ -787,7 +767,6 @@
             color: #475569;
         }
 
-        /* ===== Стили с выбором ===== */
         .choice-group {
             display: flex;
             flex-direction: column;
@@ -827,7 +806,6 @@
                 cursor: pointer;
             }
 
-        /* ===== Модальные окна ===== */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -898,7 +876,6 @@
             border: 1px dashed #cbd5e1;
         }
 
-        /* ===== Стили для старого меню ===== */
         .stats-modal {
             position: fixed;
             top: 0;
@@ -1103,7 +1080,6 @@
                     background: #fff0e0;
                 }
 
-        /* ===== Стили для tusk_number ===== */
         .variant-task-subnumber {
             color: #3b82f6;
             font-weight: 600;
@@ -1115,7 +1091,6 @@
             display: inline-block;
         }
 
-        /* ===== Уведомление о cookies ===== */
         .cookie-consent {
             position: fixed;
             bottom: 0;
@@ -1199,7 +1174,6 @@
             }
         }
 
-        /* ===== Адаптация для мобилок ===== */
         @media (max-width: 600px) {
             .timer-container {
                 flex-direction: column;
@@ -1271,7 +1245,6 @@
     </style>
 </head>
 <body>
-    <!-- ===== Шапка ===== -->
     <header class="header">
         <div class="container">
             <div class="logo" onclick="window.location.href='index.html'">ОГЭ365</div>
@@ -1284,7 +1257,6 @@
         </div>
     </header>
 
-    <!-- ===== Основной контент ===== -->
     <main class="main-content">
         <div class="container">
             <div class="variants-header">
@@ -1297,7 +1269,6 @@
                 </div>
             </div>
 
-            <!-- Таймер -->
             <div class="timer-container" id="timerContainer">
                 <div class="timer-label">
                     <svg viewBox="0 0 24 24">
@@ -1308,7 +1279,6 @@
                 <div class="timer-display" id="timerDisplay">02:30:00</div>
             </div>
 
-            <!-- панель выбора количества заданий -->
             <div class="selection-panel">
                 <div class="selection-title">
                     <span>📋 Шаг 1.</span> Укажи, сколько заданий каждого номера добавить
@@ -1327,7 +1297,6 @@
                 </div>
             </div>
 
-            <!-- результат - составленный вариант -->
             <div class="variant-result" id="variantResult" style="display: none;">
                 <div class="variant-header">
                     <div class="variant-title">
@@ -1348,16 +1317,14 @@
         </div>
     </main>
 
-    <!-- ===== подвал ===== -->
     <footer class="footer">
         <div class="container">
             <div class="footer-logo">ОГЭ365</div>
-            <div class="footer-email">Для обратной связи: leib.agency@gmail.com</div>
+            <div class="footer-email">leib.agency@gmail.com</div>
             <div class="footer-year">2026</div>
         </div>
     </footer>
 
-    <!-- модальное окно для таймера -->
     <div id="timeoutModal" style="display: none;">
         <div class="modal-overlay">
             <div class="modal-content">
@@ -1372,13 +1339,11 @@
         </div>
     </div>
 
-    <!-- модальное окно статистики -->
     <div id="statsModal" style="display: none;"></div>
 
     <script>
         const API_URL = 'https://script.google.com/macros/s/AKfycbwZT2VsEsQFv7PophKATDA78ITSS37_s3FCcTMSRqSNWOCsGOMCOVAI5ZUp6VTQTG8S-A/exec';
 
-        // ===== переменные =====
         let allTasks = [];
         let currentVariant = [];
         let attemptCounts = {};
@@ -1386,15 +1351,12 @@
         let taskCounts = {};
         let isLoading = true;
 
-        // Таймер
         let timerInterval = null;
         let timeLeft = 150 * 60;
         let timerRunning = false;
 
-        // Номера с развернутым ответом
         const extendedTasks = [13, 14, 15, 16];
 
-        // Названия заданий
         const taskNames = {
             1: 'Количественные параметры',
             2: 'Кодирование и декодирование',
@@ -1414,7 +1376,6 @@
             16: ''
         };
 
-        // ===== ФУНКЦИЯ ДЛЯ ФОРМАТИРОВАНИЯ ТЕКСТА =====
         function formatText(text) {
             if (!text) return '';
             let formatted = String(text).replace(/\n/g, '<br>').replace(/\r\n/g, '<br>');
@@ -1437,7 +1398,6 @@
             return formatted;
         }
 
-        // ===== функция для преобразования ссылок google drive для картинок =====
         function getGoogleDriveImageUrl(url) {
             if (!url) return url;
 
@@ -1446,14 +1406,13 @@
                 if (match) {
                     const fileId = match[1] || match[2];
                     if (fileId) {
-                        return `https://drive.google.com/uc?export=view&id=${fileId}`;
+                        return `https://lh3.googleusercontent.com/d/${fileId}=w800?authuser=0`;
                     }
                 }
             }
             return url;
         }
 
-        // ===== функция для преобразования ссылок google drive =====
         function getGoogleDriveDirectLink(url) {
             if (!url) return url;
 
@@ -1475,7 +1434,6 @@
             return url;
         }
 
-        // ===== УНИВЕРСАЛЬНАЯ ФУНКЦИЯ ДЛЯ ОТОБРАЖЕНИЯ ТАБЛИЦ =====
         function renderTable(tableData) {
             if (!tableData) return '';
 
@@ -1520,7 +1478,6 @@
             }
         }
 
-        // ===== СПЕЦИАЛЬНАЯ ФУНКЦИЯ ДЛЯ ЗАДАНИЯ 6 =====
         function renderTask6Table(tableData) {
             if (!tableData) return '';
 
@@ -1559,13 +1516,11 @@
             }
         }
 
-        // ===== загрузка при старте =====
         document.addEventListener('DOMContentLoaded', function () {
             showMainLoader();
             loadTasks();
         });
 
-        // ===== функции показа загрузки =====
         function showMainLoader() {
             const grid = document.getElementById('tasksGrid');
             grid.innerHTML = `
@@ -1588,7 +1543,6 @@
                                     `;
         }
 
-        // ===== функция загрузки данных =====
         async function loadTasks() {
             try {
                 const response = await fetch(API_URL);
@@ -1629,7 +1583,6 @@
             }
         }
 
-        // ===== функции для счетчиков =====
         function renderTaskCounters() {
             if (isLoading) return;
 
@@ -1707,7 +1660,6 @@
             if (btn) btn.disabled = total === 0 || isLoading;
         }
 
-        // ===== функции таймера =====
         function startTimer() {
             if (timerRunning) return;
             timerRunning = true;
@@ -1773,7 +1725,6 @@
             if (modal) modal.style.display = 'none';
         };
 
-        // ===== функции для варианта =====
         function composeVariant() {
             const totalTasks = Object.values(taskCounts).reduce((sum, count) => sum + count, 0);
 
@@ -1786,6 +1737,9 @@
                 alert('База заданий ещё загружается, подождите');
                 return;
             }
+
+            userAnswers = {};
+            attemptCounts = {};
 
             showVariantLoader();
             document.getElementById('variantResult').style.display = 'block';
@@ -1821,9 +1775,6 @@
                 }
                 currentVariant = newVariant;
 
-                attemptCounts = {};
-                userAnswers = {};
-
                 displayVariant();
                 resetTimer();
                 startTimer();
@@ -1856,7 +1807,7 @@
 
                 const displayNumber = task.task_number || `${taskNumber}.${numberCounters[taskNumber]}`;
 
-                const hasImage = task.image_url && task.image_url.trim() !== '' && !task.isPlaceholder;
+                const hasImage = task.image_url && String(task.image_url).trim() !== '';
                 const hasFile = task.file_url && String(task.file_url).trim() !== '';
                 const taskId = `variant-${index}`;
                 const isExtended = extendedTasks.includes(taskNumber);
@@ -1877,7 +1828,6 @@
                     return formatted;
                 }
 
-                // Определяем какую таблицу рендерить
                 let tableHtml = '';
                 if (task.number == 6) {
                     tableHtml = renderTask6Table(task.table_data);
@@ -1897,9 +1847,29 @@
 
                     ${tableHtml}
 
-                   ${hasImage ? `
-                        <div class="variant-task-image">
-                            <img src="${task.image_url}" alt="Task image">
+                    ${hasImage ? `
+                        <div class="task-image" style="display: flex; flex-direction: column; gap: 10px; align-items: center;">
+                            ${(() => {
+                                let urls = [];
+                                const imageUrlStr = String(task.image_url);
+                                if (imageUrlStr.includes(';')) {
+                                    urls = imageUrlStr.split(';');
+                                } else if (imageUrlStr.includes('|')) {
+                                    urls = imageUrlStr.split('|');
+                                } else {
+                                    urls = [imageUrlStr];
+                                }
+            
+                                return urls.map((url, idx) => {
+                                    const cleanUrl = url.trim();
+                                    if (!cleanUrl) return '';
+                                    const processedUrl = getGoogleDriveImageUrl(cleanUrl);
+                                    return `<img src="${processedUrl}" 
+                                                 alt="Задание ${task.number} - изображение ${idx + 1}"
+                                                 style="max-width: 100%; max-height: 180px; object-fit: contain; border-radius: 8px; margin-bottom: 5px;"
+                                                 onerror="this.onerror=null; this.style.display='none';">`;
+                                }).join('');
+                            })()}
                         </div>
                     ` : ''}
 
@@ -2006,7 +1976,9 @@
                         <input type="text"
                                class="variant-answer-input"
                                id="variant-input-${taskId}"
-                               placeholder="Введите ответ...">
+                               placeholder="Введите ответ..."
+                               autocomplete="off"
+                               autocomplete="new-password">
                         <button class="variant-check-btn" onclick="checkVariantRegularAnswer('${taskId}')">Проверить</button>
                         <span class="variant-result-badge" id="variant-result-${taskId}"></span>
                     </div>
@@ -2014,20 +1986,33 @@
             }
         }
 
-        // ===== функции проверки =====
         window.checkVariantRegularAnswer = function (taskId) {
+            console.log('checkVariantRegularAnswer вызвана для taskId:', taskId);
+
             const input = document.getElementById(`variant-input-${taskId}`);
             const resultSpan = document.getElementById(`variant-result-${taskId}`);
 
-            if (!input || !resultSpan) return;
+            if (!input || !resultSpan) {
+                console.error('Не найдены элементы:', `variant-input-${taskId}`, `variant-result-${taskId}`);
+                return;
+            }
 
             const taskIndex = parseInt(taskId.split('-')[1]);
-            const task = currentVariant[taskIndex];
+            console.log('taskIndex:', taskIndex);
 
-            if (!task) return;
+            const task = currentVariant[taskIndex];
+            console.log('task:', task);
+
+            if (!task) {
+                console.error('Задание не найдено для индекса:', taskIndex);
+                return;
+            }
 
             const userAnswer = input.value;
-            const isCorrect = userAnswer.trim().toLowerCase() === (task.answer || '').trim().toLowerCase();
+            const correctAnswer = String(task.answer !== undefined && task.answer !== null ? task.answer : '').trim().toLowerCase();
+            const isCorrect = userAnswer.trim().toLowerCase() === correctAnswer;
+
+            console.log('userAnswer:', userAnswer, 'correctAnswer:', correctAnswer, 'isCorrect:', isCorrect);
 
             userAnswers[taskId] = {
                 answer: userAnswer,
@@ -2044,6 +2029,8 @@
         };
 
         window.checkVariantChoiceAnswer = function (taskId) {
+            console.log('checkVariantChoiceAnswer вызвана для taskId:', taskId);
+
             const radios = document.getElementsByName(`variant-answer-${taskId}`);
             let selectedValue = null;
 
@@ -2060,14 +2047,23 @@
             }
 
             const resultSpan = document.getElementById(`variant-result-${taskId}`);
-            if (!resultSpan) return;
+            if (!resultSpan) {
+                console.error('Не найден resultSpan для taskId:', taskId);
+                return;
+            }
 
             const taskIndex = parseInt(taskId.split('-')[1]);
             const task = currentVariant[taskIndex];
 
-            if (!task) return;
+            if (!task) {
+                console.error('Задание не найдено для индекса:', taskIndex);
+                return;
+            }
 
-            const isCorrect = selectedValue.trim().toLowerCase() === (task.answer || '').trim().toLowerCase();
+            const correctAnswer = String(task.answer !== undefined && task.answer !== null ? task.answer : '').trim().toLowerCase();
+            const isCorrect = selectedValue.trim().toLowerCase() === correctAnswer;
+
+            console.log('selectedValue:', selectedValue, 'correctAnswer:', correctAnswer, 'isCorrect:', isCorrect);
 
             userAnswers[taskId] = {
                 answer: selectedValue,
@@ -2083,7 +2079,6 @@
             }
         };
 
-        // ===== функции для подсказок =====
         window.toggleVariantSpoiler = function (spoilerId) {
             const content = document.getElementById(`v-spoiler-content-${spoilerId}`);
             const header = document.getElementById(`v-spoiler-header-${spoilerId}`);
@@ -2094,7 +2089,6 @@
             }
         };
 
-        // ===== старое меню подведения итогов =====
         function showExamStats() {
             if (currentVariant.length === 0) return;
 
@@ -2221,7 +2215,6 @@
             document.getElementById('clearVariantBtn').click();
         };
 
-        // ===== обработчики =====
         document.getElementById('composeVariantBtn').addEventListener('click', composeVariant);
 
         document.getElementById('refreshVariantBtn').addEventListener('click', function () {
@@ -2237,6 +2230,7 @@
             document.getElementById('variantResult').style.display = 'none';
             currentVariant = [];
             userAnswers = {};
+            attemptCounts = {};
             stopTimer();
             resetTimer();
 
@@ -2268,7 +2262,6 @@
 
         document.getElementById('finishExamBtn').addEventListener('click', showExamStats);
 
-        // ===== Управление согласием на cookies =====
         document.addEventListener('DOMContentLoaded', function () {
             const cookieConsent = document.getElementById('cookieConsent');
             const acceptBtn = document.getElementById('acceptCookies');
@@ -2291,7 +2284,6 @@
             }
         });
     </script>
-    <!-- ===== Уведомление о cookies ===== -->
     <div id="cookieConsent" class="cookie-consent" style="display: none;">
         <div class="cookie-content">
             <div class="cookie-text">
