@@ -532,8 +532,50 @@
 
             .variant-task-image img {
                 max-width: 100%;
-                max-height: 150px;
+                max-height: 240px;
                 object-fit: contain;
+            }
+
+
+
+        .image-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+        }
+
+            .image-modal img {
+                max-width: 90%;
+                max-height: 90%;
+                object-fit: contain;
+                border-radius: 8px;
+                box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            }
+
+        .image-modal-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 40px;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+            z-index: 10001;
+        }
+
+            .image-modal-close:hover {
+                color: #f57c00;
+                transform: scale(1.1);
             }
 
         .task-table-container {
@@ -1866,7 +1908,7 @@
                                     const processedUrl = getGoogleDriveImageUrl(cleanUrl);
                                     return `<img src="${processedUrl}" 
                                                  alt="Задание ${task.number} - изображение ${idx + 1}"
-                                                 style="max-width: 100%; max-height: 180px; object-fit: contain; border-radius: 8px; margin-bottom: 5px;"
+                                                 style="max-width: 100%; max-height: 240px; object-fit: contain; border-radius: 8px; margin-bottom: 5px;"
                                                  onerror="this.onerror=null; this.style.display='none';">`;
                                 }).join('');
                             })()}
@@ -2283,6 +2325,59 @@
                 });
             }
         });
+        function openImageModal(imageSrc, altText) {
+            const oldModal = document.querySelector('.image-modal');
+            if (oldModal) oldModal.remove();
+
+            const modal = document.createElement('div');
+            modal.className = 'image-modal';
+            modal.onclick = function (e) {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            };
+
+            const closeBtn = document.createElement('div');
+            closeBtn.className = 'image-modal-close';
+            closeBtn.innerHTML = '✕';
+            closeBtn.onclick = function () {
+                modal.remove();
+            };
+
+            const img = document.createElement('img');
+            img.src = imageSrc;
+            img.alt = altText || 'Увеличенное изображение';
+
+            modal.appendChild(closeBtn);
+            modal.appendChild(img);
+            document.body.appendChild(modal);
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && document.querySelector('.image-modal')) {
+                    document.querySelector('.image-modal').remove();
+                }
+            });
+        }
+
+        function addImageClickHandlers() {
+            document.querySelectorAll('.task-image img, .variant-task-image img').forEach(img => {
+                img.removeEventListener('click', img._clickHandler);
+                const handler = function (e) {
+                    e.stopPropagation();
+                    openImageModal(this.src, this.alt);
+                };
+                img.addEventListener('click', handler);
+                img._clickHandler = handler;
+                img.style.cursor = 'pointer';
+                img.title = 'Нажмите для увеличения';
+            });
+        }
+
+        const originalDisplayVariant = displayVariant;
+        window.displayVariant = function () {
+            originalDisplayVariant();
+            setTimeout(addImageClickHandlers, 100);
+        };
     </script>
     <div id="cookieConsent" class="cookie-consent" style="display: none;">
         <div class="cookie-content">
